@@ -1,0 +1,206 @@
+options:
+	prefix: &7&l[&c&lGame&7&l]
+	characterId: bomb
+
+on load:
+	set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTc2NjM2MjQwNTAzNiwKICAicHJvZmlsZUlkIiA6ICIzZGE2ZDgxOTI5MTY0MTNlODhlNzg2MjQ3NzA4YjkzZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJGZXJTdGlsZSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8zNTQ5YThkOGE1MmM5MWU2ODdlOTVlMDA2YTZkNTFiZDE0MjdmOGJkMTJmZDBhMzM2YzBmNGJkOGRjNDc0ZjNhIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0="
+	set {_signature} to "crJtnJJiPsE/hR8D09LAnnagUguetX5RRbmuSUX1ls65PR1G89/pHZdBa7VFt3rF8Fj83M2enTzSn6JneWPykPCMBHrDildKc4WFMq4UnK1JIGWYvXbodbAK43cqdew0bTV/3BoFurCw83fPTvKMxJaVatPjJw7dTcZVmck8Wh9I+NdMLXbaVTWa+bfV2D4Uk4BWHGdcow/7mEHTIiBt7Ppxkp5X2lsOFLRnvLpj8EjJkqUVD2JKO4nDs2Z4R9oukEiii20grMeEyRj1iw2SwFh58dM/C7iD41z4Kz2oPBg/7aPxuEWCdXhQcl8af2gmQNK6I5w+nguzuH2odpxk1NY+y4TmSMzQunUuIssBpFqdhNp7j4ShJkV6lSOMELvmge8TFxgKq/zqxVKOOgiUTXI/HajzEUKef+ZSl9wC+ZTM4UiaE+oNeLA2xT6v7h5A2elpb8AVA6xi2onjYur8dxD0Wnb/22SaylujzUmlDMOrW6hMBLv5ZnuybOgQTj8jYayMfRwFmI/+8/HBQ9NmXOrrdonbbOpvyyWOwR5jztSjtD9bd9HM2eAvS0ivQb6TvtS8YM5TytrWFLKP3e7CxVjktyHyMxfcB13y6evCoN4j6nqDJVYAEQqBotJWKredoeECK7F2b11qAaAt5Wo85oTBbCwIR5S8flGjO0Y81Rg="
+	registerSkin("{@characterId}", {_value}, {_signature})
+
+	set {character::{@characterId}::head} to head from value {_value}
+	registerCharacter("{@characterId}", 13, 25, 1, 1, 1)
+
+	set {_lore::1} to ""
+	set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+	set {_lore::3} to ""
+	add "&f「仕方ない 皆殺しコースかな。」" to {_lore::*}
+	set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&6&lチェンソーマン&7] &4&lボム" with lore {_lore::*} with custom nbt from "{pickable:false}"
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7爆発で威力が増大したパンチ" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to raw iron of sharpness 1 with model data 1 named "&c&l&n殴る" with lore {_lore::*} with custom nbt from "{actionId:1}"
+	registerAction("{@characterId}", 1, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7爆発で威力が増大したキック" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to rabbit foot of sharpness 1 with model data 1 named "&c&l&n蹴る" with lore {_lore::*} with custom nbt from "{actionId:2}"
+	registerAction("{@characterId}", 2, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7前方に小さな弾を放ち、数秒後爆発" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to feather of sharpness 1 with model data 1 named "&c&l&n指パッチン" with lore {_lore::*} with custom nbt from "{actionId:3}"
+	registerAction("{@characterId}", 3, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7足元で爆発を起こし前方に加速" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to blaze powder of sharpness 1 with model data 1 named "&6&l&nアクセル" with lore {_lore::*} with custom nbt from "{actionId:4}"
+	registerAction("{@characterId}", 4, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7前方に3段の特大爆発" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to clock of sharpness 1 with model data 1 named "&d&l&nカラフルボム" with lore {_lore::*} with custom nbt from "{actionId:5}"
+	registerAction("{@characterId}", 5, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7視線の先を爆破" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to tnt of sharpness 1 with model data 1 named "&d&l&nバンッ" with lore {_lore::*} with custom nbt from "{actionId:6}"
+	registerAction("{@characterId}", 6, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7前方に空爆を行う" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to nether star of sharpness 1 with model data 1 named "&4&l&n空爆" with lore {_lore::*} with custom nbt from "{actionId:7}"
+	registerAction("{@characterId}", 7, hideItemInfo({_item}))
+
+function {@characterId}_action1(player: player):
+	cooldown({_player}, {_player}'s tool, 2 second)
+	create fake explosion at {_player}
+	command "/particle minecraft:explosion %x of {_player}% %y of {_player}% %z of {_player}% 0 0 0 1 3"
+	set {_loc} to {_player}'s eye
+	loop 10 times:
+		command "/particle minecraft:explosion %x of {_loc}% %y of {_loc}% %z of {_loc}% 0 0 0 1 1"
+		attenuatedDamage({_player}, {_loc}, 2, 12, 0.3)
+		set {_loc} to location forward {_loc}
+	distance between {_player} and {_player}'s target player <= 10
+	force {_player} to damage {_player}'s target player by 2 heart
+
+function {@characterId}_action2(player: player):
+	cooldown({_player}, {_player}'s tool, 2 second)
+	create fake explosion at {_player}
+	command "/particle minecraft:explosion %x of {_player}% %y of {_player}% %z of {_player}% 0 0 0 1 3"
+	set {_loc} to {_player}'s eye
+	loop 12 times:
+		command "/particle minecraft:explosion %x of {_loc}% %y of {_loc}% %z of {_loc}% 0 0 0 1 1"
+		attenuatedDamage({_player}, {_loc}, 2, 12, 0.3)
+		set {_loc} to location forward {_loc}
+	distance between {_player} and {_player}'s target player <= 12
+	force {_player} to damage {_player}'s target player by 3 heart
+
+function {@characterId}_action3(player: player):
+	cooldown({_player}, {_player}'s tool, 7 second)
+	play sound "custom:yubipattin" to all players where [distance between {_player} and input <= 15]
+	command "/particle minecraft:explosion %x-loc of {_loc}% %y-loc of {_loc}% %z-loc of {_loc}% 1.5 1.5 1.5 1 100"
+	set {_loc} to {_player}'s eye
+	set {_speed} to 0.01
+	loop 4*12 times:
+		wait 1 tick
+		drawSphere({_loc}, 0.05, 50, red)
+		add 0.01 to {_speed}
+		if loop-number > 35:
+			add 0.05 to {_speed}
+		set {_loc} to location {_speed} meter forward {_loc}
+		loop all players in radius 1.5 around {_loc}:
+			isSameTeam({_player}, loop-player) is false
+			gamemode of loop-player is adventure
+			exit 2 loops
+		if block at {_loc} is not air:
+			exit loop
+	create fake explosion at {_loc}
+	attenuatedDamage({_player}, {_loc}, 5, 20, 0.3)
+	command "/particle minecraft:explosion %x of {_loc}% %y of {_loc}% %z of {_loc}% 1.5 1.5 1.5 1 100"
+
+function {@characterId}_action4(player: player):
+	cooldown({_player}, {_player}'s tool, 4 second)
+	create fake explosion at {_player}
+	command "/particle minecraft:explosion %x of {_player}% %y of {_player}% %z of {_player}% 0 0 0 1 3"
+	push {_player} forward at speed 1.5
+
+function {@characterId}_action5(player: player):
+	cooldown({_player}, {_player}'s tool, 8 second)
+	set {_loc} to location 5 meter forward {_player}
+	drawSphere({_loc}, 3, 300, red)
+	create fake explosion at {_loc}
+	attenuatedDamage({_player}, {_loc}, 5, 25, 0.5)
+	wait 1 second
+	set {_loc} to location 5 meter forward {_loc}
+	drawSphere({_loc}, 3, 300, blue)
+	create fake explosion at {_loc}
+	attenuatedDamage({_player}, {_loc}, 5, 25, 0.5)
+	wait 1 second
+	set {_loc} to location 5 meter forward {_loc}
+	drawSphere({_loc}, 3, 300, yellow)
+	create fake explosion at {_loc}
+	attenuatedDamage({_player}, {_loc}, 5, 25, 0.5)
+
+function {@characterId}_action6(player: player):
+	cooldown({_player}, {_player}'s tool, 8 second)
+	set {_ray} to raytrace from {_player} with max distance 30 with ray size 0.1
+	set {_loc} to hit location of {_ray}
+	create fake explosion at {_loc}
+	command "/particle minecraft:explosion %x of {_loc}% %y of {_loc}% %z of {_loc}% 1.5 1.5 1.5 1 100"
+	command "/particle minecraft:flame %x of {_loc}% %y of {_loc}% %z of {_loc}% 1.5 1.5 1.5 1 30"
+	command "/particle dust_pillar{block_state:{Name:lava}} %x of {_loc}% %y of {_loc}% %z of {_loc}% .2 .2 .2 .0001 500 force"
+	play sound "custom:bang" to all players where [distance between {_player} and input <= 15]
+	attenuatedDamage({_player}, {_loc}, 5, 20, 0.5)
+
+function {@characterId}_action7(player: player):
+	cooldown({_player}, {_player}'s tool, 20 second)
+	set {_loc} to location 10 meter up {_player}
+	set {_loc2} to location 3 meter left {_loc}
+	loop 5 times:
+		set {_loc2} to location 7 meter horizontally forward {_loc2}
+		{@characterId}_airStrike({_player}, {_loc2})
+	set {_loc2} to location 3 meter right {_loc}
+	loop 5 times:
+		set {_loc2} to location 7 meter horizontally forward {_loc2}
+		{@characterId}_airStrike({_player}, {_loc2})
+
+function {@characterId}_airStrike(attacker: player, loc: location):
+	set {_vector} to vector(0.6, 0, 0)
+	loop 30 times:
+		draw 1 of dust particle using dustOption(white, 1) at {_loc}~{_vector} with extra 0
+		rotate {_vector} around y-axis by 6
+	loop 100 times:
+		wait 1 tick
+		set {_loc} to location 0.2 meter under {_loc}
+		draw 1 of dust particle using dustOption(white, 1) at {_loc} with extra 0
+		if block at {_loc} is not air:
+			exit loop
+	drawSphere({_loc}, 3, 500, red)
+	create fake explosion at {_loc}
+	attenuatedDamage({_attacker}, {_loc}, 5, 30, 0.5)
+
+on death of player:
+	getPlayerCharacterId(attacker) is "bomb"
+	heal attacker by 7 heart

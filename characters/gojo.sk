@@ -1,0 +1,87 @@
+options:
+	prefix: &7&l[&c&lGame&7&l]
+	characterId: gojo
+
+on load:
+	set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTYyNDAzNjkxMDg0MCwKICAicHJvZmlsZUlkIiA6ICJiNzQ3OWJhZTI5YzQ0YjIzYmE1NjI4MzM3OGYwZTNjNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJTeWxlZXgiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWUyNjdjM2IxNTlmMTY1Zjg3NzI2NzUxNmEwZWFjNThlMTlkYWM1Y2JjNDk0ZDUxZjE2ZjNlM2JiMDdlOTJkNSIKICAgIH0KICB9Cn0="
+	set {_signature} to "H0RM6MbC9rP9IEOz2gepZ5GGMkcc1MfDMzZM918r8fSytHr0gNTGLXst/x5fHKxKcNeRXooQ+fGLxU31cEvMRxJWHxTGOD0tZY5aIRI6bdBsBCmkT+ciYpdSSiYj+cPnd1OptSl9Tb3uEKSafrf5nm6E2CUf23tMoPVpMMG87XTm5Hyl10nTjyugpSJPo2mVlf/mH8XvfIQB8zJ0aHvzepb0EoTWMq6t3qdUpNPFFwKhBQ1ZAaRuicSS6FKmO32LR9Abjyk8j0zUoGrUEaBrTK3elJnGUh30rDAB3I8jKhB+JMfBap9SbBisq9IymwSZ5TnLCoq6aKLsz1gAuWDKR5U83NygtyndUCtOKd9RtMsYqnS+QENaZjvluNGTfc6uytoNDiC2La7XfZ66EM+jPZrM7EC0ZZDYb+2bpWjleKYY5Ot8t2lHKqNq5UQI/FT5H8jUF/BLmBouk1qMMghY99Mp1CbTfXe+8imHyOkpD5GnB+HfbBC5e4dgVwLOf8je65njAkWejL/8b9cP7uZ9RQrOqfvQYH3u8jXO/QMFDntfwNUDRmMLPKthlKfAu7fUTxG+5iF4uv+A38zZml/x9qBdSnxYclRC5oouhvemUORPJe0vSo2Olqv6oiciR7nR9NjTJwLdr3PmxagztNH7BlctvkMzgIcSspDl5tvQr0c="
+	registerSkin("gojo", {_value}, {_signature})
+
+	set {character::{@characterId}::head} to head from value {_value}
+	registerCharacter("{@characterId}", 0, 20, 1, 1, 1)
+
+	set {_lore::1} to ""
+	set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+	set {_lore::3} to ""
+	add "&f「大丈夫 僕 最強だから」" to {_lore::*}
+	set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&5&l呪術廻戦&7] &5&l五条悟" with lore {_lore::*}
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7無下限呪術の本来の術式を強化することで収束を現実に発生させる。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to blue stained glass of sharpness 1 with model data 1 named "&9&l&n術式順転 蒼" with lore {_lore::*} with custom nbt from "{actionId:1}"
+	registerAction("{@characterId}", 1, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7蒼とは逆に無限を発散させることで対象を吹き飛ばす。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to red stained glass of sharpness 1 with model data 1 named "&c&l&n術式反転 赫" with lore {_lore::*} with custom nbt from "{actionId:2}"
+	registerAction("{@characterId}", 2, hideItemInfo({_item}))
+
+function {@characterId}_action1(player: player):
+	cooldown({_player}, {_player}'s tool, 3 second)
+	set {_loc} to {_player}'s eye
+	loop 4*8 times:
+		wait 1 tick
+		drawSphere({_loc}, 0.1, 50, blue)
+		set {_loc} to location 0.7 meter forward {_loc}
+		loop all players in radius 1.5 around {_loc}:
+			isSameTeam({_player}, loop-player)
+			gamemode of loop-player is adventure
+			exit 2 loops
+		if block at {_loc} is not air:
+			exit loop
+	drawSphere({_loc}, 3, 300, blue)
+	loop 7 times:
+		drawSphere({_loc}, 3, 300, blue)
+		loop all players in radius 3 around {_loc}:
+			isSameTeam({_player}, loop-player) is false
+			gamemode of loop-player is adventure
+			set {_vector} to vector from loop-player to {_loc} normalized
+			push loop-player {_vector} at speed 0.4
+			applyNoKnockback(loop-player, 1)
+			force {_player} to damage loop-player by 2 hearts
+		wait 15 tick
+
+function {@characterId}_action2(player: player):
+	cooldown({_player}, {_player}'s tool, 3 second)
+	set {_loc} to {_player}'s eye
+	loop 4*8 times:
+		wait 1 tick
+		drawSphere({_loc}, 0.1, 50, red)
+		set {_loc} to location 0.7 meter forward {_loc}
+		loop all players in radius 1.5 around {_loc}:
+			isSameTeam({_player}, loop-player) is false
+			gamemode of loop-player is adventure
+			exit 2 loops
+		if block at {_loc} is not air:
+			exit loop
+	drawSphere({_loc}, 3, 300, red)
+	loop all players in radius 3 around {_loc}:
+		isSameTeam({_player}, loop-player) is false
+		gamemode of loop-player is adventure
+		set {_vector} to vector from {_loc} to location 1.5 meter up loop-player
+		set vector length of {_vector} to 2
+		push loop-player {_vector} at speed 1.5
+		applyNoKnockback(loop-player, 1)
+		force {_player} to damage loop-player by 6 hearts

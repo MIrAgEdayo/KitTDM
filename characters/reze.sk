@@ -1,0 +1,79 @@
+options:
+	prefix: &7&l[&c&lGame&7&l]
+	characterId: reze
+
+on load:
+	set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTc3ODU5OTI1MDU5NywKICAicHJvZmlsZUlkIiA6ICIxNWNhMTYzMGE3Yzk0OGYwOTRjYTY0ODgzMzY0ZDE5NSIsCiAgInByb2ZpbGVOYW1lIiA6ICJSZXplIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzY3MmMyMTQwNzA4MGE1OWZlMjA4N2Y5MDdmZDc1YjdhZTA0MmNkNjQyZmFiZGY3OTU3M2Y0MjUyMmZmN2UzYmUiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfSwKICAgICJDQVBFIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS83NjU4YzUwMjVjNzdjZmFjNzU3NGFhYjNhZjk0YTQ2YTg4ODZlM2I3NzIyYTg5NTI1NWZiZjIyYWI4NjUyNDM0IgogICAgfQogIH0KfQ=="
+	set {_signature} to "weLPf/PtyaJ+H4hmJZ5pPb1X9lt8MmFF+aFnK5x8ihVZlTDWhRkMWLG/FRMk46QxidBURps6JPe66K8ASNgIFxhPZFH+E9zE9heMeq8wfGJeaOC8FI8GvCHBcBP+6CXb8/L4IbezGjMrvda94/jdxhi6gr+04v/3RnDSKva1/T5sY9N+QVYfUi16drL4lsnnu9+OLnyvGIvQHmvLnodCWhomzmFJejESdY0fUgoUZnVkZrdmAo/Mz9y3CzIgmFSlQ9u3yVIaCwH4kNO96FIezzQ4mEmAkAZ0yW/YbpddAzx1YBBun9vonQrrYtkN3pjHK4pjc6xH2/94nqKYuZWA96gscndargbZ1nlM+Q7tWrtsmrUo5ko8Ck9hx98ebnbzjEmvR9OXbwxgSRV3AdG0+k1+gSfiMKlDNgFLp1sr2q9lLFT7kWXYEYAxOpqO9Meh5apHrWvheUJc4rJXd63cxKlpEV0aHcxZoVrau5GCSJIITq6WNg0iqy0uCgEmOqWzmeTr70vqIqrx1WsJxQs52zGnb5Vgo0ij86d90PafIKGHGGFbGUX+i83F1XOWNA1jrDd/epw9BER6P4fxV9BERdZR0ldU4El3BBK36OuCPfiRQVF9wZN0jrCcMkrRbW3ZVcPo8I1ZToN0S68CA5TkeEW88xrwpmyIJLV5lCKzuf4="
+	registerSkin("{@characterId}", {_value}, {_signature})
+
+	set {character::{@characterId}::head} to head from value {_value}
+	registerCharacter("{@characterId}", 4, 20, 1, 1, 1)
+
+	set {_lore::1} to ""
+	set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+	set {_lore::3} to ""
+	add "&f「デンジ君の知らない事、できない事。私が全部教えてあげる。」" to {_lore::*}
+	set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&6&lチェンソーマン&7] &5&lレゼ" with lore {_lore::*}
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7暴力する" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to raw iron of sharpness 1 with model data 1 named "&f&l&n殴る" with lore {_lore::*} with custom nbt from "{actionId:1}"
+	registerAction("{@characterId}", 1, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7暴力する" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to rabbit foot of sharpness 1 with model data 1 named "&f&l&n蹴る" with lore {_lore::*} with custom nbt from "{actionId:2}"
+	registerAction("{@characterId}", 2, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7残り体力が5❤以下の場合&4&lボム&7に変身する" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to getHeadFromCharacterId("bomb") named "&4&lボム" with lore {_lore::*} with custom nbt from "{actionId:3}"
+	registerAction("{@characterId}", 3, hideItemInfo({_item}))
+
+function {@characterId}_action1(player: player):
+	cooldown({_player}, {_player}'s tool, 2 second)
+	distance between {_player} and {_player}'s target player <= 4.5
+	force {_player} to damage {_player}'s target player by 1 heart
+
+function {@characterId}_action2(player: player):
+	cooldown({_player}, {_player}'s tool, 3 second)
+	distance between {_player} and {_player}'s target player <= 4.5
+	force {_player} to damage {_player}'s target player by 2 heart
+
+function {@characterId}_action3(player: player):
+	cooldown({_player}, {_player}'s tool, 10 second)
+	if health of {_player} <= 10:
+		setPlayerCharacterId({_player}, "bomb")
+		setSkin({_player}, "bomb")
+
+		clear {_player}'s inventory
+		giveCharacterItems({_player})
+		setKBResistance({_player}, 1)
+		setHealthPlayer({_player}, getHealthCharacter(getPlayerCharacterId({_player})))
+		setWeightPlayer({_player}, getWeightCharacter(getPlayerCharacterId({_player})))
+		setSpeedPlayer({_player}, getSpeedCharacter(getPlayerCharacterId({_player})))
+		setJumpPlayer({_player}, getJumpCharacter(getPlayerCharacterId({_player})))
+		heal {_player} by 10 heart
+
+		create fake explosion at {_player}
+		command "/particle minecraft:explosion %x-loc of {_player}% %y-loc of {_player}% %z-loc of {_player}% 1.5 1.5 1.5 1 100"
+		play sound "custom:bomb" to all players where [distance between {_player} and input <= 20]

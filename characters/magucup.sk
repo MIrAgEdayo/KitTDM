@@ -1,0 +1,110 @@
+options:
+	prefix: &7&l[&c&lGame&7&l]
+	characterId: magucup
+
+on load:
+	set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTc3ODY2NjU4NTE3NCwKICAicHJvZmlsZUlkIiA6ICJlYmM5YjBjNDEyZTc0M2YzOGI4YmQ0YzNmMTE3NDcxMyIsCiAgInByb2ZpbGVOYW1lIiA6ICJtYWd1Y3VwXzEyMDIiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTBmYTM3MDJjZWRiZjJhOTk0ODcyZGU2OTAzYzM3MGVkMTgxNDZkNjIzY2E4OTgyN2UzNjc2NGU3NGIxNjNiMiIKICAgIH0KICB9Cn0="
+	set {_signature} to "Z4lpCevW8vBv/gKcRDwTM6/tyCqVzwRhxNyrNoONzzOmqNT/+tMS8SkOOx8bZakfAjT5+uo0o9/d9nGKN6Mpo/M9+aKNNXpJUvuyCxaXLyNy9FvsFlJTCZgLl52ppFrGVO9gbqnPaF6mRtHPNHoSiT4qavPlbdz9a6K3qPWD/6yunOE3XhmuR9+bxFee01/K0EcED23/Q3F4Vo/cA93X4ISpyLTIsUT+8N1xNp9+raGcx0XJw7dfhpJR0V6EOJcQSb8X3xoXkeRBongyaLcrl7hZ6ImQzk/BsaE0Uh2JqdjPjht5TBOCB/Nwq+GL7/e/FPqcTYFcPXbHvD/4Oide/l/mtw8pF1yZIvNtI/VyM21p+beOFc1WwItXsdMWD2dOXPI4vyQsplEPvTxW60Gw7LUf9rQ5HZgbysZllJhSweR9kW7MDAKDUbwsXWigs3nIb6yaX5BFccjg+dGoXbxfLs+dP022l3J7OtkBxQIjRSO6l0SPIRjznOdQE8YqhFsHs+TeK0Lun79aok1LiNS0w1g3obISnAAdXhxAt6p6K1VfR6Ocmso0w3/kh9MPFtC7VKnI8FrXi3NkxnHmfP8D2cv0ZxQFl8UBusRAzBvalfIrNYXled5qr4BjVbvoqMF+h8vLsqXIyhycgtBFa4KlHpX9MSDFZgzksjtDgO+Gf88="
+	registerSkin("{@characterId}", {_value}, {_signature})
+
+	set {character::{@characterId}::head} to head from value {_value}
+	registerCharacter("{@characterId}", 5, 20, 1, 1, 1)
+
+	set {_lore::1} to ""
+	set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+	set {_lore::3} to ""
+	add "&f「俺もヤクザと、戦ったけどなぁ...」" to {_lore::*}
+	set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&d&lPlayer&b&lRealms&7] &f&lmagucup_1202" with lore {_lore::*}
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7ヴァンダルよりシェリフ派" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to iron horse armor of sharpness 1 with model data 1 named "&f&l&nシェリフ" with lore {_lore::*} with custom nbt from "{actionId:1}"
+	registerAction("{@characterId}", 1, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7汚い粉を撒き散らす" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to wheat seeds of sharpness 1 with model data 1 named "&2&l&nこなぷんぷん" with lore {_lore::*} with custom nbt from "{actionId:2}"
+	registerAction("{@characterId}", 2, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7発動後2秒間耐性5を得る" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to iron chestplate named "&f&lあ、まじすか" with lore {_lore::*} with custom nbt from "{actionId:3}"
+	registerAction("{@characterId}", 3, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7狙った敵に壊滅的なダメージを与える" to {_lore::*}
+	add " &b&l&n⊱&cこの技は相手がmagucup_1202の時のみ成功する" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to glass pane named "&f&lじゃあ、まず、まぐ、まぐきゃっぷ、あい" with lore {_lore::*} with custom nbt from "{actionId:4}"
+	registerAction("{@characterId}", 4, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7半径30マス以内のプレイヤーにヤクザと戦った過去を伝える" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to nether star named "&f&lイキる" with lore {_lore::*} with custom nbt from "{actionId:5}"
+	registerAction("{@characterId}", 5, hideItemInfo({_item}))
+
+function {@characterId}_action1(player: player):
+	cooldown({_player}, {_player}'s tool, 2 second)
+	set {_ray} to raytrace from {_player} with max distance 50 with ray size 0.1
+	set {_entity} to hit entity of {_ray}
+	force {_player} to damage {_entity} by 2 heart
+	chance of 10%:
+		send "{@prefix} &c&l顎を負傷した！" to {_player}
+		damage {_player} by 3 heart
+
+function {@characterId}_action2(player: player):
+	cooldown({_player}, {_player}'s tool, 2 second)
+	drawSphere({_player}, 5, 500, green)
+	loop all players in radius 5 around {_player}:
+		isSameTeam({_player}, loop-player) is false
+		apply poison 4 to loop-player for 5 second
+	play sound "custom:punpun" to all players where [distance between {_player} and input <= 10]
+
+function {@characterId}_action3(player: player):
+	cooldown({_player}, {_player}'s tool, 8 second)
+	drawSphere({_player}, 5, 500, green)
+	apply resistance 4 to {_player} for 2 second
+	play sound "custom:majisuka" to all players where [distance between {_player} and input <= 10]
+
+function {@characterId}_action4(player: player):
+	cooldown({_player}, {_player}'s tool, 30 second)
+	set {_ray} to raytrace from {_player} with max distance 50 with ray size 0.1
+	set {_entity} to hit entity of {_ray}
+	getPlayerCharacterId({_entity}) is "magucup"
+	force {_player} to damage {_entity} by 15 heart
+	play sound "custom:jaamazu" to all players where [distance between {_player} and input <= 10]
+
+function {@characterId}_action5(player: player):
+	cooldown({_player}, {_player}'s tool, 30 second)
+	loop all players in radius 30 around {_player}:
+		play sound "custom:magucup_select" with volume 30 to loop-player
+		send "&7&l「&f&l俺もヤクザと、戦ったけどな...&7&l &d&lあっ。&7&l」" to loop-player

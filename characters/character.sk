@@ -1,0 +1,138 @@
+using script reflection
+
+options:
+	prefix: &7&l[&c&lGame&7&l]
+
+function cooldown(player: player, item: item, cooldown: timespan):
+	set cooldown of {_item} for {_player} to {_cooldown}
+
+function getActionId(item: item) :: integer:
+	return int tag "minecraft:custom_data;actionId" of nbt of {_item}
+
+function getPlayerCharacterId(player: player) :: string:
+	return metadata "characterId" of {_player}
+
+function setPlayerCharacterId(player: player, characterId: string):
+	set metadata "characterId" of {_player} to {_characterId}
+
+function getHeadFromCharacterId(characterId: string) :: item:
+	return {character::%{_characterId}%::head}
+
+function getIcon(characterId: string) :: item:
+	return {character::%{_characterId}%::icon}
+
+function setLastAttacker(victim: player, attacker: player):
+	set metadata "lastAttacker" of {_victim} to {_attacker}
+
+function getKBResistance(target: player) :: number:
+	return metadata "KBResistance" of {_target}
+
+function setKBResistance(target: player, resistance: number):
+	set metadata "KBResistance" of {_target} to {_resistance}
+
+function getHealthPlayer(target: player) :: number:
+	return metadata "health" of {_target}
+
+function setHealthPlayer(target: player, health: number):
+	set metadata "health" of {_target} to {_health}
+	set max health of {_target} to {_health}
+
+function getHealthCharacter(characterId: string) :: number:
+	return {character::%{_characterId}%::status::health}
+
+function getWeightPlayer(target: player) :: number:
+	return metadata "weight" of {_target}
+
+function setWeightPlayer(target: player, weight: number):
+	set metadata "weight" of {_target} to {_weight}
+
+function getWeightCharacter(characterId: string) :: number:
+	return {character::%{_characterId}%::status::weight}
+
+function getSpeedPlayer(target: player) :: number:
+	return metadata "speed" of {_target}
+
+function setSpeedPlayer(target: player, speed: number):
+	set metadata "speed" of {_target} to {_speed}
+
+function getSpeedCharacter(characterId: string) :: number:
+	return {character::%{_characterId}%::status::speed}
+
+function getJumpPlayer(target: player) :: number:
+	return metadata "jump" of {_target}
+
+function setJumpPlayer(target: player, jump: number):
+	set metadata "jump" of {_target} to {_jump}
+
+function getJumpCharacter(characterId: string) :: number:
+	return {character::%{_characterId}%::status::jump}
+
+function registerCharacter(characterId: string, slot: integer, health:integer, weight: number, speed: number, jump: number):
+	set {character::%{_characterId}%::slotId} to {_slot}
+	set {character::%{_characterId}%::status::health} to {_health}
+	set {character::%{_characterId}%::status::weight} to {_weight}
+	set {character::%{_characterId}%::status::speed} to {_speed}
+	set {character::%{_characterId}%::status::jump} to {_jump}
+
+function registerAction(characterId: string, id: integer, action: item):
+	set {character::%{_characterId}%::action::%{_id}%} to {_action}
+
+function giveCharacterItems(target: player):
+	set {_characterId} to getPlayerCharacterId({_target})
+	loop size of {character::%{_characterId}%::action::*} times:
+		give {character::%{_characterId}%::action::%loop-number%} to {_target}
+
+function registerSkin(characterId: string, value: string, signature: string):
+	set {character::%{_characterId}%::skin::value} to {_value}
+	set {character::%{_characterId}%::skin::signature} to {_signature}
+
+function getSkin(characterId: string) :: skin:
+	return skin with value {character::%{_characterId}%::skin::value} and signature {character::%{_characterId}%::skin::signature}
+
+function setSkin(target: player, characterId: string):
+	set ("%{_target}%" parsed as player)'s skin to getSkin({_characterId})
+
+on right click:
+	set {_actionId} to getActionId(player's tool)
+	{_actionId} is set
+	cancel event
+	cooldown of player's tool for player is 0 second
+	set {_characterId} to getPlayerCharacterId(player)
+
+	set {_function} to function "%{_characterId}%_action%{_actionId}%"
+	run {_function} with args player
+
+on left click:
+	set {_actionId} to getActionId(player's tool)
+	{_actionId} is set
+	cancel event
+	cooldown of player's tool for player is 0 second
+	set {_characterId} to getPlayerCharacterId(player)
+
+	set {_function} to function "%{_characterId}%_action%{_actionId}%_left"
+	run {_function} with args player
+
+function chooseCharacter(player: player):
+	open chest inventory with 6 row named "&6&lキャラクター選択" to {_player}
+	wait 1 tick
+	loop indices of {character::*}:
+		set slot {character::%loop-value%::slotId} of {_player}'s current inventory to getIcon(loop-value)
+
+on inventory click:
+	name of event-inventory is "&6&lキャラクター選択"
+	cancel event
+	loop indices of {character::*}:
+		{character::%loop-value%::slotId} is event-slot
+
+		if boolean tag "minecraft:custom_data;pickable" of nbt of event-slot is false:
+			send "{@prefix} &c&lそのキャラは選択できません。"
+			stop
+
+		setPlayerCharacterId(player, loop-value)
+		setSkin(player, loop-value)
+
+		play sound "custom:%loop-value%_select" to player
+
+		send "{@prefix} %name of event-item%&7を選択しました。"
+		close player's inventory
+		stop

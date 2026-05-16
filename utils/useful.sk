@@ -1,0 +1,43 @@
+on entity knockback:
+    set {_u} to uuid of knockback victim
+    if {-noKnockback::%{_u}%} is true:
+        cancel event
+function applyNoKnockback(p: entity, duration: number):
+    set {_id} to random uuid
+    set {-noKnockback::%uuid of {_p}%} to true
+    set {-noKnockbackID::%uuid of {_p}%} to {_id}
+    loop {_duration} times:
+        wait 1 tick
+        if {-noKnockbackID::%uuid of {_p}%} is not {_id}:
+            stop
+    delete {-noKnockback::%uuid of {_p}%}
+    delete {-noKnockbackID::%uuid of {_p}%}
+
+function drawSphere(loc: location, radius: number, particles: integer, color: color):
+
+    set {_goldenAngle} to pi * (3 - sqrt(5))
+    
+    loop {_particles} times:
+
+        set {_i} to loop-number - 1
+        set {_y_ratio} to 1 - ({_i} / ({_particles} - 1) * 2)
+        set {_radius_at_y} to sqrt(max(0, 1 - {_y_ratio} * {_y_ratio}))
+        set {_theta} to {_goldenAngle} * {_i}
+        
+        set {_x} to cos({_theta} * 180 / pi) * {_radius_at_y} * {_radius}
+        set {_y} to {_y_ratio} * {_radius}
+        set {_z} to sin({_theta} * 180 / pi) * {_radius_at_y} * {_radius}
+
+        set {_pLoc} to {_loc}
+        add {_x} to x-coordinate of {_pLoc}
+        add {_y} to y-coordinate of {_pLoc}
+        add {_z} to z-coordinate of {_pLoc}
+
+        draw 1 of dust particle using dustOption({_color}, 1) at {_pLoc} with extra 0
+
+function attenuatedDamage(attacker: player, loc: location, radius: number, damage: number, ratio: number):
+    loop all players in radius {_radius} around {_loc}:
+        isSameTeam({_attacker}, loop-player) is false
+        set {_distance} to distance between loop-player and {_loc}
+        set {_damage} to {_damage}/{_distance}*{_ratio}
+        force {_attacker} to damage loop-player by {_damage}

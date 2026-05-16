@@ -1,0 +1,66 @@
+options:
+	prefix: &7&l[&c&lGame&7&l]
+
+command /setlobby:
+	permission: op
+	trigger:
+		set {loc::lobby} to player's location
+		send "lobby set"
+
+command /setspawn <string>:
+	permission: op
+	trigger:
+		if arg-1 is "red":
+			set {loc::spawn::red} to player's location
+			send "red spawn set"
+		else if arg-1 is "blue":
+			set {loc::spawn::blue} to player's location
+			send "blue spawn set"
+		else:
+			send "red or blue"
+
+command /forceend:
+	permission: op
+	trigger:
+		clear {players::*}'s inventory
+		loop {players::*}:
+			giveLobbyItem(loop-value)
+		set {timer} to 1
+		set {matchStatus} to false
+		delete {players::*}
+		delete {score::red}
+		delete {score::blue}
+		delete {red::*}
+		delete {blue::*}
+
+command /forcedel:
+	permission: op
+	trigger:
+		delete {character::*}
+
+command /getitem <string> <integer>:
+	permission: op
+	trigger:
+		give {character::%arg-1%::action::%arg-2%} to player
+
+command /setCharacter <player> <string>:
+	permission: op
+	trigger:
+		setPlayerCharacterId(arg-1, arg-2)
+
+command /soundtest <string>:
+	permission: op
+	trigger:
+		play sound arg-1 with volume 10 at player to player
+
+command /update_resourcepack <string>:
+	permission: op
+	trigger:
+		set {resourecepack} to arg-1
+		loop all players:
+			send resource pack {resourecepack} to loop-player
+
+command /get_resourcepack:
+	permission: op
+	trigger:
+		send {resourecepack} to player

@@ -1,0 +1,17 @@
+function getTeam(player: player) :: string:
+	if "%team of {_player}%" contains "red":
+		return "red"
+	else if "%team of {_player}%" contains "blue":
+		return "blue"
+
+function isSameTeam(p1: player, p2: player) :: boolean:
+	if "%team of {_p1}%" is "%team of {_p2}%":
+		return true
+	else:
+		return false
+
+function hideItemInfo(item: item) :: item:
+	add hide additional tooltip to item flags of {_item}
+	add hide unbreakable to item flags of {_item}
+	add hide enchants to item flags of {_item}
+	return {_item}

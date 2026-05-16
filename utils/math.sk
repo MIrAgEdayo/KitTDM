@@ -1,0 +1,10 @@
+function getDirectionVector(p: player) :: vector:
+    set {_yaw} to yaw of {_p}
+    set {_pitch} to pitch of {_p}
+    set {_yaw_rad} to {_yaw} degrees
+    set {_pitch_rad} to {_pitch} degrees
+    set {_y} to sin({_pitch_rad}) * -1
+    set {_horizontal_length} to cos({_pitch_rad})
+    set {_x} to {_horizontal_length} * sin({_yaw_rad}) * -1
+    set {_z} to {_horizontal_length} * cos({_yaw_rad})
+    return vector {_x}, {_y}, {_z}

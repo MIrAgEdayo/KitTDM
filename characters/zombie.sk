@@ -1,0 +1,366 @@
+options:
+	prefix: &7&l[&c&lSS&9&lB&7&l]
+
+on load:
+	set {character::zombie::head} to head from getSkin("zombie")
+	registerCharacter("zombie", 0, 20, 1, 1, 1)
+
+	set {_lore::1} to ""
+	set {_lore::2} to "&b&l&n⊱&7全てのステータスが平均的な初心者向けキャラクター"
+	set {_lore::3} to ""
+	set {character::zombie::icon} to getHeadFromCharacterId("zombie") named "&7[&a&lMinecraft&7] &5&lゾンビ" with lore {_lore::*}
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7全身の細胞を鼓舞させ、短時間の間身体能力を飛躍的に向上させる。" to {_lore::*}
+	add " &b&l&n⊱&7身体に大きな負担がかかるため、再使用には長時間を要する。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to coal of sharpness 1 with model data 1 named "&c&l&n肉体の活性化" with lore {_lore::*} with custom nbt from "{actionId:1}"
+	registerAction("zombie", 1, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7異様な生への執着に駆られる細胞が自己修復を開始する。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &a&l🔴&7ヒール" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to charcoal of sharpness 1 with model data 2 named "&d&l&n不死の肉叢" with lore {_lore::*} with custom nbt from "{actionId:2}"
+	registerAction("zombie", 2, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	set {_lore::1} to ""
+	set {_lore::2} to "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋"
+	set {_lore::3} to ""
+	set {_lore::4} to " &b&l&n⊱&7死後の世界より5体のゾンビを召喚する。"
+	set {_lore::5} to " &b&l&n⊱&7ゾンビは付近のプレイヤーに襲い掛かる。"
+	set {_lore::6} to " &b&l&n⊱&7付近にブロックがないと失敗する。"
+	set {_lore::7} to ""
+	set {_lore::8} to "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋"
+	set {_lore::9} to ""
+	set {_lore::10} to " &c&l🔴&7自傷ダメージ"
+	set {_lore::11} to ""
+	set {_lore::12} to "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋"
+	set {_lore::13} to ""
+	set {_item} to raw iron of sharpness 1 with model data 3 named "&5&l&nアンデッドの軍勢" with lore {_lore::*} with custom nbt from "{actionId:3}"
+	registerAction("zombie", 3, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7その場で高く飛翔する。" to {_lore::*}
+	add " &b&l&n⊱&7同時に自身の肉片を撒き散らし、拾った者にダメージを与える。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to raw copper of sharpness 1 with model data 4 named "&b&l&nハイジャンプ" with lore {_lore::*} with custom nbt from "{actionId:4}"
+	registerAction("zombie", 4, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7巨大な拳で正面をぶん殴る。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to stick with model data 5 named "&c&l&nマックスパンチ" with lore {_lore::*} with custom nbt from "{actionId:5}"
+	registerAction("zombie", 5, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7巨大な拳を振りかざし叩き潰す。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &a&l🔴&7スタン" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to stick with model data 6 named "&a&l&nアームハンマー" with lore {_lore::*} with custom nbt from "{actionId:6}"
+	registerAction("zombie", 6, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7地面を蹴って衝撃波を出す。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to stick with model data 7 named "&6&l&n地ならし" with lore {_lore::*} with custom nbt from "{actionId:7}"
+	registerAction("zombie", 7, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7一定時間ジャイアントに変化する。" to {_lore::*}
+	add " &b&l&n⊱&7全ての技が強力な専用技に変化し、プレイヤーを一掃できる。" to {_lore::*}
+	add " &b&l&n⊱&7また、変身中は被ダメージが減少し、吹っ飛ばされない。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to stick with model data 999 named "&6&l&nジャイアント" with lore {_lore::*} with custom nbt from "{actionId:9}"
+	registerAction("zombie", 9, hideItemInfo({_item}))
+
+function zombie_action1(player: player):
+	cooldown({_player}, {_player}'s tool, 20 second)
+
+	apply strength 1 without particles to {_player} for 5 second
+	apply speed 1 without particles to {_player} for 5 second
+
+	set {_id} to getMatchIdFromPlayer({_player})
+	play sound "entity.zombie.converted_to_drowned" at volume 2 at pitch 0.6 at {_player}
+	play sound "entity.zombie.infect" at volume 2 at pitch 0.5 at {_player}
+	play sound "entity.blaze.ambient" at volume 2 at pitch 1.3 at {_player}
+
+	effect1({_player})
+	effect2({_player})
+
+function zombie_action2(player: player):
+	cooldown({_player}, {_player}'s tool, 10 second)
+
+	play sound "entity.player.levelup" at volume 2 at pitch 0.8 at {_player}
+	play sound "entity.frog.hurt" at volume 2 at pitch 0.5 at {_player}
+
+	command "particle minecraft:block{block_state:{Name:""crimson_hyphae"",Properties:{}}} %x-loc of {_player}% %y-loc of {_player} +2% %z-loc of {_player}% 0.5 0.5 0.5 0 100"
+	command "/particle minecraft:heart %x-loc of {_player}% %y-loc of {_player} +0.3% %z-loc of {_player}% 0.5 1 0.5 0 20"
+	damagePlayer({_player}, -5)
+
+function zombie_action3(player: player):
+	cooldown({_player}, {_player}'s tool, 13 second)
+
+	play sound "block.portal.trigger" at volume 2 at pitch 1.3 at {_player}
+	play sound "entity.lightning_bolt.thunder" at volume 2 at pitch 1.5 at {_player}
+
+	set {_id} to getMatchIdFromPlayer({_player})
+	set {_distance} to 1000
+	loop getMatchPlayer({_id}):
+		loop-value is not {_player}
+		distance between {_player} and loop-value < {_distance}
+		set {_distance} to distance between {_player} and loop-value
+		set {_target} to loop-value
+
+	loop all blocks in radius 5 around {_player}:
+		if:
+			loop-block is not air
+			block above loop-block is air
+			block 2 meter above loop-block is air
+		then:
+			add loop-block to {_block::*}
+	set {_block::*} to shuffled {_block::*}
+	loop 5 times:
+		set {_block} to random element out of {_block::*}
+		remove {_block} from {_block::*}
+		
+		spawn zombie at location below {_block} with nbt from "{Invulnerable:true}"
+		set {_zombie} to last spawned zombie
+		zombie_process({_player}, {_zombie}, {_target})
+		effect3({_block})
+		effect4({_zombie})
+
+function zombie_action4(player: player):
+	cooldown({_player}, {_player}'s tool, 7 second)
+
+	play sound "entity.player.attack.sweep" at volume 2 at pitch 1.5 at {_player}
+	play sound "entity.zombie.hurt" at volume 2 at pitch 0.5 at {_player}
+	command "/particle minecraft:dust_pillar{block_state:{Name:""amethyst_block"",Properties:{}}} %x-loc of {_player}% %y-loc of {_player}% %z-loc of {_player}% 0 0 0 0.5 300"
+	set {_block::*} to all blocks in radius 2 around {_player}
+	loop 7 times:
+		set {_block} to random element out of {_block::*}
+		play sweep attack at {_block::*}
+
+	reset velocity of {_player}
+	push {_player} up at speed 1.7
+	push {_player} horizontal forward at speed 1.5
+
+	loop 20 times:
+		set {_item} to rotten flesh named name of {_player} with lore random uuid
+		drop {_item} at {_player} without velocity
+
+		set {_item} to last dropped item
+		set {_vector} to random vector
+		set vector length of {_vector} to 0.5
+		set velocity of {_item} to {_vector}
+
+		add {_item} to {_item::*}
+	wait 5 second
+	kill {_item::*}
+
+function zombie_action5(player: player):
+	cooldown({_player}, {_player}'s tool, 2 second)
+
+	play sound "entity.zombie.attack_wooden_door" at volume 2 at pitch 0.5 at {_player}
+
+	spawn block display at {_player}
+	set {_display} to last spawned block display
+	set display block data of {_display} to lime terracotta
+	set display scale of {_display} to vector(2, 2, 7)
+	teleport {_display} at location 6 meter above {_display}
+	teleport {_display} at location 3 meter right {_display}
+
+	spawn interaction at {_player}
+	set {_interaction} to last spawned interaction
+	set interaction width of {_interaction} to 2
+	set interaction height of {_interaction} to 2
+
+	set {_location1} to location 6 meter above {_player}
+	set {_location1} to location 2 meter right {_location1}
+	set {_location2} to location 8 meter forward {_player}
+	set {_location2} to location 6 meter above {_location2}
+	set {_vector} to vector from {_location1} to {_location2}
+	set {_length} to round(vector length of {_vector})
+
+	set vector length of {_vector} to 0.1
+	loop {_length} times:
+		add 1 to vector length of {_vector}
+		teleport {_interaction} to {_location1}~{_vector}
+
+		set {_box} to bounding box of {_interaction}
+		loop players within box {_box} in "world":
+			loop-value-2 is not {_player}
+			{_player::*} doesn't contain loop-value-2
+			add loop-value-2 to {_player::*}
+	loop {_player::*}:
+		damagePlayer(loop-value, 30)
+		setLastAttacker(loop-value, {_player})
+	wait 0.5 second
+	kill {_display}
+	kill {_interaction}
+
+function zombie_action9(player: player):
+	if {_player} is not on ground:
+		send "{@prefix} &c最後の切り札は地面にいるときのみ使用できます" to {_player}
+		play sound "entity.zombie.death" at volume 2 at {_player} to {_player}
+		stop
+
+	set movement speed attribute of {_player} to 0
+	set jump strength attribute of {_player} to 0
+	set flight state of {_player} to false
+
+	loop 41 times:
+		set {_inventory::%loop-number -1%} to slot (loop-number -1) of {_player}'s inventory
+	clear inventory of {_player}
+
+	set {_loc1} to location of {_player}
+	loop 54 times:
+		add 0.2 to y-loc of {_loc1}
+		set {_loc2} to {_loc1}
+		add random integer between -3 and 3 to x-loc of {_loc2}
+		add random integer between -3 and 3 to z-loc of {_loc2}
+		add {_loc2} to {_location::*}
+		add 0.1 to scale attribute of {_player}
+		play large explosion at {_location::*}
+		wait 1 tick
+	set step height attribute of {_player} to 2
+	set block interaction range attribute of {_player} to 13
+	set entity interaction range attribute of {_player} to 10
+	set movement speed attribute of {_player} to 0.1
+	set jump strength attribute of {_player} to 0.4
+	set gravity of {_player} to true
+
+	play sound "entity.zombie.ambient" at volume 5 at pitch 0.5 at {_player}
+
+	give {zombie::action::5} to {_player}
+
+	wait 20 second
+	set step height attribute of {_player} to 0.5
+	set block interaction range attribute of {_player} to 4
+	set entity interaction range attribute of {_player} to 3
+	set flight state of {_player} to true
+
+	clear inventory of {_player}
+	loop {_inventory::*}:
+		set slot (loop-index parsed as integer) of {_player} to loop-value
+
+	set scale attribute of {_player} to 4
+	wait 0.5 second
+	set scale attribute of {_player} to 2
+	wait 0.5 second
+	set scale attribute of {_player} to 1
+
+local function effect1(player: player):
+	set {_vector} to vector 1, 0, 0
+	loop 360 times:
+		set {_base} to location of {_player}
+		add (1.5/360)*loop-number to y-loc of {_base}
+		set {_base} to {_base}~{_vector}
+		command "particle minecraft:witch %x-loc of {_base}% %y-loc of {_base}% %z-loc of {_base}%  0 0 0 0 1"
+		if mod(loop-number, 3) is 0:
+			rotate {_vector} around y-axis by 9
+		if mod(loop-number, 27) is 0:
+			wait 1 tick
+
+local function effect2(player: player):
+	set {_id} to getMatchIdFromPlayer({_player})
+
+	set {_from} to location 0.5 meter horizontal forward {_player}
+	set {_to} to location horizontal forward {_player}'s head
+	set {_vector1} to vector from {_from} to {_to}
+	set {_vector2} to vector from {_player} to {_from}
+	loop 8 times:
+		set vector length of {_vector1} to 0.2
+		set {_base} to (location of {_player})~{_vector2}
+		loop 10 times:
+			set {_base} to {_base}~{_vector1}
+			command "particle minecraft:flame %x-loc of {_base}% %y-loc of {_base}% %z-loc of {_base}% 0 0 0 0 1"
+		rotate {_vector1} around y-axis by 45
+		rotate {_vector2} around y-axis by 45
+
+local function effect3(block: block):
+	set {_name} to raw name of {_block}
+	loop 8 times:
+		command "/particle minecraft:block{block_state:{Name:""%{_name}%"",Properties:{}}} %x-loc of {_block}% %y-loc of {_block} +0.8% %z-loc of {_block}% 0 0 0 0 20"
+		wait 4 tick
+
+local function effect4(zombie: entity):
+	set {_vector} to vector 1, 0, 0
+	loop 360 times:
+		set {_base} to location of {_zombie}
+		add (1.5/360)*loop-number to y-loc of {_base}
+		set {_base} to {_base}~{_vector}
+		command "particle minecraft:witch %x-loc of {_base}% %y-loc of {_base}% %z-loc of {_base}%  0 0 0 0 1"
+		if mod(loop-number, 3) is 0:
+			rotate {_vector} around y-axis by 9
+		if mod(loop-number, 9) is 0:
+			wait 1 tick
+
+local function zombie_process(player: player, zombie: entity, target: player):
+	make {_zombie} adult
+	set movement speed attribute of {_zombie} to 0.4
+	set gravity of {_zombie} to false
+	set helmet of {_zombie} to unbreakable leather helmet
+	loop 33 times:
+		teleport {_zombie} to location 0.05 meter above {_zombie}
+		wait 1 tick
+	set byte tag "Invulnerable" of nbt compound of {_zombie} to 0
+	set gravity of {_zombie} to true
+	set {_timer} to 0
+	while {_zombie} is alive:
+		set target of {_zombie} to {_target}
+		add 1 to {_timer}
+		if {_timer} is 150:
+			kill {_zombie}
+		wait 1 tick
+
+on pick up of rotten flesh:
+	cancel event
+	name of player is not name of event-item
+	kill event-dropped item
+	damagePlayer(player, 3)
+
+on death of zombie:
+	clear drops

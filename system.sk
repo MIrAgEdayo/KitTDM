@@ -1,0 +1,197 @@
+options:
+	prefix: &7&l[&c&lGame&7&l]
+	minPlayer: 2
+
+on join:
+	clear player's inventory
+	if {matchStatus} is true:
+		set player's gamemode to spectator
+		initBoard(player)
+	else:
+		set player's gamemode to adventure
+	teleport player to {loc::lobby}
+
+	send resource pack {resourecepack} to player
+
+	setPlayerCharacterId(player, "zombie")
+	setSkin(player, "zombie")
+	giveLobbyItem(player)
+
+on quit:
+	if {players::*} contains player:
+		remove player from {players::*}
+	
+on right click:
+	name of player's tool is "&e&l参加切替"
+	cancel event
+	if {players::*} contains player:
+		remove player from {players::*}
+	else:
+		add player to {players::*}
+		if size of {players::*} is {@minPlayer}:
+			countdown()
+
+every tick:
+	if {matchStatus} is not true:
+		loop all players:
+			if {players::*} contains loop-player:
+				send action bar "&a&l参加中 &b&l%size of {players::*}%/{@minPlayer}" to loop-player
+			else:
+				send action bar "&c&l未参加中 &b&l%size of {players::*}%/{@minPlayer}" to loop-player
+
+function giveLobbyItem(target: player):
+	set slot 0 of {_target} to nether star named "&a&lキャラクター選択" with lore ""
+	set slot 4 of {_target} to lever named "&e&l参加切替" with lore ""
+
+on right click with nether star:
+	name of player's tool is "&a&lキャラクター選択"
+	chooseCharacter(player)
+
+function countdown():
+	broadcast "{@prefix} &a&l最低人数に達したため30秒後に試合を開始します"
+	loop 30*20 times:
+		wait 1 tick
+		if size of {players::*} < {@minPlayer}:
+			broadcast "{@prefix} &c&l人数が足りないため停止しました"
+			stop
+		if mod(loop-number, 20) = 0:
+			send title "" with subtitle "&a%30 - floor(loop-number/20)%" to all players
+	start()
+
+function start():
+	set {matchStatus} to true
+
+	set {_players::*} to {players::*}
+	loop size of {players::*} times:
+		if mod(loop-number, 2) = 0:
+			set {_player} to random player out of {_players::*}
+			remove {_player} from {_players::*}
+			add {_player} to {_red::*}
+		else:
+			set {_player} to random player out of {_players::*}
+			remove {_player} from {_players::*}
+			add {_player} to {_blue::*}
+
+	set {team::red} to create new team:
+		id: "red"
+		display_name: colored "<red>Red Team"
+		color: red
+		collision_rule: for_own_team
+		death_message_visibility: always
+		nametag_visibility: for_other_teams
+		friendly_fire: false
+		see_friendly_invisibles: true
+	add {_red::*} to {team::red}
+	set {team::blue} to create new team:
+		id: "blue"
+		display_name: colored "<blue>Blue Team"
+		color: blue
+		collision_rule: for_own_team
+		death_message_visibility: always
+		nametag_visibility: for_other_teams
+		friendly_fire: false
+		see_friendly_invisibles: true
+	add {_blue::*} to {team::blue}
+	
+	teleport {_red::*} to {loc::spawn::red}
+	teleport {_blue::*} to {loc::spawn::blue}
+
+	set movement speed attribute of {players::*} to 0
+	set jump strength attribute of {players::*} to 0
+
+	loop 5 times:
+		wait 1 second
+		send title "&c&l%6 - loop-number%" with subtitle "" to all players
+
+	set movement speed attribute of {players::*} to 0.1
+	set jump strength attribute of {players::*} to 0.4
+	loop {players::*}:
+		clear loop-value's inventories
+
+		setKBResistance(loop-value, 1)
+		setHealthPlayer(loop-value, getHealthCharacter(getPlayerCharacterId(loop-value)))
+		setWeightPlayer(loop-value, getWeightCharacter(getPlayerCharacterId(loop-value)))
+		setSpeedPlayer(loop-value, getSpeedCharacter(getPlayerCharacterId(loop-value)))
+		setJumpPlayer(loop-value, getJumpCharacter(getPlayerCharacterId(loop-value)))
+
+		giveCharacterItems(loop-value)
+
+		heal loop-value by 100 hearts
+
+	loop all players:
+		initBoard(loop-player)
+
+	set {score::red} to 0
+	set {score::blue} to 0
+	set {timer} to 180
+	loop 180 times:
+		if {matchStatus} is false:
+			stop
+		rewriteBoard()
+		wait 1 second
+		remove 1 from {timer}
+
+	loop all players:
+		deleteBoard(loop-player)
+
+		if {players::*} doesn't contain loop-player:
+			gamemode of loop-player is not spectator
+			continue
+		
+		teleport loop-player to {loc::lobby}
+		set gamemode of loop-player to adventure
+		clear loop-player's inventories
+		giveLobbyItem(loop-player)
+		
+		if getPlayerCharacterId(loop-player) is "bomb":
+			setPlayerCharacterId(loop-player, "reze")
+			setSkin(loop-player, "reze")
+			setKBResistance(loop-player, 1)
+			setHealthPlayer(loop-player, getHealthCharacter(getPlayerCharacterId(loop-player)))
+			setWeightPlayer(loop-player, getWeightCharacter(getPlayerCharacterId(loop-player)))
+			setSpeedPlayer(loop-player, getSpeedCharacter(getPlayerCharacterId(loop-player)))
+			setJumpPlayer(loop-player, getJumpCharacter(getPlayerCharacterId(loop-player)))
+	
+	if {score::red} > {score::blue}:
+		broadcast "{@prefix} &c&l赤&7の勝ち"
+	else if {score::red} < {score::blue}:
+		broadcast "{@prefix} &9&l青&7の勝ち"
+	else:
+		broadcast "{@prefix} &7&l引き分け"
+
+	set {matchStatus} to false
+	delete {players::*}
+	delete {score::red}
+	delete {score::blue}
+	delete all teams
+
+on damage:
+	if type of victim is player:
+		isSameTeam(attacker, victim) is true
+		cancel event
+	if {players::*} doesn't contain victim:
+		cancel event
+	if {players::*} doesn't contain attacker:
+		type of attacker is player
+		cancel event
+
+on death of player:
+	if getTeam(victim) is "red":
+		add 1 to {score::blue}
+	else if getTeam(victim) is "blue":
+		add 1 to {score::red}
+	if getPlayerCharacterId(victim) is "bomb":
+		setPlayerCharacterId(victim, "reze")
+		setSkin(victim, "reze")
+		clear victim's inventories
+		giveCharacterItems(victim)
+		setKBResistance(victim, 1)
+		setHealthPlayer(victim, getHealthCharacter(getPlayerCharacterId(victim)))
+		setWeightPlayer(victim, getWeightCharacter(getPlayerCharacterId(victim)))
+		setSpeedPlayer(victim, getSpeedCharacter(getPlayerCharacterId(victim)))
+		setJumpPlayer(victim, getJumpCharacter(getPlayerCharacterId(victim)))
+	
+	#キル時の演出
+	play sound "entity.firework_rocket.twinkle" with pitch 2 to attacker
+	play sound "block.anvil.place" with pitch 1.5 to attacker
+	send title "" with subtitle "&c&l+1 &7Kill" to attacker for 10 ticks

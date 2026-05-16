@@ -1,0 +1,21 @@
+options:
+	prefix: &7&l[&c&lGame&7&l]
+
+function initBoard(player: player):
+	toggle fastboard of {_player} to true
+	set title of {_player}'s fastboard to "{@prefix}"
+	rewriteBoard()
+
+function deleteBoard(target: player):
+	toggle fastboard of {_target} to false
+
+function rewriteBoard():
+	drawBoard(5, "&c&l%{score::red}% &7vs &9&l%{score::blue}%")
+	drawBoard(4, "")
+	drawBoard(3, "")
+	drawBoard(2, "")
+	drawBoard(1, "&7&l残り時間 &b&l%{timer}%")
+
+function drawBoard(line: integer, content: string):
+	loop all players:
+		set line {_line} of loop-value's fastboard to {_content}
