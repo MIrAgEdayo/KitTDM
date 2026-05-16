@@ -1,0 +1,408 @@
+options:
+	prefix: &7&l[&c&lGame&7&l]
+	characterId: casdy
+
+	revolver_damage: 4
+	revolver_cooldown: 10 ticks
+	revolver_reload_time: 60 ticks
+	revolver_max_ammo: 6
+	revolver_range: 40
+	revolver_air_spread: 8
+
+	dash_cooldown: 160 ticks
+	dash_power: 0.6
+	dash_vertical: 0.3
+
+	flash_cooldown: 240 ticks
+	flash_fuse: 3
+	flash_radius: 6
+	flash_blind_duration: 3 seconds
+	flash_throw_power: 1.4
+
+	snipe_cooldown: 900 ticks
+	snipe_charge_time: 60
+	snipe_damage: 15
+	snipe_angle: 30
+	snipe_range: 40
+	snipe_slowness_level: 4
+
+on load:
+	set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTc3ODY5MDIzNTIzNiwKICAicHJvZmlsZUlkIiA6ICIxMTM0OTAxMTU3ZTE0Yzg0OTE1YTNjMGY3M2RmYzM0NSIsCiAgInByb2ZpbGVOYW1lIiA6ICJab2xlZWV5IiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2E0ODUyMTBjMGFiMzYwOGQzODk1MTg0ODA1OTUxYTI4NjFmMzYwNDgzMjNlMzAyOTgxMjgxYjgxNTU3MmY4MzYiCiAgICB9CiAgfQp9"
+	set {_signature} to "hBw0qSh2Vi7lz8VPB2jp/s07m5CQVacB3Uuv2D79Gfyl6gonZNxgr7mP4quvPmwdsjHIt5O8MyCZfXnwM73jj0Q3PCxU3HwYcMINX1ArXgjpiWrpcNPmAnWEKFxt2BqLeTTzRIwCxyTyk4NhVloNwF/EgATeZxD9k3YgPqnwAgm/W5OPoRs0KWEd6eHyMzQJ/dtv0NC5T96BZBdHcLjOkqKkyLtZdQzZ7zXO4PI1oWcRrlz7tcWsnE6jIP5BuXCScFrvexwVf37YG11/XOID3jR4611loiv04TYeAQsrNu2qO5tx+g/rmu1fUYgOpLilzEhfqG2MwIXvsC8TZ4JOpQ1F0RU5NCI+wYUqlokM8PMHEv7Hr6G1wszLksI3XohZXAngGYXExwUECmmvnsGWime343f4ibnAbD6cFaFkh2rl3hye/tMOXp1MtZVkIsk3Ra2CBqMhbo4xsDAJKsugL5njojuCw2A2ZWXjX4yvEHIBNLXe7Sxm6g8zcTFTeBkCz9ywAXHOKX8wKjt/sAW/pm0pGT7epmJSK7nRk8dXUEbDNiyh0j/gHCYTG/kReKC4RVGsTf/JFE4xxJtp8N3NKNRQa6zGQUkiN81hEQ5re0VaYZg8B/i+jMpXgRhcXY5ULYrbPxQbZhQTBaeXhQxGz96ouyvRSkDlktKdNNMh/QE="
+	registerSkin("{@characterId}", {_value}, {_signature})
+
+	set {character::{@characterId}::head} to head from value {_value}
+	registerCharacter("{@characterId}", 19, 20, 1, 1, 1)
+
+	set {_lore::1} to ""
+	set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+	set {_lore::3} to ""
+	add "&f俺は早いぜ..." to {_lore::*}
+	set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&f&lOVERWATCH&7] &f&lキャスディ" with lore {_lore::*}
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7リボルバー" to {_lore::*}
+	add "" to {_lore::*}
+	add " &7&o右クリック: &f射撃" to {_lore::*}
+	add " &7&oQキー(ドロップ): &fリロード" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to iron horse armor of sharpness 1 with model data 1 named "&f&l&nリボルバー &8[&c●●●●●●&8]" with lore {_lore::*} with custom nbt from "{actionId:1}"
+	registerAction("{@characterId}", 1, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7回避ステップ" to {_lore::*}
+	add "" to {_lore::*}
+	add " &7&o右クリック: &f移動方向(A/S/D)へ飛ぶ" to {_lore::*}
+	add " &7&o何も押してない場合: &f前方へ飛ぶ" to {_lore::*}
+	add " &7&o使用後、リボルバーが自動再装填されます" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to feather of sharpness 1 with model data 1 named "&b&l&nコンバット・ロール" with lore {_lore::*} with custom nbt from "{actionId:2}"
+	registerAction("{@characterId}", 2, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7フラッシュバン" to {_lore::*}
+	add "" to {_lore::*}
+	add " &7&o前方に閃光弾を投擲し、" to {_lore::*}
+	add " &7&o0.4秒後に炸裂して敵チームを盲目化" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to redstone torch of sharpness 1 with model data 1 named "&e&l&nフラッシュバン" with lore {_lore::*} with custom nbt from "{actionId:3}"
+	registerAction("{@characterId}", 3, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7デッド・アイ" to {_lore::*}
+	add "" to {_lore::*}
+	add " &7&o発動後3秒チャージし、" to {_lore::*}
+	add " &7&o正面30度の敵に大ダメージ" to {_lore::*}
+	add " &7&oチャージ中は発光&減速" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to spyglass of sharpness 1 with model data 1 named "&4&l&nデッド・アイ" with lore {_lore::*} with custom nbt from "{actionId:4}"
+	registerAction("{@characterId}", 4, hideItemInfo({_item}))
+
+function {@characterId}_updateAmmoDisplay(player: player):
+	set {_uuid} to uuid of {_player}
+	set {_ammo} to {test::%{_uuid}%::ammo} ? {@revolver_max_ammo}
+	set {_display} to ""
+	loop {_ammo} times:
+		set {_display} to "%{_display}%&c●"
+	loop ({@revolver_max_ammo} - {_ammo}) times:
+		set {_display} to "%{_display}%&8●"
+
+	loop items in {_player}'s inventory:
+		if getActionId(loop-item) is 1:
+			set name of loop-item to "&f&l&nピースキーパー &8[%{_display}%&8]"
+
+function {@characterId}_reload(player: player):
+	set {_uuid} to uuid of {_player}
+	if {test::%{_uuid}%::reloading} is true:
+		stop
+	if ({test::%{_uuid}%::ammo} ? {@revolver_max_ammo}) is {@revolver_max_ammo}:
+		stop
+
+	set {test::%{_uuid}%::reloading} to true
+
+	loop items in {_player}'s inventory:
+		if getActionId(loop-item) is 1:
+			set cooldown of loop-item for {_player} to {@revolver_reload_time}
+
+	play sound "minecraft:block.iron_door.close" with volume 1 and pitch 1.4 at location of {_player}
+	send action bar "&e&lリロード中..." to {_player}
+
+	wait {@revolver_reload_time}
+
+	if getPlayerCharacterId({_player}) is not "{@characterId}":
+		delete {test::%{_uuid}%::reloading}
+		stop
+
+	set {test::%{_uuid}%::ammo} to {@revolver_max_ammo}
+	delete {test::%{_uuid}%::reloading}
+	{@characterId}_updateAmmoDisplay({_player})
+
+	play sound "minecraft:block.iron_door.open" with volume 1 and pitch 1.6 at location of {_player}
+	play sound "minecraft:item.crossbow.loading_end" with volume 1 and pitch 1.2 at location of {_player}
+	send action bar "&a&lリロード完了" to {_player}
+
+function {@characterId}_action1(player: player):
+	set {_uuid} to uuid of {_player}
+
+	if {test::%{_uuid}%::reloading} is true:
+		stop
+
+	set {_ammo} to {test::%{_uuid}%::ammo} ? {@revolver_max_ammo}
+
+	if {_ammo} <= 0:
+		play sound "minecraft:block.lever.click" with volume 0.8 and pitch 1.5 at location of {_player}
+		stop
+
+	cooldown({_player}, {_player}'s tool, {@revolver_cooldown})
+
+	remove 1 from {_ammo}
+	set {test::%{_uuid}%::ammo} to {_ammo}
+	{@characterId}_updateAmmoDisplay({_player})
+
+	play sound "minecraft:entity.generic.explode" with volume 0.6 and pitch 1.8 at location of {_player}
+	play sound "minecraft:item.firecharge.use" with volume 1 and pitch 1.2 at location of {_player}
+
+	loop all players:
+		if all:
+			gamemode of loop-player is not spectator
+			gamemode of loop-player is not creative
+			loop-player is not {_player}
+		then:
+			add loop-player to {_allowList::*}
+
+	set {_startLoc} to eye location of {_player}
+	set {_dir} to getDirectionVector({_player})
+
+	# 空中なら拡散
+	set {_blockBelow} to block under {_player}
+	if {_blockBelow} is air:
+		set {_spread} to {@revolver_air_spread}
+		set yaw of {_dir} to (yaw of {_dir}) + (random number between (-1 * {_spread}) and {_spread})
+		set pitch of {_dir} to (pitch of {_dir}) + (random number between (-1 * {_spread}) and {_spread})
+
+	set {_ray} to raytrace from {_startLoc} along {_dir} with max distance {@revolver_range} with ray size 0.15 while ignoring passable blocks while only allowing {_allowList::*}
+
+	if raytrace hit location of {_ray} is set:
+		set {_endLoc} to raytrace hit location of {_ray}
+	else:
+		set {_endLoc} to location {@revolver_range} meter forward {_startLoc}
+
+	set {_trailDir} to vector from {_startLoc} to {_endLoc}
+	set {_dist} to vector length of {_trailDir}
+	if {_dist} > 0:
+		set vector length of {_trailDir} to 0.5
+		set {_loc} to {_startLoc}
+		loop ({_dist} * 2) times:
+			set {_loc} to location {_trailDir} ({_loc})
+			draw 1 of dust particle using dustOption(rgb(255, 200, 80), 0.8) at {_loc}
+			draw 1 of smoke particle at {_loc} with extra 0
+
+	if raytrace hit entity of {_ray} exists:
+		set {_victim} to raytrace hit entity of {_ray}
+		make {_player} damage {_victim} by {@revolver_damage}
+		play sound "minecraft:entity.player.hurt" with volume 0.8 and pitch 1.2 at location of {_victim}
+		draw 5 of crit particle at location of {_victim} with extra 0.1
+
+	if raytrace hit block of {_ray} is solid:
+		set {_hitLoc} to raytrace hit location of {_ray}
+		draw 10 of crit particle at {_hitLoc} with extra 0.1
+		draw 5 of smoke particle at {_hitLoc} with extra 0.05
+
+	if {_ammo} <= 0:
+		wait 5 ticks
+		{@characterId}_reload({_player})
+
+function {@characterId}_action2(player: player):
+	cooldown({_player}, {_player}'s tool, {@dash_cooldown})
+
+	set {_vel} to velocity of {_player}
+	set {_horizontalVel} to vector(x component of {_vel}, 0, z component of {_vel})
+	set {_speed} to vector length of {_horizontalVel}
+
+	if {_speed} > 0.08:
+		# 入力方向あり: プレイヤーの移動ベクトル方向に飛ぶ
+		set {_dashDir} to {_horizontalVel}
+		set vector length of {_dashDir} to {@dash_power}
+	else:
+		# 入力なし: 前方へ
+		set {_dashDir} to getDirectionVector({_player})
+		set y component of {_dashDir} to 0
+		set vector length of {_dashDir} to {@dash_power}
+
+	set y component of {_dashDir} to {@dash_vertical}
+	set velocity of {_player} to {_dashDir}
+
+	play sound "minecraft:entity.firework_rocket.launch" with volume 0.8 and pitch 1.5 at location of {_player}
+	play sound "minecraft:entity.bat.takeoff" with volume 1 and pitch 0.8 at location of {_player}
+
+	set {_loc} to location of {_player}
+	loop 15 times:
+		draw 3 of cloud particle at {_loc} with extra 0
+		draw 2 of dust particle using dustOption(rgb(180, 220, 255), 0.7) at {_loc} with offset vector(0.3, 0.3, 0.3)
+		set {_loc} to location of {_player}
+		wait 1 tick
+
+	# リボルバー自動再装填
+	set {test::%uuid of {_player}%::ammo} to {@revolver_max_ammo}
+	{@characterId}_updateAmmoDisplay({_player})
+	play sound "minecraft:block.iron_door.open" with volume 1 and pitch 1.6 at location of {_player}
+	play sound "minecraft:item.crossbow.loading_end" with volume 1 and pitch 1.2 at location of {_player}
+	send action bar "&a&l再装填完了" to {_player}
+
+function {@characterId}_action3(player: player):
+	cooldown({_player}, {_player}'s tool, {@flash_cooldown})
+
+	play sound "minecraft:entity.snowball.throw" with volume 1 and pitch 1.0 at location of {_player}
+
+	set {_loc} to eye location of {_player}
+	set {_vel} to getDirectionVector({_player})
+	set vector length of {_vel} to {@flash_throw_power}
+
+	# 重力で落とす
+	set {_gravity} to 0.04
+
+	set {_ticks} to 0
+	loop {@flash_fuse} times:
+		add 1 to {_ticks}
+
+		# 1tickごとに位置更新
+		set {_loc} to {_loc}~{_vel}
+
+		# 重力を加算
+		set y component of {_vel} to (y component of {_vel}) - {_gravity}
+
+		# 描画
+		draw 2 of dust particle using dustOption(rgb(255, 255, 180), 1.2) at {_loc}
+		draw 1 of end rod at {_loc} with extra 0
+
+		# ブロックに当たったら早期炸裂
+		if block at {_loc} is not passable:
+			exit loop
+
+		wait 1 tick
+
+	# 炸裂演出
+	play sound "minecraft:entity.generic.explode" with volume 2 and pitch 1.5 at {_loc}
+	play sound "minecraft:block.glass.break" with volume 2 and pitch 2.0 at {_loc}
+	draw 50 of firework at {_loc} with offset vector(1, 1, 1) with extra 0.2
+	draw 30 of end rod at {_loc} with offset vector(2, 2, 2) with extra 0.1
+	draw 1 of flash at {_loc} with extra 0
+
+	# 範囲内の敵チームに盲目付与
+	loop all players in radius {@flash_radius} around {_loc}:
+		isSameTeam({_player}, loop-player) is false
+		gamemode of loop-player is not spectator
+		gamemode of loop-player is not creative
+		remove blindness from loop-player
+		remove darkness from loop-player
+		apply blindness 1 to loop-player for {@flash_blind_duration}
+		apply darkness 1 to loop-player for {@flash_blind_duration}
+		play sound "minecraft:item.totem.use" with volume 0.3 and pitch 2.0 to loop-player
+
+function {@characterId}_action4(player: player):
+	cooldown({_player}, {_player}'s tool, {@snipe_cooldown})
+
+	set {_startLoc} to location of {_player}
+
+	# チャージ開始演出
+	play sound "minecraft:block.beacon.activate" with volume 1 and pitch 1.5 at {_startLoc}
+	play sound "minecraft:item.spyglass.use" with volume 1 and pitch 0.8 at {_startLoc}
+
+	# 発光と減速
+	apply glowing 1 to {_player} for {@snipe_charge_time} ticks
+	apply slowness {@snipe_slowness_level} to {_player} for {@snipe_charge_time} ticks
+
+	# チャージ中の演出ループ
+	set {_charge} to 0
+	loop {@snipe_charge_time} times:
+		# 中断チェック: 死亡 / オフライン / キャラ変更
+		if {_player} is not online:
+			stop
+		if {_player} is dead:
+			play sound "minecraft:block.fire.extinguish" with volume 1 and pitch 0.8 at location of {_player}
+			stop
+		if getPlayerCharacterId({_player}) is not "{@characterId}":
+			stop
+
+		add 1 to {_charge}
+		set {_t} to {_charge} / {@snipe_charge_time}
+
+		set {_pLoc} to location of {_player}
+
+		# 足元に魔法陣風の円
+		set {_radius} to 2.0 - (2.0 * {_t})
+		loop 12 times:
+			set {_angle} to (loop-number-1) * 30
+			set {_x} to {_radius} * cos({_angle})
+			set {_z} to {_radius} * sin({_angle})
+			set {_circleLoc} to {_pLoc}~vector({_x}, 0.1, {_z})
+			draw 1 of dust particle using dustOption(rgb(255, 50, 50), 1) at {_circleLoc}
+
+		# 視線方向に光のライン(エイム線)
+		if mod({_charge}, 2) is 0:
+			set {_eye} to eye location of {_player}
+			set {_dir} to getDirectionVector({_player})
+			set vector length of {_dir} to 0.5
+			loop ({@snipe_range} * 2) times:
+				set {_eye} to {_eye}~{_dir}
+				if block at {_eye} is not passable:
+					exit loop
+				draw 1 of dust particle using dustOption(rgb(255, 200, 50), 0.5) at {_eye}
+
+		# チャージ完了直前のティック音
+		if mod({_charge}, 10) is 0:
+			play sound "minecraft:block.note_block.bit" with volume 0.5 and pitch (0.8 + {_t}) at {_pLoc}
+
+		wait 1 tick
+
+	# 発射
+	set {_fireLoc} to location of {_player}
+	play sound "minecraft:entity.generic.explode" with volume 2 and pitch 0.8 at {_fireLoc}
+	play sound "minecraft:entity.firework_rocket.blast_far" with volume 2 and pitch 1.2 at {_fireLoc}
+	play sound "minecraft:item.trident.thunder" with volume 1.5 and pitch 1.5 at {_fireLoc}
+
+	set {_eyeLoc} to eye location of {_player}
+	set {_facing} to getDirectionVector({_player})
+	set y component of {_facing} to 0
+
+	# 視線方向の前方に向けて扇形の演出
+	loop 30 times:
+		set {_offsetAngle} to (random number between -15 and 15)
+		set {_dirCopy} to {_facing}
+		set vector length of {_dirCopy} to 1
+		set yaw of {_dirCopy} to (yaw of {_dirCopy}) + {_offsetAngle}
+		set {_rayLoc} to {_eyeLoc}
+		loop ({@snipe_range}) times:
+			set {_rayLoc} to {_rayLoc}~{_dirCopy}
+			if block at {_rayLoc} is not passable:
+				exit loop
+			draw 2 of dust particle using dustOption(rgb(255, 80, 80), 1.2) at {_rayLoc}
+			draw 1 of crit particle at {_rayLoc} with extra 0
+
+	# ダメージ判定: 30度扇形
+	set {_facingNorm} to {_facing}
+	set vector length of {_facingNorm} to 1
+
+	# 30度 = 中心軸から片側15度 → cos(15°) ≈ 0.966
+	loop all players in radius {@snipe_range} around {_player}:
+		isSameTeam({_player}, loop-player) is false
+		gamemode of loop-player is not spectator
+		gamemode of loop-player is not creative
+		loop-player is not {_player}
+
+		set {_toTarget} to vector from {_player} to loop-player
+		set y component of {_toTarget} to 0
+		if vector length of {_toTarget} > 0:
+			set vector length of {_toTarget} to 1
+			set {_dot} to (x component of {_facingNorm}) * (x component of {_toTarget}) + (z component of {_facingNorm}) * (z component of {_toTarget})
+
+			if {_dot} >= 0.966:
+				force {_player} to damage loop-player by {@snipe_damage}
+				draw 20 of crit particle at loop-player with offset vector(0.5, 1, 0.5) with extra 0.3
+				play sound "minecraft:entity.player.hurt" with volume 1 and pitch 0.8 at loop-player
+
+on drop:
+	getPlayerCharacterId(player) is "{@characterId}"
+	if getActionId(event-item) is 1:
+		cancel event
+		{@characterId}_reload(player)

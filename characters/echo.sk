@@ -1,0 +1,265 @@
+options:
+    prefix: &7&l[&b&lECHO&7&l]
+    characterId: echo
+
+on load:
+    set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTc0NjQ2NTY5Njc4NiwKICAicHJvZmlsZUlkIiA6ICIwODY3MjJhOTI4NWM0NzRkYTYyMWJlMGIyM2RlMDNkOSIsCiAgInByb2ZpbGVOYW1lIiA6ICJTdGlja3ltM2xvbiIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8xOTdkZDVjNDI2Zjg2ZjhmNjYzYThlZmJmOTYxOWY2NTEzNjAyZTk4YTdjODEwYTQ2ZWE5NWRmNGViMjNiNzEyIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0="
+    set {_signature} to "ukJ/+67HK0vHrD28uOpGt4hidAibkk+W2YokidOC9A4/phOHJ4OsmWio8srCo3/F2EEsrqk2EwRK4kK+1S2A5SKIa6zcBLssQhXT4R+2Ipo4V3fz2K1GXzf9ryEPMDg7jg1zqCxeLfOCpGF320Di3CN3b7vmAngNqJC+AIYdZKIBj7vNYjfaP4pfNp0uro8z1FCp6fDsP11aCNlxORce98BaBp+/rAoHZbmabvVVrcVHxqWRdWExmw5q7Fp/bD4CJ7Xvzx5MRTxClqTi7CALx7XUM/YgUpoLPhqicDdDoWnHmEm/lPvXH/Slt1JHuPK1MXlBbfaLlDJJ+u20AA+uE81Y0BmvgirHaNYGl0zTIUhSCqvff3WCkJdXYBeHKK55MyNvTXrjJuGFTzTnNC1t/pu8snJuNSSyvLT0MyhNXF/36AVwn6o/iqNG5bI/zsxUZ8gdcM+jnZdSHUCGsN3DSPMTY64L8HkuChdMsurMxnJSL1h5O9RH+h/1sc9HqaaKTlS3QPwEO5X95IZULPsOFg5IYQi8g21cLgCEhL/16uuZngethuF7rJNitabwkMwHQR7MrbBJIlwt2ChSEYKqzbJ4hJWRG7VhA3G/USK5azJJzBx7yYTVUA7RJ67Z/4MKPyt9KJpGC2ToimnoKhKm9V1FXlCqRukUURy2Ww/d3YY="
+    registerSkin("{@characterId}", {_value}, {_signature})
+    
+    set {character::{@characterId}::head} to head from value {_value}
+    registerCharacter("{@characterId}", 10, 21, 1, 1, 1.5)
+
+    set {_lore::1} to ""
+    set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+    set {_lore::3} to ""
+    set {_lore::4} to "&f「適応回路：起動！」"
+    set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&f&lOVERWATCH&7] &b&lエコー" with lore {_lore::*}
+
+    delete {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&bエコー" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+
+    set {_item} to prismarine crystals named "&bトライ・ショット" with lore {_lore::*} with custom nbt from "{actionId:1}"
+    registerAction("{@characterId}", 1, hideItemInfo({_item}))
+    set {_item} to slime ball named "&bスティッキー・ボム" with lore {_lore::*} with custom nbt from "{actionId:2}"
+    registerAction("{@characterId}", 2, hideItemInfo({_item}))
+    set {_item} to feather named "&bフライト" with lore {_lore::*} with custom nbt from "{actionId:3}"
+    registerAction("{@characterId}", 3, hideItemInfo({_item}))
+    set {_item} to beacon named "&bフォーカス・ビーム" with lore {_lore::*} with custom nbt from "{actionId:4}"
+    registerAction("{@characterId}", 4, hideItemInfo({_item}))
+    set {_item} to nether star named "&bコピー" with lore {_lore::*} with custom nbt from "{actionId:5}"
+    registerAction("{@characterId}", 5, hideItemInfo({_item}))
+
+function {@characterId}_action5(player: player):
+    set {_target} to target player of {_player}
+    set {_id} to getPlayerCharacterId({_target})
+    {_id} isn't "echo"
+    {_id} is set
+    command "/playsound minecraft:block.end_portal ambient %{_player}% %x-pos of {_player}% %y-pos of {_player}% %z-pos of {_player}% 0.8 1"
+    broadcast "{@prefix}&f: 適応回路、起動！"
+    command "/playsound minecraft:block.enchantment_table.use ambient %{_player}% %x-pos of {_player}% %y-pos of {_player}% %z-pos of {_player}% 0.8 1"
+    if {_id} is "reze":
+        set {_name} to "&bレゼ"
+    else if {_id} is "gojo":
+        set {_name} to "&b五条悟"
+    else if {_id} is "bomb":
+        set {_name} to "&bボム"
+    else if {_id} is "magucup":
+        set {_name} to "&bマグカップ"
+    else if {_id} is "genji":
+        set {_name} to "&bゲンジ"
+    else if {_id} is "rengokusan":
+        set {_name} to "&b煉獄杏寿郎"
+    else if {_id} is "hoshizaki_akari":
+        set {_name} to "&b星咲あかり"
+    else if {_id} is "casdy":
+        set {_name} to "&bキャスディ"
+    else if {_id} is "leesin":
+        set {_name} to "&bリー・シン"
+    else if {_id} is "kiriko":
+        set {_name} to "&bキリコ"
+    broadcast "{@prefix}&f: %{_name}%&f。"
+    set {-eKo::%uuid of {_player}%::change} to true
+    cooldown({_player}, {_player}'s tool, 60 seconds)
+    setSkin({_player}, {_id})
+    heal {_player} by 1000 hearts
+    clear {_player}'s inventories
+    setPlayerCharacterId({_player},{_id})
+    setKBResistance({_player}, 1)
+    setHealthPlayer({_player}, getHealthCharacter({_id}))
+    setWeightPlayer({_player}, getWeightCharacter({_id}))
+    setSpeedPlayer({_player}, getSpeedCharacter({_id}))
+    setJumpPlayer({_player}, getJumpCharacter({_id}))
+
+    giveCharacterItems({_player})
+    #
+    loop 15 times:
+        if {-eKo::%uuid of {_player}%::change} is true:
+            send actionbar "&bコピー &7| &fコピー可能時間: %15 - loop-value%" to {_player}
+        else:
+            stop
+        wait 1 seconds
+    command "/playsound minecraft:block.anvil.destroy ambient %{_player}% %x-pos of {_player}% %y-pos of {_player}% %z-pos of {_player}% 0.8 0"
+    delete {-eKo::%uuid of {_player}%::change}
+    setSkin({_player}, "echo")
+    clear {_player}'s inventories
+    setPlayerCharacterId({_player},"echo")
+
+    setKBResistance({_player}, 1)
+    setHealthPlayer({_player}, getHealthCharacter("echo"))
+    setWeightPlayer({_player}, getWeightCharacter("echo"))
+    setSpeedPlayer({_player}, getSpeedCharacter("echo"))
+    setJumpPlayer({_player}, getJumpCharacter("echo"))
+
+    giveCharacterItems({_player})
+    
+
+    heal {_player} by 5 hearts
+
+
+
+function {@characterId}_action2(player: player):
+    cooldown({_player}, {_player}'s tool, 7 seconds)
+    loop 11 times:
+        command "/playsound minecraft:entity.ender_pearl.throw ambient %{_player}% %x-pos of {_player}% %y-pos of {_player}% %z-pos of {_player}% 0.3 2"
+        draw 3 splash particles with an extra value of 0.5 at {_player}'s head location 
+        set {_yaw} to yaw of {_player}'s location
+        set {_pitch} to pitch of {_player}'s location
+        set {_v} to vector from yaw {_yaw} and pitch {_pitch}
+        set {_pos} to the block 0.8 meters infront eye of {_player}
+        spawn 1 slime at {_pos}
+        set {_mob} to last spawned slime
+        set the maximum health of {_mob} to 1000
+        set the health of {_mob} to 1000
+        add nbt compound from "{Size:0b}" to nbt of {_mob}
+        set int tag "custom;sticky" of nbt of {_mob} to 1
+        set {-eKo::%uuid of {_mob}%} to {_player}
+        add {_mob} to {-eKo::boms::*}
+        push {_mob} {_v} at speed 2.5
+        {@characterId}_eKoKorosu({_mob})
+        wait 1 tick
+function {@characterId}_action3(player: player):
+    cooldown({_player}, {_player}'s tool, 7 seconds)
+    if {-eKo::%uuid of {_player}%::flymode} is not set:
+        draw 20 cloud particles with an extra value of 0.1 at {_player}'s location 
+        command "/playsound minecraft:entity.bat.takeoff ambient %{_player}% %x-pos of {_player}% %y-pos of {_player}% %z-pos of {_player}% 0.9 1"
+        push {_player} up at speed 5
+        wait 3 tick
+        set the velocity of {_player} to vector(0, 0, 0)
+        command "/effect give %{_player}% minecraft:speed 4 3 true"
+        set {-eKo::%uuid of {_player}%::flymode} to true
+        set gravity of {_player} to off
+        loop 4 times:
+            if {-eKo::%uuid of {_player}%::flymode} is set:
+                send actionbar "&bフライト &7| &fフライト可能時間: %4 - loop-value%" to {_player}
+            else:
+                exit loop
+            wait 1 seconds
+        delete {-eKo::%uuid of {_player}%::flymode}  
+    else:
+        delete {-eKo::%uuid of {_player}%::flymode}
+    {-eKo::%uuid of {_player}%::flymode} is not set
+    set gravity of {_player} to on
+    command "/playsound minecraft:item.elytra.flying ambient %{_player}% %x-pos of {_player}% %y-pos of {_player}% %z-pos of {_player}% 0.9 1.5"
+    command "/effect give %{_player}% minecraft:slow_falling 4 3 true"
+function {@characterId}_action4(player: player):
+    cooldown({_player}, {_player}'s tool, 16 seconds)
+    command "/playsound minecraft:block.beacon.activate ambient %{_player}% %x-pos of {_player}% %y-pos of {_player}% %z-pos of {_player}% 0.9 2"
+    wait 10 tick
+    loop 20 times:
+        set {_pitch} to random number between 1.5 and 2
+        command "/playsound minecraft:entity.experience_orb.pickup ambient %{_player}% %x-pos of {_player}% %y-pos of {_player}% %z-pos of {_player}% 0.8 %{_pitch}%"
+        command "/playsound minecraft:entity.firework_rocket.blast ambient %{_player}% %x-pos of {_player}% %y-pos of {_player}% %z-pos of {_player}% 0.6 1.2"
+        {@characterId}_DraweKo("focus",{_player},0,100,45,1,0.2)
+        wait 2 tick
+function {@characterId}_action1(player: player):
+    cooldown({_player}, {_player}'s tool, 5 ticks)
+    command "/playsound minecraft:entity.player.swim ambient %{_player}% %x-pos of {_player}% %y-pos of {_player}% %z-pos of {_player}% 0.6 2"
+    {@characterId}_DraweKo("other",{_player},0,30,40,2,0)
+    
+
+
+function {@characterId}_DraweKo(mode: text, p: player, spread: number = 1.5, speed: number = 2.6, maxDistance: number = 60, hitRadius: number = 0.35, extra: number = 0):
+    set {_start} to eye location of {_p}
+    set {_yaw} to yaw of {_p}'s location
+    set {_pitch} to pitch of {_p}'s location
+
+    # spread分だけyaw/pitchをずらして弾道方向を決める
+    set {_spreadMin} to 0 - {_spread}
+    set {_bulletYaw} to {_yaw} + (random number between {_spreadMin} and {_spread})
+    set {_bulletPitch} to {_pitch} + (random number between {_spreadMin} and {_spread})
+
+    # speedは1秒あたり(block/s)として受け取り、1tick(1/20秒)の移動量へ変換
+    set {_ticksPerSecond} to 20
+    set {_stepPerTick} to {_speed} / {_ticksPerSecond}
+    set {_dx} to (0 - (sin({_bulletYaw}) * cos({_bulletPitch}))) * {_stepPerTick}
+    set {_dy} to (0 - sin({_bulletPitch})) * {_stepPerTick}
+    set {_dz} to (cos({_bulletYaw}) * cos({_bulletPitch})) * {_stepPerTick}
+
+    set {_current} to {_start}
+    set {_traveled} to 0
+
+    while {_traveled} < {_maxDistance}:
+        add {_dx} to x-coordinate of {_current}
+        add {_dy} to y-coordinate of {_current}
+        add {_dz} to z-coordinate of {_current}
+        add {_stepPerTick} to {_traveled}
+        if {_mode} is "focus":
+            draw 15 of glow at {_current} with extra {_extra}
+        else:
+            draw 1 of enchanted hit at {_current} with extra {_extra}
+        set {_hitBlock} to block at {_current}
+        if {_hitBlock} is solid:
+            stop
+        set {_mob} to target entity of {_p}
+        if {_mode} is "focus":
+            if {_mob} is set:
+                set {_mob}'s invulnerability time to 2 ticks
+                set {_mob} to {_mob}
+                if health of {_mob} <= (maximum health of {_mob})/2:
+                    make {_p} damage {_mob} by 0.4
+                else:
+                    make {_p} damage {_mob} by 0.2
+                stop
+                set {_mob}'s invulnerability time to 10 ticks
+        else:
+            loop all entities in radius {_hitRadius} around {_current}:
+                loop-entity is not {_p}
+                make {_p} damage loop-entity by 1.5
+        wait 1 tick
+
+function {@characterId}_eKoKorosu(entity: entity):
+    wait 2 second
+    kill {_entity}
+
+on death of a slime:
+    int tag "custom;sticky" of nbt of victim is 1
+    draw 3 explosion at location of victim
+    clear drops
+    loop all entities in radius 3 of location of victim:
+        set loop-entity's invulnerability time to 0 ticks
+        set {_victim} to loop-entity
+        make {-eKo::%uuid of victim%} damage loop-entity by 0.7
+        loop all players in radius 7 of location of victim:
+            command "/playsound minecraft:entity.generic.explode ambient %loop-player% %x-pos of loop-player% %y-pos of loop-player% %z-pos of loop-player% 0.3 2"
+    set {_victim}'s invulnerability time to 10 ticks
+    delete {-eKo::%uuid of victim%}
+    remove victim from {-eKo::boms::*}
+
+command /korosu:
+    permission: op
+    trigger:
+        kill target entity
+
+on death of player:
+    if {-eKo::%uuid of victim%::change} is true:
+        set {_player} to victim
+        delete {-eKo::%uuid of {_player}%::change}
+        wait 2 tick
+        setPlayerCharacterId({_player},"echo")
+        setSkin({_player}, "echo")
+        clear {_player}'s inventories
+
+        setKBResistance({_player}, 1)
+        setHealthPlayer({_player}, getHealthCharacter("echo"))
+        setWeightPlayer({_player}, getWeightCharacter("echo"))
+        setSpeedPlayer({_player}, getSpeedCharacter("echo"))
+        setJumpPlayer({_player}, getJumpCharacter("echo"))
+
+        giveCharacterItems({_player})
+
+        heal {_player} by 5 hearts
+
+
+every tick:
+    loop {-eKo::boms::*}:
+        loop all players in radius 0.85 of location of loop-value:
+            loop-player isn't {-eKo::%uuid of loop-value-1%}
+            set {_player} to loop-player
+        teleport loop-value-1 at {_player}

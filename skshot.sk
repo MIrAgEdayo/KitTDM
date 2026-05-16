@@ -1,0 +1,422 @@
+
+function GunCreateDefaults(id: integer):
+	set {skshot::runtime::%{_id}%::mode} to "particle"
+	set {skshot::runtime::%{_id}%::name} to "&6SKShot #%{_id}%"
+	set {skshot::runtime::%{_id}%::particle} to "flame"
+	set {skshot::runtime::%{_id}%::base} to "flame"
+	set {skshot::runtime::%{_id}%::count} to 1
+	set {skshot::runtime::%{_id}%::extra} to 0
+	set {skshot::runtime::%{_id}%::r} to 0
+	set {skshot::runtime::%{_id}%::g} to 170
+	set {skshot::runtime::%{_id}%::b} to 255
+	set {skshot::runtime::%{_id}%::size} to 1
+	set {skshot::runtime::%{_id}%::spread} to 0
+	set {skshot::runtime::%{_id}%::speed} to 40
+	set {skshot::runtime::%{_id}%::distance} to 60
+	set {skshot::runtime::%{_id}%::radius} to 0.35
+	set {skshot::runtime::%{_id}%::pellets} to 1
+	set {skshot::runtime::%{_id}%::damage} to 4
+	set {skshot::runtime::%{_id}%::magSize} to 10
+	set {skshot::runtime::%{_id}%::reserveAmmo} to -1
+	set {skshot::runtime::%{_id}%::reloadTicks} to 30
+	set {skshot::runtime::%{_id}%::fireIntervalTicks} to 4
+	set {skshot::runtime::%{_id}%::itemType} to "stick"
+	set {skshot::runtime::%{_id}%::fireSound} to "entity.firework_rocket.blast"
+	set {skshot::runtime::%{_id}%::fireSoundVolume} to 0.8
+	set {skshot::runtime::%{_id}%::fireSoundPitch} to 1.2
+
+function GunCreateStats(id: integer, magSize: integer, reserveAmmo: integer, reloadTicks: integer, fireIntervalTicks: integer, fireSound: text = "entity.firework_rocket.blast", fireSoundVolume: number = 0.8, fireSoundPitch: number = 1.2):
+	set {skshot::runtime::%{_id}%::magSize} to {_magSize}
+	set {skshot::runtime::%{_id}%::reserveAmmo} to {_reserveAmmo}
+	set {skshot::runtime::%{_id}%::reloadTicks} to {_reloadTicks}
+	set {skshot::runtime::%{_id}%::fireIntervalTicks} to {_fireIntervalTicks}
+	set {skshot::runtime::%{_id}%::fireSound} to {_fireSound}
+	set {skshot::runtime::%{_id}%::fireSoundVolume} to {_fireSoundVolume}
+	set {skshot::runtime::%{_id}%::fireSoundPitch} to {_fireSoundPitch}
+
+function ShotReadTaggedInt(it: item, tagPrefix: text, fallback: integer) :: integer:
+	if lore of {_it} is not set:
+		return {_fallback}
+	loop lore of {_it}:
+		set {_raw} to uncolored loop-value
+		if {_raw} contains {_tagPrefix}:
+			replace {_tagPrefix} with "" in {_raw}
+			replace "]" with "" in {_raw}
+			set {_n} to {_raw} parsed as integer
+			if {_n} is set:
+				return {_n}
+	return {_fallback}
+
+function ShotGetGunId(it: item) :: integer:
+	return ShotReadTaggedInt({_it}, "[SKSHOT_GUN_ID:", -1)
+
+function ShotFormatGun(it: item, id: integer, ammo: integer, reserve: integer) :: item:
+	set {_baseName} to {skshot::runtime::%{_id}%::name}
+	if {_baseName} is not set:
+		set {_baseName} to "&6SKShot #%{_id}%"
+	set {_reserveText} to "%{_reserve}%"
+	if {_reserve} < 0:
+		set {_reserveText} to "INF"
+	set name of {_it} to "%{_baseName}% &7[%{_ammo}%/%{_reserveText}%]"
+	set lore of {_it} to "&8[SKSHOT_GUN_ID:%{_id}%]" and "&8[SKSHOT_AMMO:%{_ammo}%]" and "&8[SKSHOT_RESERVE:%{_reserve}%]" and "&7Qでリロード"
+	return {_it}
+
+function ShotTryReloadGun(p: player, forced: boolean = false, srcItem: item = air) :: boolean:
+	set {_tool} to {_srcItem}
+	if {_tool} is air:
+		set {_tool} to {_p}'s tool
+	if {_tool} is air:
+		return false
+
+	set {_sid} to ShotGetGunId({_tool})
+	if {_sid} <= 0:
+		return false
+	if {skshot::runtime::%{_sid}%::name} is not set:
+		return false
+
+	set {_mag} to {skshot::runtime::%{_sid}%::magSize}
+	set {_reloadTicks} to {skshot::runtime::%{_sid}%::reloadTicks}
+	if {_mag} is not set:
+		set {_mag} to 10
+	if {_reloadTicks} is not set:
+		set {_reloadTicks} to 30
+
+	set {_ammo} to ShotReadTaggedInt({_tool}, "[SKSHOT_AMMO:", {_mag})
+	set {_reserveDefault} to {skshot::runtime::%{_sid}%::reserveAmmo}
+	if {_reserveDefault} is not set:
+		set {_reserveDefault} to -1
+	set {_reserve} to ShotReadTaggedInt({_tool}, "[SKSHOT_RESERVE:", {_reserveDefault})
+
+	if {_forced} is false:
+		if {_ammo} >= {_mag}:
+			send action bar "&e弾倉は満タンです。" to {_p}
+			return false
+
+	set {_need} to {_mag} - {_ammo}
+	if {_need} < 0:
+		set {_need} to 0
+	set {_load} to {_need}
+	if {_reserve} >= 0:
+		if {_load} > {_reserve}:
+			set {_load} to {_reserve}
+		if {_load} <= 0:
+			send action bar "&c予備弾がありません。" to {_p}
+			return false
+	set {_newAmmo} to {_ammo} + {_load}
+	set {_newReserve} to {_reserve}
+	if {_reserve} >= 0:
+		set {_newReserve} to {_reserve} - {_load}
+		if {_newReserve} < 0:
+			set {_newReserve} to 0
+
+	set {_u} to "%uuid of {_p}%"
+	if {_forced} is true:
+		set {_newTool} to ShotFormatGun({_tool}, {_sid}, {_newAmmo}, {_newReserve})
+		set {_p}'s tool to {_newTool}
+		delete {skshot::reload::%{_u}%::*}
+		play sound "item.armor.equip_chain" with volume 0.8 and pitch 1 to {_p}
+		send action bar "&aリロード完了 &7[%{_newAmmo}%/%{_newReserve}%]" to {_p}
+		return true
+
+	if {skshot::reload::%{_u}%::until} is set:
+		send action bar "&eリロード中です。" to {_p}
+		return false
+
+	set {skshot::reload::%{_u}%::sid} to {_sid}
+	set {skshot::reload::%{_u}%::ammoAfter} to {_newAmmo}
+	set {skshot::reload::%{_u}%::reserveAfter} to {_newReserve}
+	set {skshot::reload::%{_u}%::until} to {skshot::tick} + {_reloadTicks}
+	play sound "item.crossbow.loading_start" with volume 0.7 and pitch 1 to {_p}
+	send action bar "&eリロード中..." to {_p}
+	return true
+
+function GunCreateCustomParticle(id: integer, name: text, base: text, itemType: text = "stick", count: integer = 1, extra: number = 0, spread: number = 0, speed: number = 40, distance: number = 60, radius: number = 0.35):
+	add {_id} to {skshot::ids::*}
+	GunCreateDefaults({_id})
+	set {skshot::runtime::%{_id}%::mode} to "custom"
+	set {skshot::runtime::%{_id}%::name} to {_name}
+	set {skshot::runtime::%{_id}%::base} to {_base}
+	set {skshot::runtime::%{_id}%::itemType} to {_itemType}
+	set {skshot::runtime::%{_id}%::count} to {_count}
+	set {skshot::runtime::%{_id}%::extra} to {_extra}
+	set {skshot::runtime::%{_id}%::spread} to {_spread}
+	set {skshot::runtime::%{_id}%::speed} to {_speed}
+	set {skshot::runtime::%{_id}%::distance} to {_distance}
+	set {skshot::runtime::%{_id}%::radius} to {_radius}
+
+function GunCreateCustomDust(id: integer, name: text, r: integer, g: integer, b: integer, itemType: text = "stick", size: number = 1, spread: number = 0, speed: number = 40, distance: number = 60, radius: number = 0.35):
+	add {_id} to {skshot::ids::*}
+	GunCreateDefaults({_id})
+	set {skshot::runtime::%{_id}%::mode} to "dust"
+	set {skshot::runtime::%{_id}%::name} to {_name}
+	set {skshot::runtime::%{_id}%::r} to {_r}
+	set {skshot::runtime::%{_id}%::g} to {_g}
+	set {skshot::runtime::%{_id}%::b} to {_b}
+	set {skshot::runtime::%{_id}%::itemType} to {_itemType}
+	set {skshot::runtime::%{_id}%::size} to {_size}
+	set {skshot::runtime::%{_id}%::spread} to {_spread}
+	set {skshot::runtime::%{_id}%::speed} to {_speed}
+	set {skshot::runtime::%{_id}%::distance} to {_distance}
+	set {skshot::runtime::%{_id}%::radius} to {_radius}
+
+function BuildShotData():
+	delete {skshot::runtime::*}
+	delete {skshot::ids::*}
+
+	# GunCreate系で見た目/弾道を登録
+	GunCreateCustomParticle(1, "&6SKShot Rifle #1", "flame", "carrot on a stick", 1, 0, 0, 50, 70)
+	GunCreateStats(1, 24, -1, 28, 2, "entity.firework_rocket.blast", 0.85, 1.25)
+	set {skshot::runtime::1::damage} to 4
+	GunCreateCustomDust(2, "&bSKShot Laser #2", 0, 220, 255, "blaze rod", 1.2, 0, 70, 80)
+	GunCreateStats(2, 8, -1, 36, 5, "entity.guardian.attack", 0.75, 1.6)
+	set {skshot::runtime::2::damage} to 6
+
+	# ジャッジ: 5発 / 3.5発秒(=約6tick間隔) / 12ペレット / 拡散2.25 / リロード2.2秒(44tick)
+	GunCreateCustomParticle(3, "&cジャッジ", "crit", "brick", 1, 0, 8, 1, 7, 1.3)
+	GunCreateStats(3, 5, -1, 44, 6, "entity.firework_rocket.large_blast", 0.9, 0.8)
+	set {skshot::runtime::3::pellets} to 12
+	set {skshot::runtime::3::damage} to 2.4
+
+on script load:
+	BuildShotData()
+	if {skshot::tick} is not set:
+		set {skshot::tick} to 0
+
+every 1 tick:
+	add 1 to {skshot::tick}
+	loop all players:
+		set {_u} to "%uuid of loop-player%"
+		if {skshot::reload::%{_u}%::until} is set:
+			if {skshot::tick} >= {skshot::reload::%{_u}%::until}:
+				ShotTryReloadGun(loop-player, true)
+
+function FireShotById(p: player, id: integer):
+	if {skshot::runtime::%{_id}%::name} is not set:
+		send "&c未定義のショットIDです: &f%{_id}%" to {_p}
+		stop
+	set {_pellets} to {skshot::runtime::%{_id}%::pellets}
+	if {_pellets} is not set:
+		set {_pellets} to 1
+	set {_damage} to {skshot::runtime::%{_id}%::damage}
+	if {_damage} is not set:
+		set {_damage} to 4
+	set {_waitTicks} to 1
+	if {_pellets} > 1:
+		set {_waitTicks} to 0
+
+	loop {_pellets} times:
+		DrawParticleBullet({_p}, {_id}, {skshot::runtime::%{_id}%::spread}, {skshot::runtime::%{_id}%::speed}, {skshot::runtime::%{_id}%::distance}, {skshot::runtime::%{_id}%::radius}, {_damage}, {_waitTicks})
+
+function DrawParticleBullet(p: player, id: integer, spread: number = 1.5, speed: number = 2.6, maxDistance: number = 60, hitRadius: number = 0.35, damage: number = 4, waitTicks: integer = 1):
+	set {_start} to eye location of {_p}
+	set {_yaw} to yaw of {_p}'s location
+	set {_pitch} to pitch of {_p}'s location
+	set {_mode} to {skshot::runtime::%{_id}%::mode}
+	if {_mode} is not set:
+		set {_mode} to "particle"
+	set {_count} to {skshot::runtime::%{_id}%::count}
+	if {_count} is not set:
+		set {_count} to 1
+	set {_extra} to {skshot::runtime::%{_id}%::extra}
+	if {_extra} is not set:
+		set {_extra} to 0
+
+	if {_mode} is "custom":
+		set {_particleName} to {skshot::runtime::%{_id}%::base}
+	else:
+		set {_particleName} to {skshot::runtime::%{_id}%::particle}
+	set {_particleType} to {_particleName}
+	if {_particleType} is not set:
+		set {_particleType} to flame
+
+	set {_dustR} to {skshot::runtime::%{_id}%::r}
+	set {_dustG} to {skshot::runtime::%{_id}%::g}
+	set {_dustB} to {skshot::runtime::%{_id}%::b}
+	set {_dustSize} to {skshot::runtime::%{_id}%::size}
+	if {_dustR} is not set:
+		set {_dustR} to 0
+	if {_dustG} is not set:
+		set {_dustG} to 170
+	if {_dustB} is not set:
+		set {_dustB} to 255
+	if {_dustSize} is not set:
+		set {_dustSize} to 1
+
+	# spread分だけyaw/pitchをずらして弾道方向を決める
+	set {_spreadMin} to 0 - {_spread}
+	set {_bulletYaw} to {_yaw} + (random number between {_spreadMin} and {_spread})
+	set {_bulletPitch} to {_pitch} + (random number between {_spreadMin} and {_spread})
+
+	# speedは1秒あたり(block/s)として受け取り、1tick(1/20秒)の移動量へ変換
+	set {_ticksPerSecond} to 20
+	set {_stepPerTick} to {_speed} / {_ticksPerSecond}
+	set {_dx} to (0 - (sin({_bulletYaw}) * cos({_bulletPitch}))) * {_stepPerTick}
+	set {_dy} to (0 - sin({_bulletPitch})) * {_stepPerTick}
+	set {_dz} to (cos({_bulletYaw}) * cos({_bulletPitch})) * {_stepPerTick}
+
+	set {_current} to {_start}
+	set {_traveled} to 0
+
+	while {_traveled} < {_maxDistance}:
+		add {_dx} to x-coordinate of {_current}
+		add {_dy} to y-coordinate of {_current}
+		add {_dz} to z-coordinate of {_current}
+		add {_stepPerTick} to {_traveled}
+		draw {_count} of crit at {_current} with extra {_extra}
+		set {_hitBlock} to block at {_current}
+		if {_hitBlock} is solid:
+			stop
+		loop all entities in radius {_hitRadius} around {_current}:
+			if loop-entity is not {_p}:
+				damage loop-entity by {_damage}
+				stop
+
+		if {_waitTicks} > 0:
+			loop {_waitTicks} times:
+				wait 1 tick
+
+command /skshot [<text>] [<text>] [<text>] [<text>] [<text>] [<text>] [<text>]:
+	permission: op
+	trigger:
+		if arg-1 is "help":
+			send "&e/skshot ids"
+			send "&e/skshot reload"
+			send "&e/skshot give <id> [player]"
+			send "&e/skshot fire <id>"
+			send "&7IDはintegerのみ。設定は関数 BuildShotData で管理。"
+			send "&7変更後は /sk reload skshot で反映。"
+			stop
+		if arg-1 is "ids":
+			if {skshot::ids::*} is not set:
+				send "&e定義済みID: &f(なし)"
+				stop
+			set {_list} to ""
+			loop {skshot::ids::*}:
+				if {_list} is "":
+					set {_list} to "%loop-value%"
+				else:
+					set {_list} to "%{_list}%, %loop-value%"
+			send "&e定義済みID: &f%{_list}%"
+			stop
+
+		if arg-1 is "reload":
+			BuildShotData()
+			send "&a銃データを再読み込みしました。"
+			stop
+
+		if arg-1 is "give":
+			if arg-2 is not set:
+				send "&c使い方: /skshot give <id> [player]"
+				stop
+
+			set {_sid} to arg-2 parsed as integer
+			if {_sid} is not set:
+				send "&cidは整数で指定してください。"
+				stop
+			if {skshot::runtime::%{_sid}%::name} is not set:
+				send "&c未定義のショットIDです: &f%{_sid}%"
+				stop
+
+			set {_target} to player
+			if arg-3 is set:
+				set {_targetParsed} to arg-3 parsed as player
+				if {_targetParsed} is not set:
+					send "&c対象プレイヤーが見つかりません。"
+					stop
+				set {_target} to {_targetParsed}
+
+			set {_gunTypeText} to {skshot::runtime::%{_sid}%::itemType}
+			set {_gunType} to {_gunTypeText} parsed as item type
+			if {_gunType} is not set:
+				set {_gunType} to stick
+			set {_gun} to {_gunType} named {skshot::runtime::%{_sid}%::name}
+			set {_mag} to {skshot::runtime::%{_sid}%::magSize}
+			set {_reserve} to {skshot::runtime::%{_sid}%::reserveAmmo}
+			if {_mag} is not set:
+				set {_mag} to 10
+			if {_reserve} is not set:
+				set {_reserve} to -1
+			set {_gun} to ShotFormatGun({_gun}, {_sid}, {_mag}, {_reserve})
+			give {_gun} to {_target}
+			send "&a銃を配布しました: &f%{_sid}%"
+			stop
+
+		if arg-1 is "fire":
+			if arg-2 is not set:
+				send "&c使い方: /skshot fire <id>"
+				stop
+			set {_sid} to arg-2 parsed as integer
+			if {_sid} is not set:
+				send "&cidは整数で指定してください。"
+				stop
+			FireShotById(player, {_sid})
+			stop
+
+		send "&c不明なサブコマンドです。/skshot help を確認してください。"
+
+on right click:
+	set {_tool} to player's tool
+	if {_tool} is air:
+		stop
+	if lore of {_tool} is not set:
+		stop
+
+	set {_shotId} to ShotGetGunId({_tool})
+
+	if {_shotId} is -1:
+		stop
+	if {skshot::runtime::%{_shotId}%::name} is not set:
+		stop
+
+	cancel event
+
+	set {_u} to "%uuid of player%"
+	if {skshot::reload::%{_u}%::until} is set:
+		send action bar "&eリロード中..." to player
+		stop
+
+	set {_interval} to {skshot::runtime::%{_shotId}%::fireIntervalTicks}
+	if {_interval} is not set:
+		set {_interval} to 4
+	set {_nextAllowed} to {skshot::cooldown::%{_u}%::%{_shotId}%}
+	if {_nextAllowed} is set:
+		if {skshot::tick} < {_nextAllowed}:
+			stop
+
+	set {_mag} to {skshot::runtime::%{_shotId}%::magSize}
+	if {_mag} is not set:
+		set {_mag} to 10
+	set {_reserveDefault} to {skshot::runtime::%{_shotId}%::reserveAmmo}
+	if {_reserveDefault} is not set:
+		set {_reserveDefault} to -1
+	set {_ammo} to ShotReadTaggedInt({_tool}, "[SKSHOT_AMMO:", {_mag})
+	set {_reserve} to ShotReadTaggedInt({_tool}, "[SKSHOT_RESERVE:", {_reserveDefault})
+
+	if {_ammo} <= 0:
+		send action bar "&c弾切れ。Qでリロード" to player
+		play sound "block.note_block.bass" with volume 0.8 and pitch 0.7 to player
+		stop
+
+	subtract 1 from {_ammo}
+	set {_newTool} to ShotFormatGun({_tool}, {_shotId}, {_ammo}, {_reserve})
+	set player's tool to {_newTool}
+	set {skshot::cooldown::%{_u}%::%{_shotId}%} to {skshot::tick} + {_interval}
+	set {_fireSound} to {skshot::runtime::%{_shotId}%::fireSound}
+	set {_fireVolume} to {skshot::runtime::%{_shotId}%::fireSoundVolume}
+	set {_firePitch} to {skshot::runtime::%{_shotId}%::fireSoundPitch}
+	if {_fireSound} is not set:
+		set {_fireSound} to "entity.firework_rocket.blast"
+	if {_fireVolume} is not set:
+		set {_fireVolume} to 0.8
+	if {_firePitch} is not set:
+		set {_firePitch} to 1.2
+	play sound {_fireSound} with volume {_fireVolume} and pitch {_firePitch} to player
+	FireShotById(player, {_shotId})
+
+on drop:
+	set {_sid} to ShotGetGunId(event-item)
+	if {_sid} <= 0:
+		stop
+
+	cancel event
+	ShotTryReloadGun(player, false, event-item)

@@ -1,0 +1,58 @@
+options:
+	tick-move-epsilon: 0.001
+
+function getTickMoveDirection(dx: number, dz: number) :: text:
+	if {_dx} is between -{@tick-move-epsilon} and {@tick-move-epsilon}:
+		if {_dz} is between -{@tick-move-epsilon} and {@tick-move-epsilon}:
+			return "stop"
+
+	if {_dz} < -{@tick-move-epsilon}:
+		return "north"
+	if {_dz} > {@tick-move-epsilon}:
+		return "south"
+	if {_dx} > {@tick-move-epsilon}:
+		return "east"
+	return "west"
+
+
+every tick:
+	loop all players:
+		set {_id} to "%uuid of loop-player%"
+		set {_x} to x-coordinate of location of loop-player
+		set {_z} to z-coordinate of location of loop-player
+
+		if {tickPrevX::%{_id}%} is not set:
+			set {tickPrevX::%{_id}%} to {_x}
+			set {tickPrevZ::%{_id}%} to {_z}
+			stop loop
+
+		set {_prevX} to {tickPrevX::%{_id}%}
+		set {_prevZ} to {tickPrevZ::%{_id}%}
+		set {_dx} to {_x} - {_prevX}
+		set {_dz} to {_z} - {_prevZ}
+		set {_dist} to sqrt(({_dx} * {_dx}) + ({_dz} * {_dz}))
+
+		set {tickPrevX::%{_id}%} to {_x}
+		set {tickPrevZ::%{_id}%} to {_z}
+
+		set {_dir} to getTickMoveDirection({_dx}, {_dz})
+		set {tickMoveDx::%{_id}%} to {_dx}
+		set {tickMoveDz::%{_id}%} to {_dz}
+		set {tickMoveDir::%{_id}%} to {_dir}
+		set {tickMoveDist::%{_id}%} to {_dist}
+
+		if {velDirWatch::%{_id}%} is not true:
+			stop loop
+
+		set {tickWatchLastDir::%{_id}%} to {_dir}
+
+on quit:
+	set {_id} to "%uuid of player%"
+	delete {velDirWatch::%{_id}%}
+	delete {tickWatchLastDir::%{_id}%}
+	delete {tickPrevX::%{_id}%}
+	delete {tickPrevZ::%{_id}%}
+	delete {tickMoveDx::%{_id}%}
+	delete {tickMoveDz::%{_id}%}
+	delete {tickMoveDir::%{_id}%}
+	delete {tickMoveDist::%{_id}%}

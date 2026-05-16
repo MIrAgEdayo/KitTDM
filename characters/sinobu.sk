@@ -1,0 +1,567 @@
+options:
+    prefix: &7&l[&c&lGame&7&l]
+    characterId: sinobu
+
+on load:
+    # TODO: 胡蝶しのぶ用のスキン value / signature に差し替え（現状は仮で giyu と同じスキンを利用）
+    set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTYyNDAzNjkxMDg0MCwKICAicHJvZmlsZUlkIiA6ICJiNzQ3OWJhZTI5YzQ0YjIzYmE1NjI4MzM3OGYwZTNjNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJTeWxlZXgiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWUyNjdjM2IxNTlmMTY1Zjg3NzI2NzUxNmEwZWFjNThlMTlkYWM1Y2JjNDk0ZDUxZjE2ZjNlM2JiMDdlOTJkNSIKICAgIH0KICB9Cn0="
+    set {_signature} to "H0RM6MbC9rP9IEOz2gepZ5GGMkcc1MfDMzZM918r8fSytHr0gNTGLXst/x5fHKxKcNeRXooQ+fGLxU31cEvMRxJWHxTGOD0tZY5aIRI6bdBsBCmkT+ciYpdSSiYj+cPnd1OptSl9Tb3uEKSafrf5nm6E2CUf23tMoPVpMMG87XTm5Hyl10nTjyugpSJPo2mVlf/mH8XvfIQB8zJ0aHvzepb0EoTWMq6t3qdUpNPFFwKhBQ1ZAaRuicSS6FKmO32LR9Abjyk8j0zUoGrUEaBrTK3elJnGUh30rDAB3I8jKhB+JMfBap9SbBisq9IymwSZ5TnLCoq6aKLsz1gAuWDKR5U83NygtyndUCtOKd9RtMsYqnS+QENaZjvluNGTfc6uytoNDiC2La7XfZ66EM+jPZrM7EC0ZZDYb+2bpWjleKYY5Ot8t2lHKqNq5UQI/FT5H8jUF/BLmBouk1qMMghY99Mp1CbTfXe+8imHyOkpD5GnB+HfbBC5e4dgVwLOf8je65njAkWejL/8b9cP7uZ9RQrOqfvQYH3u8jXO/QMFDntfwNUDRmMLPKthlKfAu7fUTxG+5iF4uv+A38zZml/x9qBdSnxYclRC5oouhvemUORPJe0vSo2Olqv6oiciR7nR9NjTJwLdr3PmxagztNH7BlctvkMzgIcSspDl5tvQr0c="
+    registerSkin("{@characterId}", {_value}, {_signature})
+
+    set {character::{@characterId}::head} to head from value {_value}
+    registerCharacter("{@characterId}", 2, 20, 1, 1, 1)
+
+    set {_lore::1} to ""
+    set {_lore::2} to "&b&l&n⊱&7蟲柱。藤の花の毒を仕込んだ刺突で鬼を屠る毒の使い手。"
+    set {_lore::3} to ""
+    add "&f「私 笑ってますよ？」" to {_lore::*}
+    set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&d&l鬼滅の刃&7] &d&l胡蝶しのぶ" with lore {_lore::*}
+
+    delete {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7蝶の如く軽やかに舞いながら前方へ連続刺突を放ち、" to {_lore::*}
+    add " &b&l&n⊱&7命中した相手に藤の花の毒を注ぎ込む。" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    set {_item} to phantom membrane of sharpness 1 with model data 1 named "&d&l&n蝶ノ舞 戯れ" with lore {_lore::*} with custom nbt from "{actionId:1}"
+    registerAction("{@characterId}", 1, hideItemInfo({_item}))
+
+    delete {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7蜂の毒針が如く、力を溜めた後に直線を超加速で貫く一突き。" to {_lore::*}
+    add " &b&l&n⊱&7命中した相手には濃縮された藤の花の毒を注ぎ込む。" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    set {_item} to honeycomb of sharpness 1 with model data 1 named "&e&l&n蜂牙ノ舞 真靡き" with lore {_lore::*} with custom nbt from "{actionId:2}"
+    registerAction("{@characterId}", 2, hideItemInfo({_item}))
+
+    delete {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7不規則な軌道で対象の周囲を縦横無尽に駆け抜け、" to {_lore::*}
+    add " &b&l&n⊱&7乱れた拍子から連続刺突を浴びせる変則型。" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    set {_item} to bee nest of sharpness 1 with model data 1 named "&6&l&n虻咬ノ舞 真調" with lore {_lore::*} with custom nbt from "{actionId:3}"
+    registerAction("{@characterId}", 3, hideItemInfo({_item}))
+
+    delete {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7蜻蛉の複眼が持つ六角形を象り、" to {_lore::*}
+    add " &b&l&n⊱&7自身を中心に六方へ広がる斬撃で周囲一帯を制圧する。" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    set {_item} to spider eye of sharpness 1 with model data 1 named "&b&l&n蜻蛉ノ舞 複眼六角" with lore {_lore::*} with custom nbt from "{actionId:4}"
+    registerAction("{@characterId}", 4, hideItemInfo({_item}))
+
+    delete {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7蜈蚣の如く波打つ軌道で前方を駆け抜け、" to {_lore::*}
+    add " &b&l&n⊱&7波上に並ぶ無数の脚で敵を貫く長射程の奥義。" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    set {_item} to fermented spider eye of sharpness 1 with model data 1 named "&5&l&n蜈蚣ノ舞 百足蛇腹" with lore {_lore::*} with custom nbt from "{actionId:5}"
+    registerAction("{@characterId}", 5, hideItemInfo({_item}))
+
+# ============================================================
+# 蝶ノ舞「戯れ」
+# 　蝶のように軽やかに舞いながら前方へ滑り、左右に揺れる
+# 　ジグザグ軌道で連続刺突を放つ。命中した相手には藤の花の
+# 　毒（poison）を一定時間付与し、継続ダメージを与える。
+# ============================================================
+function {@characterId}_action1(player: player):
+    cooldown({_player}, {_player}'s tool, 7 second)
+    play sound "entity.player.attack.sweep" with volume 1.2 with pitch 1.6 to all players where [distance between {_player} and input <= 20]
+    play sound "entity.bee.loop" with volume 0.8 with pitch 1.4 to all players where [distance between {_player} and input <= 20]
+    push {_player} forward at speed 0.6
+    set {_origin} to {_player}'s eye
+    set {_forward} to {_player}'s facing
+    loop 10 times:
+        set {_step} to loop-number
+        wait 2 tick
+        set {_offset} to {_forward}
+        set vector length of {_offset} to 0.9 * {_step}
+        set {_loc} to {_origin}~{_offset}
+        if {_step} mod 2 is 0:
+            set {_side} to {_forward}
+            rotate {_side} around y-axis by 90
+            set vector length of {_side} to 0.7
+            set {_loc} to {_loc}~{_side}
+        else:
+            set {_side} to {_forward}
+            rotate {_side} around y-axis by -90
+            set vector length of {_side} to 0.7
+            set {_loc} to {_loc}~{_side}
+        play sound "entity.player.attack.crit" with volume 1 with pitch 1.8 to all players where [distance between {_loc} and input <= 20]
+        loop 12 times:
+            set {_pVec} to vector(0.5, 0, 0)
+            rotate {_pVec} around y-axis by (loop-number * 30)
+            draw 1 of dust particle using dustOption(rgb(255, 130, 230), 1) at {_loc}~{_pVec} with extra 0
+            draw 1 of dust particle using dustOption(rgb(180, 90, 220), 0.9) at {_loc}~{_pVec} with extra 0
+        loop all players in radius 1.6 around {_loc}:
+            isSameTeam({_player}, loop-player) is false
+            gamemode of loop-player is adventure
+            "%uuid of loop-player%" is not in {_hit::*}
+            add "%uuid of loop-player%" to {_hit::*}
+            force {_player} to damage loop-player by 1 hearts
+            applyNoKnockback(loop-player, 1)
+            apply poison 1 to loop-player for 5 seconds
+        if block at {_loc} is not air:
+            exit loop
+
+# ============================================================
+# 蜂牙ノ舞「真靡き」
+# 　0.5秒の溜めで蜂を纏うように力を集中し、直線を超加速で
+# 　貫通突進する。突進ライン上の敵に高威力ダメージと
+# 　濃縮された藤の花の毒（poison 2 / 8秒）を付与する。
+# ============================================================
+function {@characterId}_action2(player: player):
+    cooldown({_player}, {_player}'s tool, 12 second)
+
+    # --- 溜め演出 (約0.5秒) ---
+    play sound "entity.bee.loop_aggressive" with volume 1.5 with pitch 1.2 to all players where [distance between {_player} and input <= 25]
+    play sound "block.beacon.activate" with volume 1 with pitch 1.8 to all players where [distance between {_player} and input <= 25]
+    send title "&e&l蜂牙ノ舞" with subtitle "&6&l真靡き" to {_player} for 30 ticks
+    loop 10 times:
+        wait 1 tick
+        set {_center} to location 1 meter above {_player}
+        # 蜂を象徴する黄色×黒の二重螺旋
+        loop 6 times:
+            set {_v1} to vector(1.4 - (loop-number-1 * 0.08), 0, 0)
+            rotate {_v1} around y-axis by ((loop-number * 60) + (loop-value-1 * 40))
+            draw 1 of dust particle using dustOption(rgb(255, 220, 0), 1.1) at {_center}~{_v1} with extra 0
+            set {_v2} to vector(1.4 - (loop-number-1 * 0.08), 0, 0)
+            rotate {_v2} around y-axis by ((loop-number * 60) + (loop-value-1 * 40) + 180)
+            draw 1 of dust particle using dustOption(rgb(40, 30, 0), 1) at {_center}~{_v2} with extra 0
+        draw 2 of "minecraft:end_rod" at {_player}'s eye with extra 0
+
+    # --- 一閃突進 ---
+    play sound "item.trident.throw" with volume 2 with pitch 1.4 to all players where [distance between {_player} and input <= 30]
+    play sound "entity.player.attack.crit" with volume 2 with pitch 0.7 to all players where [distance between {_player} and input <= 30]
+    play sound "custom:sword_swing" with volume 1 with pitch 1.5 to all players where [distance between {_player} and input <= 30]
+    push {_player} forward at speed 2.4
+    applyNoKnockback({_player}, 0.5)
+
+    set {_origin} to {_player}'s eye
+    set {_loc} to {_origin}
+    delete {_hit::*}
+    loop 28 times:
+        set {_loc} to location 0.8 meter forward {_loc}
+        # 突進ラインの軌跡（黄色の鋭い線＋黒のアクセント）
+        draw 2 of dust particle using dustOption(rgb(255, 230, 60), 1.2) at {_loc} with extra 0
+        draw 1 of dust particle using dustOption(rgb(255, 160, 0), 1) at {_loc} with extra 0
+        # 周囲に螺旋状の残光
+        set {_ring} to vector(0.6, 0, 0)
+        rotate {_ring} around y-axis by (loop-number * 45)
+        draw 1 of dust particle using dustOption(rgb(40, 30, 0), 0.9) at {_loc}~{_ring} with extra 0
+        draw 1 of "minecraft:crit" at {_loc} with extra 0
+
+        loop all players in radius 1.5 around {_loc}:
+            isSameTeam({_player}, loop-player) is false
+            gamemode of loop-player is adventure
+            "%uuid of loop-player%" is not in {_hit::*}
+            add "%uuid of loop-player%" to {_hit::*}
+            # 命中演出
+            play sound "entity.player.attack.crit" with volume 1.6 with pitch 0.9 to all players where [distance between loop-player and input <= 20]
+            play sound "entity.bee.sting" with volume 1.4 with pitch 1.2 to all players where [distance between loop-player and input <= 20]
+            set {_burst} to location 1 meter above loop-player
+            loop 20 times:
+                set {_bv} to vector(0.4, 0, 0)
+                rotate {_bv} around y-axis by (loop-number * 18)
+                draw 1 of dust particle using dustOption(rgb(255, 220, 0), 1.3) at {_burst}~{_bv} with extra 0
+            draw 30 of "minecraft:crit" at loop-player with extra 0.5
+            force {_player} to damage loop-player by 6 hearts
+            applyNoKnockback(loop-player, 1)
+            apply poison 2 to loop-player for 8 seconds
+
+        if block at {_loc} is not air:
+            exit loop
+
+    # --- 余韻 ---
+    loop 5 times:
+        wait 1 tick
+        draw 3 of dust particle using dustOption(rgb(255, 220, 0), 1) at {_loc} with extra 0
+        draw 1 of "minecraft:end_rod" at {_loc} with extra 0
+
+# ============================================================
+# 虻咬ノ舞「真調」
+# 　最も近い敵を捕捉し、ランダムな角度・距離・テンポで
+# 　周囲を5回テレポート強襲。命中ごとに弱毒と鈍足を付与し、
+# 　最後に上空から締めの一撃を落とす。
+# 　ターゲット不在時は前方ダッシュ単発刺突にフォールバック。
+# ============================================================
+function {@characterId}_action3(player: player):
+    cooldown({_player}, {_player}'s tool, 11 second)
+
+    # --- 開幕演出 ---
+    play sound "entity.bee.loop_aggressive" with volume 1.6 with pitch 0.7 to all players where [distance between {_player} and input <= 25]
+    play sound "block.beacon.deactivate" with volume 1 with pitch 1.5 to all players where [distance between {_player} and input <= 25]
+    send title "&6&l虻咬ノ舞" with subtitle "&e&l真調" to {_player} for 20 ticks
+    set {_aura} to location 1 meter above {_player}
+    loop 18 times:
+        set {_av} to vector(1.3, 0, 0)
+        rotate {_av} around y-axis by (loop-number * 20)
+        draw 1 of dust particle using dustOption(rgb(230, 170, 30), 1.1) at {_aura}~{_av} with extra 0
+        draw 1 of dust particle using dustOption(rgb(60, 40, 0), 0.9) at {_aura}~{_av} with extra 0
+
+    # --- ターゲット捜索 (最近接敵) ---
+    set {_minDist} to 999
+    loop all players in radius 12 around {_player}:
+        loop-player is not {_player}
+        isSameTeam({_player}, loop-player) is false
+        gamemode of loop-player is adventure
+        set {_d} to distance between {_player} and loop-player
+        {_d} < {_minDist}
+        set {_minDist} to {_d}
+        set {_target} to loop-player
+
+    if {_target} is not set:
+        # --- フォールバック: 前方ダッシュ単発刺突 ---
+        play sound "entity.bee.sting" with volume 1.3 with pitch 1.3 to all players where [distance between {_player} and input <= 20]
+        push {_player} forward at speed 1.5
+        wait 4 tick
+        set {_loc} to {_player}'s eye
+        loop 8 times:
+            set {_loc} to location 0.8 meter forward {_loc}
+            draw 2 of dust particle using dustOption(rgb(230, 180, 40), 1.2) at {_loc} with extra 0
+            draw 1 of dust particle using dustOption(rgb(80, 50, 0), 1) at {_loc} with extra 0
+            draw 1 of "minecraft:crit" at {_loc} with extra 0
+        loop all players in radius 2.2 around {_loc}:
+            isSameTeam({_player}, loop-player) is false
+            gamemode of loop-player is adventure
+            force {_player} to damage loop-player by 2 hearts
+            applyNoKnockback(loop-player, 1)
+            apply poison 1 to loop-player for 5 seconds
+        stop
+
+    # --- 5連変則強襲 ---
+    delete {_hit::*}
+    loop 5 times:
+        # 残像 (虻の翅イメージ)
+        set {_ghost} to location 1 meter above {_player}
+        loop 12 times:
+            set {_gv} to vector(0.8, 0, 0)
+            rotate {_gv} around y-axis by (loop-number * 30)
+            draw 1 of dust particle using dustOption(rgb(180, 120, 0), 0.9) at {_ghost}~{_gv} with extra 0
+
+        # ランダム角度・距離で目標周囲へ
+        set {_angle} to a random integer between 0 and 359
+        set {_radius} to a random number between 1.7 and 2.6
+        set {_offset} to vector({_radius}, 0, 0)
+        rotate {_offset} around y-axis by {_angle}
+        set {_strikeLoc} to location of {_target}
+        set {_strikeLoc} to {_strikeLoc}~{_offset}
+
+        # 移動軌跡 (琥珀色の閃光)
+        set {_from} to location of {_player}
+        set {_dist} to distance between {_from} and {_strikeLoc}
+        loop 10 times:
+            set {_p} to vector from {_from} to {_strikeLoc}
+            set vector length of {_p} to ({_dist} * loop-number / 10)
+            set {_traceLoc} to {_from}~{_p}
+            draw 1 of dust particle using dustOption(rgb(255, 210, 50), 1.1) at {_traceLoc} with extra 0
+            draw 1 of dust particle using dustOption(rgb(60, 40, 0), 1) at {_traceLoc} with extra 0
+
+        # 瞬間移動＋目標注視
+        play sound "entity.enderman.teleport" with volume 0.8 with pitch 1.7 to all players where [distance between {_strikeLoc} and input <= 25]
+        command "/tp %{_player}% %x of {_strikeLoc}% %y of {_strikeLoc}% %z of {_strikeLoc}% facing entity %{_target}%"
+        applyNoKnockback({_player}, 0.3)
+
+        # 刺突演出
+        play sound "entity.player.attack.crit" with volume 1.4 with pitch 1.4 to all players where [distance between {_target} and input <= 20]
+        play sound "entity.bee.sting" with volume 1.2 with pitch 1.5 to all players where [distance between {_target} and input <= 20]
+        draw 20 of "minecraft:crit" at {_target} with extra 0.3
+        set {_burst} to location 1 meter above {_target}
+        loop 14 times:
+            set {_bv} to vector(0.6, 0, 0)
+            rotate {_bv} around y-axis by (loop-number * 26)
+            draw 1 of dust particle using dustOption(rgb(255, 210, 50), 1.2) at {_burst}~{_bv} with extra 0
+
+        force {_player} to damage {_target} by 1.5 hearts
+        applyNoKnockback({_target}, 1)
+        apply poison 1 to {_target} for 5 seconds
+        apply slowness 1 to {_target} for 3 seconds
+
+        # 変則テンポ (4〜10tickのランダム待機で拍子を崩す)
+        set {_wait} to a random integer between 4 and 10
+        wait {_wait} ticks
+
+        # 中断条件 (ターゲット消失・退場)
+        if {_target} is offline:
+            exit loop
+        if gamemode of {_target} is not adventure:
+            exit loop
+
+    # --- 締めの一撃 (上空からの落下刺突) ---
+    {_target} is online
+    gamemode of {_target} is adventure
+    set {_finalLoc} to location 2.5 meter above {_target}
+    play sound "entity.enderman.teleport" with volume 1 with pitch 0.8 to all players where [distance between {_target} and input <= 25]
+    command "/tp %{_player}% %x of {_finalLoc}% %y of {_finalLoc}% %z of {_finalLoc}% facing entity %{_target}%"
+    wait 1 tick
+    play sound "item.trident.thunder" with volume 1.6 with pitch 1.4 to all players where [distance between {_target} and input <= 25]
+    play sound "entity.player.attack.crit" with volume 2 with pitch 0.6 to all players where [distance between {_target} and input <= 25]
+    set {_finBurst} to location of {_target}
+    loop 30 times:
+        set {_fv} to vector(0.7, 0, 0)
+        rotate {_fv} around y-axis by (loop-number * 12)
+        draw 1 of dust particle using dustOption(rgb(255, 230, 80), 1.4) at {_finBurst}~{_fv} with extra 0
+        draw 1 of dust particle using dustOption(rgb(100, 60, 0), 1) at {_finBurst}~{_fv} with extra 0
+    draw 50 of "minecraft:crit" at {_target} with extra 0.5
+    force {_player} to damage {_target} by 3 hearts
+    applyNoKnockback({_target}, 1)
+    apply poison 2 to {_target} for 6 seconds
+
+# ============================================================
+# 蜻蛉ノ舞「複眼六角」
+# 　自身を中心に六角形を収束→拡大→閃光の3段で展開し、
+# 　六角の輪郭に触れた敵に斬撃ダメージと藤の毒を与える
+# 　360°制圧型範囲攻撃。
+# ============================================================
+function {@characterId}_action4(player: player):
+    cooldown({_player}, {_player}'s tool, 12 second)
+
+    # --- 開幕演出 ---
+    play sound "entity.bee.loop" with volume 1.5 with pitch 1.3 to all players where [distance between {_player} and input <= 25]
+    play sound "block.beacon.power_select" with volume 1.3 with pitch 1.7 to all players where [distance between {_player} and input <= 25]
+    send title "&3&l蜻蛉ノ舞" with subtitle "&b&l複眼六角" to {_player} for 30 ticks
+    push {_player} upward at speed 0.4
+
+    # --- Phase 1: 六角形の収束 (8 tick) ---
+    loop 8 times:
+        wait 1 tick
+        set {_center} to location 1.2 meter above {_player}
+        set {_r} to loop-number * 0.18
+        delete {_corners::*}
+        loop 6 times:
+            set {_idx} to loop-number
+            set {_cv} to vector({_r}, 0, 0)
+            rotate {_cv} around y-axis by ({_idx} * 60)
+            set {_corners::%{_idx}%} to {_center}~{_cv}
+            draw 1 of dust particle using dustOption(rgb(0, 230, 220), 1.3) at {_corners::%{_idx}%} with extra 0
+        loop 6 times:
+            set {_idx} to loop-number
+            set {_nextIdx} to ({_idx} mod 6) + 1
+            set {_a} to {_corners::%{_idx}%}
+            set {_b} to {_corners::%{_nextIdx}%}
+            set {_edgeLen} to distance between {_a} and {_b}
+            if {_edgeLen} > 0.05:
+                set {_step} to vector from {_a} to {_b}
+                set vector length of {_step} to {_edgeLen} / 5
+                set {_cur} to {_a}
+                loop 5 times:
+                    set {_cur} to {_cur}~{_step}
+                    draw 1 of dust particle using dustOption(rgb(150, 255, 240), 1) at {_cur} with extra 0
+
+    # --- Phase 2: 六角刃の放出 (10 tick, r=1.95→6.0) ---
+    delete {_hit::*}
+    play sound "entity.player.attack.strong" with volume 1.6 with pitch 1.4 to all players where [distance between {_player} and input <= 25]
+    play sound "item.trident.riptide_2" with volume 1.4 with pitch 1.6 to all players where [distance between {_player} and input <= 25]
+    loop 10 times:
+        wait 1 tick
+        set {_center} to location 1.2 meter above {_player}
+        set {_r} to 1.5 + (loop-number * 0.45)
+        delete {_corners::*}
+        # 6 corners (blade tips)
+        loop 6 times:
+            set {_idx} to loop-number
+            set {_cv} to vector({_r}, 0, 0)
+            rotate {_cv} around y-axis by ({_idx} * 60)
+            set {_corners::%{_idx}%} to {_center}~{_cv}
+            draw 2 of dust particle using dustOption(rgb(120, 255, 255), 1.4) at {_corners::%{_idx}%} with extra 0
+            draw 1 of "minecraft:crit" at {_corners::%{_idx}%} with extra 0
+            draw 1 of "minecraft:end_rod" at {_corners::%{_idx}%} with extra 0
+        # 6 edges with damage
+        loop 6 times:
+            set {_idx} to loop-number
+            set {_nextIdx} to ({_idx} mod 6) + 1
+            set {_a} to {_corners::%{_idx}%}
+            set {_b} to {_corners::%{_nextIdx}%}
+            set {_edgeLen} to distance between {_a} and {_b}
+            set {_step} to vector from {_a} to {_b}
+            set vector length of {_step} to {_edgeLen} / 10
+            set {_cur} to {_a}
+            loop 10 times:
+                set {_cur} to {_cur}~{_step}
+                draw 1 of dust particle using dustOption(rgb(0, 230, 200), 1.2) at {_cur} with extra 0
+                draw 1 of dust particle using dustOption(rgb(180, 255, 240), 1) at {_cur} with extra 0
+                loop all players in radius 1 around {_cur}:
+                    isSameTeam({_player}, loop-player) is false
+                    gamemode of loop-player is adventure
+                    "%uuid of loop-player%" is not in {_hit::*}
+                    add "%uuid of loop-player%" to {_hit::*}
+                    play sound "entity.player.attack.crit" with volume 1.3 with pitch 1.5 to all players where [distance between loop-player and input <= 20]
+                    play sound "entity.bee.sting" with volume 1.1 with pitch 1.6 to all players where [distance between loop-player and input <= 20]
+                    draw 15 of "minecraft:crit" at loop-player with extra 0.3
+                    force {_player} to damage loop-player by 2.5 hearts
+                    applyNoKnockback(loop-player, 1)
+                    apply poison 1 to loop-player for 6 seconds
+        play sound "entity.player.attack.sweep" with volume 0.7 with pitch 1.5 to all players where [distance between {_center} and input <= 25]
+
+    # --- Phase 3: 最大六角の閃光フィニッシュ ---
+    play sound "item.trident.thunder" with volume 1.6 with pitch 1.4 to all players where [distance between {_player} and input <= 25]
+    play sound "entity.player.levelup" with volume 0.8 with pitch 1.8 to all players where [distance between {_player} and input <= 25]
+    set {_center} to location 1.2 meter above {_player}
+    delete {_corners::*}
+    loop 6 times:
+        set {_idx} to loop-number
+        set {_cv} to vector(6, 0, 0)
+        rotate {_cv} around y-axis by ({_idx} * 60)
+        set {_corners::%{_idx}%} to {_center}~{_cv}
+    loop 6 times:
+        set {_idx} to loop-number
+        set {_nextIdx} to ({_idx} mod 6) + 1
+        set {_a} to {_corners::%{_idx}%}
+        set {_b} to {_corners::%{_nextIdx}%}
+        set {_edgeLen} to distance between {_a} and {_b}
+        set {_step} to vector from {_a} to {_b}
+        set vector length of {_step} to {_edgeLen} / 16
+        set {_cur} to {_a}
+        loop 16 times:
+            set {_cur} to {_cur}~{_step}
+            draw 2 of dust particle using dustOption(rgb(0, 255, 230), 1.5) at {_cur} with extra 0
+            draw 1 of dust particle using dustOption(rgb(255, 255, 255), 1.2) at {_cur} with extra 0
+
+# ============================================================
+# 蜈蚣ノ舞「百足蛇腹」
+# 　1秒の集中後、正弦波軌道で前方へ高速突進。
+# 　波の振幅上に約30本の「脚」が並び、触れた敵を刺突＋強毒で貫く。
+# 　到達点では大爆発の締め一撃で範囲ダメージと最濃度の毒を付与。
+# ============================================================
+function {@characterId}_action5(player: player):
+    cooldown({_player}, {_player}'s tool, 20 second)
+
+    # --- Phase 1: 集中 (20 tick, 紫の二重渦) ---
+    play sound "block.beacon.activate" with volume 2 with pitch 0.5 to all players where [distance between {_player} and input <= 30]
+    play sound "entity.bee.loop_aggressive" with volume 2 with pitch 0.4 to all players where [distance between {_player} and input <= 30]
+    play sound "block.conduit.activate" with volume 1.5 with pitch 0.7 to all players where [distance between {_player} and input <= 30]
+    send title "&5&l蜈蚣ノ舞" with subtitle "&d&l百足蛇腹" to {_player} for 60 ticks
+    loop 20 times:
+        set {_tick} to loop-number
+        wait 1 tick
+        set {_center} to location 1.2 meter above {_player}
+        # 二重逆回転の螺旋
+        loop 8 times:
+            set {_r} to 1.8 - (loop-number * 0.12)
+            set {_v1} to vector({_r}, 0, 0)
+            rotate {_v1} around y-axis by (({_tick} * 24) + (loop-number * 45))
+            draw 1 of dust particle using dustOption(rgb(160, 60, 200), 1.2) at {_center}~{_v1} with extra 0
+            set {_v2} to vector({_r}, 0, 0)
+            rotate {_v2} around y-axis by (({_tick} * -24) + (loop-number * 45) + 22)
+            draw 1 of dust particle using dustOption(rgb(220, 130, 250), 1) at {_center}~{_v2} with extra 0
+        # 足元の毒の渦
+        set {_feet} to {_player}'s location
+        loop 6 times:
+            set {_fv} to vector(0.6, 0, 0)
+            rotate {_fv} around y-axis by (({_tick} * 30) + (loop-number * 60))
+            draw 1 of dust particle using dustOption(rgb(100, 30, 180), 0.9) at {_feet}~{_fv} with extra 0
+
+    # --- Phase 2: 蛇腹突進 ---
+    play sound "item.trident.riptide_3" with volume 2 with pitch 0.8 to all players where [distance between {_player} and input <= 30]
+    play sound "entity.warden.sonic_charge" with volume 1.5 with pitch 1.4 to all players where [distance between {_player} and input <= 30]
+    push {_player} forward at speed 1.8
+    push {_player} upward at speed 0.25
+
+    set {_origin} to {_player}'s eye
+    set {_forward} to {_player}'s facing
+    set {_side} to {_forward}
+    rotate {_side} around y-axis by 90
+
+    set {_cur} to {_origin}
+    set {_step} to {_forward}
+    set vector length of {_step} to 0.6
+
+    delete {_hit::*}
+    loop 30 times:
+        set {_idx} to loop-number
+        set {_cur} to {_cur}~{_step}
+
+        # ブロック衝突で打ち切り
+        if block at {_cur} is not air:
+            exit loop
+
+        # 正弦波で横方向オフセット (周期12step ≒ 7.2m)
+        set {_sinVal} to sin({_idx} * 30)
+        set {_lateral} to {_side}
+        if {_sinVal} < 0:
+            rotate {_lateral} around y-axis by 180
+            set {_mag} to {_sinVal} * -1.7
+        else:
+            set {_mag} to {_sinVal} * 1.7
+        set {_legPoint} to {_cur}
+        if {_mag} > 0.05:
+            set vector length of {_lateral} to {_mag}
+            set {_legPoint} to {_cur}~{_lateral}
+
+        # 蛇腹本体 (波の頂点に脚)
+        draw 2 of dust particle using dustOption(rgb(120, 40, 180), 1.4) at {_legPoint} with extra 0
+        draw 1 of dust particle using dustOption(rgb(220, 130, 250), 1.2) at {_legPoint} with extra 0
+        draw 1 of "minecraft:crit" at {_legPoint} with extra 0
+
+        # 中央軸の薄い線 (蜈蚣の背骨)
+        draw 1 of dust particle using dustOption(rgb(60, 20, 100), 0.8) at {_cur} with extra 0
+
+        # 脚の音 (4stepごと)
+        if ({_idx} mod 4) is 1:
+            play sound "entity.player.attack.crit" with volume 0.7 with pitch 1.7 to all players where [distance between {_legPoint} and input <= 18]
+            play sound "entity.bee.sting" with volume 0.6 with pitch 1.8 to all players where [distance between {_legPoint} and input <= 18]
+
+        # 命中判定
+        loop all players in radius 1.3 around {_legPoint}:
+            isSameTeam({_player}, loop-player) is false
+            gamemode of loop-player is adventure
+            "%uuid of loop-player%" is not in {_hit::*}
+            add "%uuid of loop-player%" to {_hit::*}
+            play sound "entity.player.attack.crit" with volume 1.3 with pitch 1.5 to all players where [distance between loop-player and input <= 20]
+            play sound "entity.bee.sting" with volume 1.2 with pitch 1.4 to all players where [distance between loop-player and input <= 20]
+            draw 18 of "minecraft:crit" at loop-player with extra 0.4
+            set {_burst} to location 1 meter above loop-player
+            loop 10 times:
+                set {_bv} to vector(0.4, 0, 0)
+                rotate {_bv} around y-axis by (loop-number * 36)
+                draw 1 of dust particle using dustOption(rgb(200, 80, 240), 1.3) at {_burst}~{_bv} with extra 0
+            force {_player} to damage loop-player by 2 hearts
+            applyNoKnockback(loop-player, 1)
+            apply poison 1 to loop-player for 7 seconds
+
+        wait 1 tick
+
+    # --- Phase 3: 着弾点での締めの一撃 ---
+    play sound "item.trident.thunder" with volume 2 with pitch 0.5 to all players where [distance between {_cur} and input <= 30]
+    play sound "entity.warden.sonic_boom" with volume 1.2 with pitch 1.4 to all players where [distance between {_cur} and input <= 30]
+    play sound "entity.player.levelup" with volume 1 with pitch 0.6 to all players where [distance between {_cur} and input <= 30]
+
+    # 紫の大爆発リング (二重)
+    loop 36 times:
+        set {_pv1} to vector(2, 0, 0)
+        rotate {_pv1} around y-axis by (loop-number * 10)
+        draw 2 of dust particle using dustOption(rgb(180, 80, 230), 1.6) at {_cur}~{_pv1} with extra 0
+        set {_pv2} to vector(3.2, 0, 0)
+        rotate {_pv2} around y-axis by (loop-number * 10 + 5)
+        draw 2 of dust particle using dustOption(rgb(255, 180, 255), 1.4) at {_cur}~{_pv2} with extra 0
+        draw 1 of dust particle using dustOption(rgb(255, 255, 255), 1.2) at {_cur}~{_pv2} with extra 0
+    draw 60 of "minecraft:crit" at {_cur} with extra 0.6
+
+    # 範囲ダメージ + 最濃度の毒
+    loop all players in radius 4 around {_cur}:
+        isSameTeam({_player}, loop-player) is false
+        gamemode of loop-player is adventure
+        play sound "entity.player.attack.crit" with volume 1.8 with pitch 0.7 to all players where [distance between loop-player and input <= 25]
+        draw 30 of "minecraft:crit" at loop-player with extra 0.5
+        force {_player} to damage loop-player by 4 hearts
+        applyNoKnockback(loop-player, 1)
+        apply poison 3 to loop-player for 10 seconds

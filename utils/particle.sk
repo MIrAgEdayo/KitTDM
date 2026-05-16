@@ -1,0 +1,25 @@
+function drawBladeSurface(sliceCenter: location, axisLong: vector, axisWide: vector, tangent: vector, halfW: number, halfH: number, layerCount: number, widthSamples: number, heightSamples: number, depthScale: number, r: number, g: number, b: number, dustSize: number):
+    loop {_layerCount} times:
+        set {_currentLayer} to loop-number-1
+        set {_depthOffset} to (({_currentLayer} - (({_layerCount} + 1) / 2)) * {_depthScale})
+        loop {_widthSamples} times:
+            set {_currentWidth} to loop-number-2
+            set {_uNorm} to (({_currentWidth} - (({_widthSamples} + 1) / 2)) / (({_widthSamples} - 1) / 2))
+            set {_uOff} to ({_uNorm} * {_halfW})
+            loop {_heightSamples} times:
+                set {_currentHeight} to loop-number-3
+                set {_vNorm} to (({_currentHeight} - (({_heightSamples} + 1) / 2)) / (({_heightSamples} - 1) / 2))
+                set {_vOff} to ({_vNorm} * {_halfH})
+
+                set {_pl} to {_sliceCenter}
+                add ((x component of {_axisLong}) * {_uOff}) to x-coordinate of {_pl}
+                add ((y component of {_axisLong}) * {_uOff}) to y-coordinate of {_pl}
+                add ((z component of {_axisLong}) * {_uOff}) to z-coordinate of {_pl}
+                add ((x component of {_axisWide}) * {_vOff}) to x-coordinate of {_pl}
+                add ((y component of {_axisWide}) * {_vOff}) to y-coordinate of {_pl}
+                add ((z component of {_axisWide}) * {_vOff}) to z-coordinate of {_pl}
+                add ((x component of {_tangent}) * {_depthOffset}) to x-coordinate of {_pl}
+                add ((y component of {_tangent}) * {_depthOffset}) to y-coordinate of {_pl}
+                add ((z component of {_tangent}) * {_depthOffset}) to z-coordinate of {_pl}
+
+                draw 1 of dust particle using dustOption(rgb({_r}, {_g}, {_b}), {_dustSize}) at {_pl}

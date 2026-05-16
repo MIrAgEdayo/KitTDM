@@ -170,10 +170,10 @@ on damage:
 		isSameTeam(attacker, victim) is true
 		cancel event
 	if {players::*} doesn't contain victim:
-		cancel event
+		#cancel event
 	if {players::*} doesn't contain attacker:
 		type of attacker is player
-		cancel event
+		#cancel event
 
 on death of player:
 	if getTeam(victim) is "red":

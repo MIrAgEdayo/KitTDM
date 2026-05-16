@@ -1,0 +1,55 @@
+every 2 tick:
+    loop all players:
+        {%uuid of loop-player%::tracer} is true
+        set {_size} to size of {%uuid of loop-player%::OW::*}
+        if {_size} > 39:
+            set {_l} to 1
+            loop 40 times:
+                set {%uuid of loop-player%::OW::%{_l}%} to {%uuid of loop-player%::OW::%{_l}+1%}
+                add 1 to {_l}
+        set {%uuid of loop-player%::OW::%{_size} + 1%} to location of loop-player
+        loop {%uuid of loop-player%::OW::*}:
+            draw 1 of glow at loop-value-2
+
+every tick:
+    loop all players:
+        if {%uuid of loop-player%::tracer} isn't set:
+            set {%uuid of loop-player%::tracer} to false
+        {%uuid of loop-player%::ct} > 0
+
+on rightclick:
+    set {_i} to tool of player
+    set {_p} to player
+    set {_uuid} to uuid of {_p}
+    if name of {_i} is "&eリフラクト":
+        if {%{_uuid}%::tracer} is true:
+            set {_m} to 1
+        else if {%{_uuid}%::tracer} is false:
+            set {_m} to 2
+        if {_m} is 2:
+            if item cooldown of {_i} for {_p} is 0 seconds:
+                set {%{_uuid}%::tracer} to true
+                loop 8 times:
+                    if {%{_uuid}%::tracer} is false:
+                        stop
+                    else:
+                        send actionbar "&eリフラクト &7| &fブリンク可能時間: %9-loop-value%" to {_p}
+                    wait 1 seconds
+                send actionbar "&eリフラクト &7| &fブリンク可能時間: 0" to {_p}
+                {%{_uuid}%::tracer} is true
+                set item cooldown of {_i} for {_p} to 9 seconds
+                set {%{_uuid}%::tracer} to false
+                delete {%{_uuid}%::OW::*}
+                stop
+            else:
+                stop
+        else if {_m} is 1:
+            set item cooldown of {_i} for {_p} to 10 seconds
+            set {%{_uuid}%::tracer} to false
+            set {_l} to size of {%{_uuid}%::OW::*}
+            loop {_l} times:
+                teleport {_p} to {%{_uuid}%::OW::%{_l}+1 - loop-value%}
+                draw 2 of firework at {%{_uuid}%::OW::%{_l}+1 - loop-value%}
+                command "/playsound minecraft:block.note_block.pling ambient %player% %x-pos of player% %y-pos of player% %z-pos of player% 0.3 2"
+                wait 1 tick
+            delete {%{_uuid}%::OW::*}

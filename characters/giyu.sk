@@ -1,0 +1,243 @@
+options:
+	prefix: &7&l[&c&lGame&7&l]
+	characterId: giyu
+
+on load:
+	# TODO: 富岡義勇用のスキン value / signature に差し替え（現状は仮で gojo のスキンを利用）
+	set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTYyNDAzNjkxMDg0MCwKICAicHJvZmlsZUlkIiA6ICJiNzQ3OWJhZTI5YzQ0YjIzYmE1NjI4MzM3OGYwZTNjNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJTeWxlZXgiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWUyNjdjM2IxNTlmMTY1Zjg3NzI2NzUxNmEwZWFjNThlMTlkYWM1Y2JjNDk0ZDUxZjE2ZjNlM2JiMDdlOTJkNSIKICAgIH0KICB9Cn0="
+	set {_signature} to "H0RM6MbC9rP9IEOz2gepZ5GGMkcc1MfDMzZM918r8fSytHr0gNTGLXst/x5fHKxKcNeRXooQ+fGLxU31cEvMRxJWHxTGOD0tZY5aIRI6bdBsBCmkT+ciYpdSSiYj+cPnd1OptSl9Tb3uEKSafrf5nm6E2CUf23tMoPVpMMG87XTm5Hyl10nTjyugpSJPo2mVlf/mH8XvfIQB8zJ0aHvzepb0EoTWMq6t3qdUpNPFFwKhBQ1ZAaRuicSS6FKmO32LR9Abjyk8j0zUoGrUEaBrTK3elJnGUh30rDAB3I8jKhB+JMfBap9SbBisq9IymwSZ5TnLCoq6aKLsz1gAuWDKR5U83NygtyndUCtOKd9RtMsYqnS+QENaZjvluNGTfc6uytoNDiC2La7XfZ66EM+jPZrM7EC0ZZDYb+2bpWjleKYY5Ot8t2lHKqNq5UQI/FT5H8jUF/BLmBouk1qMMghY99Mp1CbTfXe+8imHyOkpD5GnB+HfbBC5e4dgVwLOf8je65njAkWejL/8b9cP7uZ9RQrOqfvQYH3u8jXO/QMFDntfwNUDRmMLPKthlKfAu7fUTxG+5iF4uv+A38zZml/x9qBdSnxYclRC5oouhvemUORPJe0vSo2Olqv6oiciR7nR9NjTJwLdr3PmxagztNH7BlctvkMzgIcSspDl5tvQr0c="
+	registerSkin("{@characterId}", {_value}, {_signature})
+
+	set {character::{@characterId}::head} to head from value {_value}
+	registerCharacter("{@characterId}", 7, 20, 1, 1, 1)
+
+	set {_lore::1} to ""
+	set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+	set {_lore::3} to ""
+	add "&f「俺は嫌われてない」" to {_lore::*}
+	set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&3&l鬼滅の刃&7] &3&l富岡義勇" with lore {_lore::*}
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7水車の如く縦に回転しながら前方を斬りつける範囲攻撃。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to prismarine shard of sharpness 1 with model data 1 named "&3&l&n弐ノ型 水車" with lore {_lore::*} with custom nbt from "{actionId:1}"
+	registerAction("{@characterId}", 1, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7流れる水の如く舞うように連続斬撃を放つ。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to prismarine crystals of sharpness 1 with model data 1 named "&3&l&n参ノ型 流流舞い" with lore {_lore::*} with custom nbt from "{actionId:2}"
+	registerAction("{@characterId}", 2, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7水滴が落ちる一瞬よりも速い、水の呼吸最速の刺突。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to heart of the sea of sharpness 1 with model data 1 named "&3&l&n漆ノ型 雫波紋突き" with lore {_lore::*} with custom nbt from "{actionId:3}"
+	registerAction("{@characterId}", 3, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7回転を重ねる程に威力が増していく連続斬撃。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to nautilus shell of sharpness 1 with model data 1 named "&3&l&n拾ノ型 生生流転" with lore {_lore::*} with custom nbt from "{actionId:4}"
+	registerAction("{@characterId}", 4, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7富岡義勇が編み出した独自の型。一定時間あらゆる攻撃を受け流し反撃する。" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to water bucket of sharpness 1 with model data 1 named "&b&l&n拾壱ノ型 凪" with lore {_lore::*} with custom nbt from "{actionId:5}"
+	registerAction("{@characterId}", 5, hideItemInfo({_item}))
+
+# ============================================================
+# 弐ノ型 水車
+# 　縦回転しながら前方へ突進し、自身を中心とした円状の水流斬撃で
+# 　範囲内の敵に1度ずつ斬撃ダメージを与える。
+# ============================================================
+function {@characterId}_action1(player: player):
+	cooldown({_player}, {_player}'s tool, 5 second)
+	play sound "block.water.splash" with volume 2 to all players where [distance between {_player} and input <= 20]
+	play sound "entity.player.attack.sweep" with volume 1.5 to all players where [distance between {_player} and input <= 20]
+	push {_player} forward at speed 1.2
+	push {_player} upward at speed 0.55
+	loop 14 times:
+		wait 1 tick
+		set {_center} to location 1.2 meter above {_player}
+		set {_vector} to vector(2.4, 0, 0)
+		rotate {_vector} around y-axis by (loop-number * 25)
+		loop 18 times:
+			rotate {_vector} around y-axis by 20
+			draw 1 of dust particle using dustOption(aqua, 1.3) at {_center}~{_vector} with extra 0
+		loop all players in radius 2.8 around {_player}:
+			isSameTeam({_player}, loop-player) is false
+			gamemode of loop-player is adventure
+			{_damaged::*} doesn't contain loop-player
+			add loop-player to {_damaged::*}
+			force {_player} to damage loop-player by 3 hearts
+			applyNoKnockback(loop-player, 1)
+
+# ============================================================
+# 参ノ型 流流舞い
+# 　流れる水のように前方へ舞うような3連斬撃を放つ。
+# 　1撃ごとに前方の弧状エリアの敵に1度だけダメージを与える。
+# ============================================================
+function {@characterId}_action2(player: player):
+	cooldown({_player}, {_player}'s tool, 4 second)
+	loop 3 times:
+		set {_slash} to loop-number
+		play sound "entity.player.attack.sweep" with volume 1.4 to all players where [distance between {_player} and input <= 20]
+		play sound "block.water.ambient" with volume 1 with pitch 1.4 to all players where [distance between {_player} and input <= 20]
+		push {_player} forward at speed 0.45
+		set {_origin} to location 1.1 meter above {_player}
+		set {_forward} to {_player}'s facing
+		delete {_hit::*}
+		loop 16 times:
+			set {_t} to loop-number-2
+			set {_offset} to {_forward}
+			set vector length of {_offset} to 0.25 * {_t}
+			set {_arcVec} to vector(0, 0, 0)
+			if {_slash} is 1:
+				set {_angle} to -60 + ({_t} * 8)
+			else if {_slash} is 2:
+				set {_angle} to 60 - ({_t} * 8)
+			else:
+				set {_angle} to -30 + ({_t} * 4)
+			set {_swing} to {_forward}
+			rotate {_swing} around y-axis by {_angle}
+			set vector length of {_swing} to 2.2
+			draw 1 of dust particle using dustOption(aqua, 1.2) at {_origin}~{_swing} with extra 0
+			draw 1 of dust particle using dustOption(rgb(120, 200, 255), 1) at {_origin}~{_swing} with extra 0
+		loop all players in radius 3.2 around location 1.6 meter forward {_player}:
+			isSameTeam({_player}, loop-player) is false
+			gamemode of loop-player is adventure
+			{_hit::*} doesn't contain loop-player
+			add loop-player to {_hit::*}
+			force {_player} to damage loop-player by 2 hearts
+			applyNoKnockback(loop-player, 1)
+		wait 6 tick
+
+# ============================================================
+# 漆ノ型 雫波紋突き
+# 　水の呼吸最速の刺突。視線方向に瞬時に伸びる貫通直線判定で
+# 　ヒット時に高威力の単発ダメージを与える。
+# ============================================================
+function {@characterId}_action3(player: player):
+	cooldown({_player}, {_player}'s tool, 4 second)
+	play sound "entity.player.attack.crit" with volume 1.6 with pitch 1.5 to all players where [distance between {_player} and input <= 20]
+	play sound "block.water.ambient" with volume 1.2 with pitch 1.8 to all players where [distance between {_player} and input <= 20]
+	set {_origin} to {_player}'s eye
+	set {_loc} to {_origin}
+	delete {_hit::*}
+	loop 20 times:
+		set {_loc} to location 0.6 meter forward {_loc}
+		draw 1 of dust particle using dustOption(aqua, 1) at {_loc} with extra 0
+		draw 1 of dust particle using dustOption(rgb(180, 230, 255), 0.8) at {_loc} with extra 0
+		loop all players in radius 1.2 around {_loc}:
+			isSameTeam({_player}, loop-player) is false
+			gamemode of loop-player is adventure
+			{_hit::*} doesn't contain loop-player
+			add loop-player to {_hit::*}
+			force {_player} to damage loop-player by 5 hearts
+			applyNoKnockback(loop-player, 1)
+		if block at {_loc} is not air:
+			exit loop
+	loop 3 times:
+		wait 1 tick
+		draw 1 of dust particle using dustOption(aqua, 1.5) at {_loc} with extra 0
+
+# ============================================================
+# 拾ノ型 生生流転
+# 　縦に4連続で回転斬りを行い、回転ごとにダメージが増す。
+# 　1 → 2 → 3 → 4 ハート(全段命中で最大 10 ハート)。
+# ============================================================
+function {@characterId}_action4(player: player):
+	cooldown({_player}, {_player}'s tool, 10 second)
+	play sound "block.water.splash" with volume 2 with pitch 0.9 to all players where [distance between {_player} and input <= 20]
+	loop 4 times:
+		set {_rot} to loop-number
+		set {_damage} to {_rot}
+		set {_radius} to 2.4 + ({_rot} * 0.2)
+		play sound "entity.player.attack.sweep" with volume 1.4 with pitch (0.8 + {_rot} * 0.15) to all players where [distance between {_player} and input <= 20]
+		push {_player} forward at speed 0.55
+		push {_player} upward at speed 0.45
+		delete {_hit::*}
+		loop 10 times:
+			wait 1 tick
+			set {_center} to location 1.2 meter above {_player}
+			set {_vector} to vector({_radius}, 0, 0)
+			rotate {_vector} around y-axis by (loop-number-2 * 36)
+			loop 20 times:
+				rotate {_vector} around y-axis by 18
+				draw 1 of dust particle using dustOption(aqua, 1 + ({_rot} * 0.2)) at {_center}~{_vector} with extra 0
+			loop all players in radius {_radius} around {_player}:
+				isSameTeam({_player}, loop-player) is false
+				gamemode of loop-player is adventure
+				{_hit::*} doesn't contain loop-player
+				add loop-player to {_hit::*}
+				force {_player} to damage loop-player by {_damage} hearts
+				applyNoKnockback(loop-player, 1)
+
+# ============================================================
+# 拾壱ノ型 凪
+# 　富岡義勇独自の型。3秒間あらゆるダメージを無効化し、
+# 　プレイヤーからの攻撃に対しては自動で 8 ハートの反撃を行う。
+# ============================================================
+function {@characterId}_action5(player: player):
+	cooldown({_player}, {_player}'s tool, 15 second)
+	set metadata "giyuNagi" of {_player} to true
+	play sound "block.water.ambient" with volume 2 with pitch 0.7 to all players where [distance between {_player} and input <= 25]
+	play sound "block.beacon.activate" with volume 1.2 with pitch 1.6 to all players where [distance between {_player} and input <= 25]
+	send title "&b&l凪" with subtitle "&7あらゆる攻撃を受け流す" to {_player} for 60 ticks
+	loop 60 times:
+		wait 1 tick
+		metadata "giyuNagi" of {_player} is true
+		set {_center} to location 1 meter above {_player}
+		set {_vector} to vector(1.8, 0, 0)
+		rotate {_vector} around y-axis by (loop-number * 12)
+		draw 1 of dust particle using dustOption(aqua, 1.2) at {_center}~{_vector} with extra 0
+		set {_vector2} to vector(1.6, 0, 0)
+		rotate {_vector2} around y-axis by (loop-number * -16)
+		draw 1 of dust particle using dustOption(rgb(150, 220, 255), 1) at {_center}~{_vector2} with extra 0
+	set metadata "giyuNagi" of {_player} to false
+	play sound "block.water.ambient" with volume 1 with pitch 1.2 to all players where [distance between {_player} and input <= 25]
+
+on damage:
+	type of victim is player
+	metadata "giyuNagi" of victim is true
+	event is not cancelled
+	cancel event
+	play sound "block.water.splash" with volume 1.5 with pitch 1.4 to all players where [distance between victim and input <= 20]
+	if attacker is a player:
+		attacker is not victim
+		isSameTeam(victim, attacker) is false
+		play sound "entity.player.attack.crit" with volume 2 with pitch 0.8 to all players where [distance between victim and input <= 20]
+		set {_center} to location 1 meter above victim
+		loop 24 times:
+			set {_vector} to vector(2.2, 0, 0)
+			rotate {_vector} around y-axis by (loop-number * 15)
+			draw 1 of dust particle using dustOption(aqua, 1.4) at {_center}~{_vector} with extra 0
+		force victim to damage attacker by 8 hearts
+		applyNoKnockback(attacker, 1)

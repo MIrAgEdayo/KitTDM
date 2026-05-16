@@ -1,0 +1,237 @@
+
+options:
+    prefix: &7&l[&c&lGame&7&l]
+    characterId: leesin
+
+
+
+on load:
+    set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTY0OTQ0MTk4NjIxMywKICAicHJvZmlsZUlkIiA6ICI4N2RiMmNjNWY4Y2I0MjI4YTU0OGRiMzJlM2Y0NmFmNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJZVG1hdGlhczEzbG9sIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzkxOWI4YmNhZTE4M2RhYTE4MmU1YjAyYzY5OTA5NmY1ZmQ4YjU3OThmZWQ1ZThlYjFiZGUyMTg1ODhiMDQzOTciCiAgICB9CiAgfQp9"
+    set {_signature} to "QD4ackFyI5Y6aGjszTqjTBaxowHc7u2aO7wP0qp9mF4/ru8KZlm7tns2ziQ4IBxSIN2ZoybaxHGm6+bn1RsMQcd3I2tyEvULvxldovQ18ArBBgOFaNw9k0qqMrXnqvdY5qIKy124kHJXETlOIwmr/Bm3ZDDFEyUIzYES3AoI5pXzrGiqNzM0m/KSOWtOr6Z9NM1qQRd4Mln1RThTZBj0GJ/C/3RsL1biU5L0/TCfpvFjAzvCk83OEjbv/pL/9eHCyMMFcX11UdKlvMiAdN4Z2dUkxrO6P/Exwl1dKvDE1AiWzDpCKacqrOpgJmgcR+8PvPBwKD+nMdo+TxXj5RS7uKha3VEHLDUSj7jPbByad1Db+skRGdFI0pCcea8ppeIYKwNI9HAJAcGunbsodBIcUTTj0OH9zru7Pn7rNKERU4yZc4js2uOTPlgZ3IYAC+NbQh1Ei6aQnKGHmnX7GhCyctMAxdvSdoKchSMT2peSGbAXax4maGA8zkjHGwqE3tVSmxPOAl9RpLQ5012NnzljMkmux+CyBUp0OWlEwTrnYaOPE9lnU1+1eZKIjvVnYu0694d7gZadIoMLReR+D7BoJKFLsARIHJo1YwaSd+BIxIjaUa1g8C10B5f5yaelkLY58SSJCngCeSWTZ/cwnyRTFkRApZe65YKAefAqcUg7h5s="
+    registerSkin("leesin", {_value}, {_signature})
+    set {character::{@characterId}::head} to head from value {_value}
+    registerCharacter("{@characterId}", 6, 20, 1, 1, 1)
+
+    set {_lore::1} to ""
+    set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+    set {_lore::3} to ""
+    add "&f「汝の手と成り足と成ろう」" to {_lore::*}
+    set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&6&lLoL&7] &c&lリー・シン" with lore {_lore::*}
+
+    clear {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7[&f響掌&7]" to {_lore::*}
+    add " &b&l&n⊱&r &7指定方向に衝撃波を飛ばし、当たった敵の視界(3s)を得てダメージを与える。" to {_lore::*}
+    add " &b&l&n⊱&r &7敵に当たった場合は共鳴撃に変化し、再発動可能になる。" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7[&f共鳴撃&7]" to {_lore::*}
+    add " &b&l&n⊱&r &7当たった敵に向かってリープしてダメージを与える。" to {_lore::*}
+    add " &b&l&n⊱&r &7ダメージは対象の減少HP率1%%毎に1%%(最大100%%)増加する。" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    set {_item} to raw gold of sharpness 2 named "&f&l響掌 &f/ &f&l共鳴撃" with lore {_lore::*} with custom nbt from "{actionId:1}"
+    registerAction("{@characterId}", 1, hideItemInfo({_item}))
+
+    clear {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7リープし、自身はシールド(2s)を獲得する。" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    set {_item} to raw iron named "&b&l守りの型" with lore {_lore::*} with custom nbt from "{actionId:2}"
+    registerAction("{@characterId}", 2, hideItemInfo({_item}))
+
+    clear {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7指定方向に衝撃波を飛ばし、当たった敵の視界を得てダメージを与える。" to {_lore::*}
+    add " &b&l&n⊱&7敵に当たった場合は共鳴撃に変化し、再発動可能になる。" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    set {_item} to raw copper named "&3&l破風・縛脚" with lore {_lore::*} with custom nbt from "{actionId:3}"
+    registerAction("{@characterId}", 3, hideItemInfo({_item}))
+
+    clear {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7蹴り飛ばしてノックバック(1.5s)を与える。ノックバック中の対象に敵が触れた場合、" to {_lore::*}
+    add " &b&l&n⊱&7同様のダメージとノックアップ(1s)を与える。" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    set {_item} to dragon breath named "&c&l龍の怒り" with lore {_lore::*} with custom nbt from "{actionId:4}"
+    registerAction("{@characterId}", 4, hideItemInfo({_item}))
+
+    
+
+
+
+
+function {@characterId}_action1(p: player):
+
+    set {_tool} to {_p}'s tool
+    cooldown({_p}, {_p}'s tool, 8 seconds)
+
+    if metadata value "{@characterId}_action1" of {_p} is not set:
+
+        set {_loc} to head location of {_p}
+        set {_yaw} to yaw of {_loc}
+        set {_pitch} to pitch of {_loc}
+
+        set {_v} to vector from yaw {_yaw} and pitch {_pitch}
+        set vector length of {_v} to 0.5
+
+        play sound "entity.bat.takeoff" with volume 1.0 and pitch 0.75 at {_loc}
+
+        loop 40 times:
+            set {_loc} to {_loc} ~ {_v}
+            draw 3 of crit particle at {_loc} with offset vector(0, 0, 0)
+
+            loop living entities in radius 2.5 of {_loc}:
+                isSameTeam({_p}, loop-entity) is false
+                set {_e} to loop-entity
+
+                make {_p} damage {_e} by 3.5
+                set metadata value "{@characterId}_action1" of {_p} to {_e}
+                affect {_e} with glowing 1 for 3 seconds
+                hide particles for {_e}'s potion effects
+
+                play sound "entity.experience_orb.pickup" with volume 1.0 and pitch 1.75 at {_loc}
+
+                set cooldown of {_tool} for {_p} to 0 tick
+
+                exit 2 loops
+
+            wait a tick if mod(loop-value, 2) = 0
+                
+        wait 3 seconds
+        clear metadata value "{@characterId}_action1" of {_p}
+
+    else:
+
+        set {_e} to metadata value "{@characterId}_action1" of {_p}
+        clear metadata value "{@characterId}_action1" of {_p}
+
+        set {_distance} to distance between {_p} and {_e}
+
+        loop {_distance} times:
+
+            set {_v} to vector between {_p} and {_e}
+            set vector length of {_v} to 1.5
+            set velocity of {_p} to {_v}
+
+            if distance between {_p} and {_e} <= 2:
+                set velocity of {_p} to vector(0, 0, 0)
+                exit loop
+
+            wait 1 tick
+
+        set {_health} to health of {_e}
+        set {_maxhealth} to max health of {_e}
+        set {_ratio} to 1 + (1 - {_health} / {_maxhealth})
+
+        make {_p} damage {_e} by 3.5 * {_ratio}
+
+        play sound "entity.player.attack.crit" with volume 1.0 and pitch 0 at {_p}
+        
+
+
+function {@characterId}_action2(p: player):
+    cooldown({_p}, {_p}'s tool, 7 seconds)
+
+    push {_p} forwards at speed 2.5
+    affect {_p} with absorption 1 for 2 seconds
+    hide particles for {_p}'s potion effects
+
+    play sound "entity.evoker.cast_spell" with volume 1.0 and pitch 1.25 at {_p}
+
+    loop 5 times:
+        set {_loc} to location of {_p}
+        command "/particle glow_squid_ink %x-coord of {_loc}% %y-coord of {_loc} + 1% %z-coord of {_loc}% 0.5 0.5 0.5 0.1 3"
+
+        wait 1 ticks
+
+    set velocity of {_p} to vector(0, 0, 0)
+
+
+
+function {@characterId}_action3(p: player):
+    cooldown({_p}, {_p}'s tool, 8 seconds)
+
+    set {_loc} to location of {_p}
+    play sound "entity.wither.break_block" with volume 1.0 and pitch 0.75 at {_loc}
+
+    draw 100 of angry villager particle at {_loc} with offset vector(2, 0, 2)
+
+    loop living entities in radius 4 of {_loc}:
+        isSameTeam({_p}, loop-entity) is false
+        
+        make {_p} damage loop-entity by 4.5
+        affect loop-entity with slowness 2 for 2 seconds
+        hide particles for loop-entity's potion effects
+
+
+
+function {@characterId}_action4(p: player):
+
+    set {_tool} to {_p}'s tool
+    cooldown({_p}, {_p}'s tool, 16 seconds)
+
+    set {_e} to target player of {_p}
+
+    if distance between {_p} and {_e} <= 6:
+
+        set {_maxhealth} to max health of {_e}
+        make {_p} damage {_e} by {_maxhealth} / 4
+
+        set {_v} to vector from {_p} and {_e}
+        set vector length of {_v} to 0.75
+
+        play sound "custom:leesin_ult" with volume 1.5 and pitch 1 at {_p}
+        play sound "entity.lightning_bolt.impact" with volume 1.0 and pitch 0 at {_e}
+        draw 3 of explosion at {_e} with offset vector(0.1, 0.1, 0.1)
+
+        loop 20 times:
+            set velocity of {_e} to {_v}
+
+            set {_eloc} to location of {_e}
+            add 1 to y-coord of {_eloc}
+            draw 10 of flame particle at {_eloc} with offset vector(0.01, 0.01, 0.01)
+
+            loop living entities in radius 2.5 of {_e}:
+                loop-entity != {_e}
+                isSameTeam({_p}, loop-entity) is false
+                {@characterId}_knockup({_p}, loop-entity)
+
+            wait a tick
+    
+    else:
+        set cooldown of {_tool} for {_p} to 10 ticks
+        play sound "block.lava.extinguish" with volume 1.0 and pitch 1 at {_p}
+
+
+function {@characterId}_knockup(p: player, e: entity):
+
+    if metadata value "{@characterId}_knockup" of {_e} is not set:
+        set metadata value "{@characterId}_knockup" of {_e} to ""
+
+        set {_maxhealth} to max health of {_e}
+        make {_p} damage {_e} by {_maxhealth} / 4
+
+        set velocity of {_e} to vector(0, 1, 0)
+
+        play sound "entity.lightning_bolt.impact" with volume 1.0 and pitch 0 at {_e}
+        draw 3 of explosion at {_e} with offset vector(0.1, 0.1, 0.1)
+
+        wait 1 seconds
+        clear metadata value "{@characterId}_knockup" of {_e}
+
+    

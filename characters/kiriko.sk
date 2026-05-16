@@ -1,0 +1,319 @@
+options:
+	prefix: &7&l[&c&lGame&7&l]
+	characterId: kiriko
+
+	heal_cooldown: 60 ticks
+	heal_amount: 2
+	heal_count: 3
+	heal_interval: 2 ticks
+	heal_range: 30
+	heal_projectile_speed: 1.2
+	heal_search_radius: 25
+	heal_max_track: 60
+
+	kunai_cooldown: 10 ticks
+	kunai_damage: 3
+	kunai_speed: 0.7
+	kunai_range: 40
+	kunai_size: 0.4
+
+	tp_cooldown: 300 ticks
+	tp_search_radius: 50
+
+	bell_cooldown: 400 ticks
+	bell_heal_amount: 5
+	bell_radius: 3
+	bell_throw_power: 1.2
+	bell_fuse: 30
+
+on load:
+	set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTcyNDM2MzM4MTk5MiwKICAicHJvZmlsZUlkIiA6ICIyMmNiM2U0ZDdmOTY0ZmNjYjE1MDIyNWIwN2YzMTEyMCIsCiAgInByb2ZpbGVOYW1lIiA6ICJ0dWxleW1hbkIiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWZmYTEzYjlhYWExYzAyYzk1Y2M4MTUwYTY0MmQ0ZTg3NDc4Y2Q3NjcyNWY0NjcxMGI2MDUyYmFhZWFhNmI4MSIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9CiAgfQp9"
+	set {_signature} to "SQ023TnqRZpmlTFpB4fSn1mO10TwV+F6BjAnl/6sXLRR77J3hldHhBk95JIvI+JnZB7yncCQCOqlZo1ur3d6onCGcnUSLNC1uc7xsrz1g9MiGNWFayoKFEneDHAtIy45wqHlGqSWLWpbeSEeCSCCDeAjFHPVleBO70hGLY8wmYi8b7YmdE6ofbQOoSV6lj/rGGvBsxavjIOXgTC7N1tauinXNw7awRhLgnpGl0eMd/PzCRTT7aw995BSNkIUPLNO4VLTe45EdrrFO0KkAZWVgSoquJXnNLH3OQepRedFQ/o2Xafr6OTaPlay+vzDw+aUk1GWgwrHXZaCLF7VJUQWzd7nefY+7kZvIP20d5QBZJWBuTJIWiheAtl90MhPpiUp8bxwuEZ0+y/i/zQAiT3XOtbtvdK77xFIVH0FqblSKNE9C8NoqvQ5pgtHGaGyn8tWJmMAdYtZ0T2octkBgwq5useDY9ST8mLIs4GpjJdPazBESw+MeYCAnheeFYdrondmQRjOmyiEilq/eNx5ZAHPzfaU6pMa79VgndaoZGIL63lJG7XJvLKArFXWTW6iFWYFdOl+Kq1BZ0EIsHITXa9ZNLKcDnpO+lTMFsltEKD1kPQwGWHyjBa/8d869FBHB28RafjI9V6eJFqPSoOAg3J7HHDlElLRfB/qbE8wDL/z4p4="
+	registerSkin("{@characterId}", {_value}, {_signature})
+
+	set {character::{@characterId}::head} to head from value {_value}
+	registerCharacter("{@characterId}", 28, 18, 1, 1, 1)
+
+	set {_lore::1} to ""
+	set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+	set {_lore::3} to ""
+	add "&f「狐に騙されるなよ?」" to {_lore::*}
+	set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&f&lOVERWATCH&7] &d&lキリコ" with lore {_lore::*}
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7快気の御礼" to {_lore::*}
+	add "" to {_lore::*}
+	add " &7&o3連射の御札を放ち、" to {_lore::*}
+	add " &7&o近くの味方に自動追尾し回復する" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to paper of sharpness 1 with model data 1 named "&d&l&n快気の御礼" with lore {_lore::*} with custom nbt from "{actionId:1}"
+	registerAction("{@characterId}", 1, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7クナイ" to {_lore::*}
+	add "" to {_lore::*}
+	add " &7&o前方にクナイを投擲する" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to iron nugget of sharpness 1 with model data 1 named "&7&l&nクナイ" with lore {_lore::*} with custom nbt from "{actionId:2}"
+	registerAction("{@characterId}", 2, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7神出鬼没" to {_lore::*}
+	add "" to {_lore::*}
+	add " &7&o最寄りの味方の所にテレポート" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to ender pearl of sharpness 1 with model data 1 named "&5&l&n神出鬼没" with lore {_lore::*} with custom nbt from "{actionId:3}"
+	registerAction("{@characterId}", 3, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7鈴のご加護" to {_lore::*}
+	add "" to {_lore::*}
+	add " &7&o前方に鈴を投擲し、" to {_lore::*}
+	add " &7&o着弾地点の周囲の味方を回復する" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to gold nugget of sharpness 1 with model data 1 named "&e&l&n鈴のご加護" with lore {_lore::*} with custom nbt from "{actionId:4}"
+	registerAction("{@characterId}", 4, hideItemInfo({_item}))
+
+function {@characterId}_healShot(player: player):
+	# 最寄りの味方を初期ターゲットとして決定
+	set {_minDist} to {@heal_search_radius}
+	clear {_target}
+	loop all players in radius {@heal_search_radius} of {_player}:
+		if all:
+			loop-player is not {_player}
+			gamemode of loop-player is not spectator
+			gamemode of loop-player is not creative
+			isSameTeam({_player}, loop-player) is true
+		then:
+			set {_dist} to distance between {_player} and loop-player
+			if {_dist} < {_minDist}:
+				set {_minDist} to {_dist}
+				set {_target} to loop-player
+
+	set {_loc} to eye location of {_player}
+	set {_dir} to getDirectionVector({_player})
+	set vector length of {_dir} to {@heal_projectile_speed}
+
+	# ターゲットがいなければ前方に飛ばすだけ(回復はしない)
+	set {_age} to 0
+	loop {@heal_max_track} times:
+		add 1 to {_age}
+
+		# 追尾(2tickごと)
+		if {_target} is set:
+			if mod({_age}, 2) is 0:
+				set {_homingDir} to vector from {_loc} to (eye location of {_target})
+				if vector length of {_homingDir} > 0:
+					set vector length of {_homingDir} to {@heal_projectile_speed}
+					# 既存方向と追尾方向の合成 (70:30 で追尾寄り)
+					set {_blendedX} to (x component of {_dir}) * 0.3 + (x component of {_homingDir}) * 0.7
+					set {_blendedY} to (y component of {_dir}) * 0.3 + (y component of {_homingDir}) * 0.7
+					set {_blendedZ} to (z component of {_dir}) * 0.3 + (z component of {_homingDir}) * 0.7
+					set {_dir} to vector({_blendedX}, {_blendedY}, {_blendedZ})
+					set vector length of {_dir} to {@heal_projectile_speed}
+
+		set {_loc} to {_loc}~{_dir}
+
+		# 描画(ピンクの御札パーティクル)
+		draw 2 of dust particle using dustOption(rgb(255, 180, 220), 1) at {_loc}
+		draw 1 of end rod at {_loc} with extra 0
+
+		# ブロック衝突
+		if block at {_loc} is not passable:
+			exit loop
+
+		# 味方ヒット判定
+		if {_target} is set:
+			if distance between {_loc} and (location of {_target}) <= 1.5:
+				heal {_target} by {@heal_amount}
+				draw 20 of heart particle at {_target} with offset vector(0.5, 1, 0.5) with extra 0
+				play sound "minecraft:block.amethyst_block.chime" with volume 1 and pitch 1.5 at location of {_target}
+				exit loop
+
+		# 射程切れ
+		if {_age} >= {@heal_max_track}:
+			exit loop
+
+		wait 1 tick
+
+function {@characterId}_action1(player: player):
+	cooldown({_player}, {_player}'s tool, {@heal_cooldown})
+
+	play sound "minecraft:entity.experience_orb.pickup" with volume 1 and pitch 1.8 at location of {_player}
+	play sound "minecraft:item.crossbow.loading_end" with volume 1 and pitch 1.5 at location of {_player}
+
+	loop {@heal_count} times:
+		{@characterId}_healShot({_player})
+		wait {@heal_interval}
+
+function {@characterId}_action2(player: player):
+	cooldown({_player}, {_player}'s tool, {@kunai_cooldown})
+
+	play sound "minecraft:item.trident.throw" with volume 0.8 and pitch 1.6 at location of {_player}
+
+	set {_loc} to eye location of {_player}
+	set {_dir} to getDirectionVector({_player})
+	set vector length of {_dir} to {@kunai_speed}
+
+	loop all players:
+		if all:
+			gamemode of loop-player is not spectator
+			gamemode of loop-player is not creative
+			loop-player is not {_player}
+		then:
+			add loop-player to {_allowList::*}
+
+	set {_traveled} to 0
+	loop ({@kunai_range} / {@kunai_speed}) times:
+		set {_lastLoc} to {_loc}
+		set {_loc} to {_loc}~{_dir}
+		add {@kunai_speed} to {_traveled}
+
+		if {_traveled} > {@kunai_range}:
+			exit loop
+
+		# 描画
+		draw 2 of dust particle using dustOption(rgb(200, 200, 220), 0.8) at {_loc}
+		draw 1 of crit particle at {_loc} with extra 0
+
+		set {_ray} to raytrace from {_lastLoc} along {_dir} with max distance {@kunai_speed} with ray size {@kunai_size} while ignoring passable blocks while only allowing {_allowList::*}
+
+		if raytrace hit entity of {_ray} exists:
+			set {_victim} to raytrace hit entity of {_ray}
+			make {_player} damage {_victim} by {@kunai_damage}
+			play sound "minecraft:entity.arrow.hit_player" with volume 1 and pitch 1.2 at location of {_victim}
+			draw 10 of crit particle at location of {_victim} with offset vector(0.3, 0.5, 0.3) with extra 0.2
+			exit loop
+
+		if block at {_loc} is not passable:
+			play sound "minecraft:block.stone.hit" with volume 0.8 and pitch 1.2 at {_loc}
+			exit loop
+
+		wait 1 tick
+
+function {@characterId}_action3(player: player):
+	# 最寄りの味方を探す
+	set {_minDist} to {@tp_search_radius}
+	clear {_target}
+	loop all players in radius {@tp_search_radius} of {_player}:
+		if all:
+			loop-player is not {_player}
+			gamemode of loop-player is not spectator
+			gamemode of loop-player is not creative
+			isSameTeam({_player}, loop-player) is true
+		then:
+			set {_dist} to distance between {_player} and loop-player
+			if {_dist} < {_minDist}:
+				set {_minDist} to {_dist}
+				set {_target} to loop-player
+
+	if {_target} is not set:
+		send "{@prefix} &c&l近くに味方が見つかりません" to {_player}
+		play sound "minecraft:block.note_block.bass" with volume 1 and pitch 0.5 at location of {_player}
+		stop
+
+	cooldown({_player}, {_player}'s tool, {@tp_cooldown})
+
+	# 出発演出
+	set {_fromLoc} to location of {_player}
+	play sound "minecraft:entity.fox.ambient" with volume 1.5 and pitch 1.2 at {_fromLoc}
+	play sound "minecraft:entity.enderman.teleport" with volume 0.8 and pitch 1.5 at {_fromLoc}
+	loop 30 times:
+		set {_xRand} to random number between -0.5 and 0.5
+		set {_yRand} to random number between 0 and 2
+		set {_zRand} to random number between -0.5 and 0.5
+		set {_pLoc} to {_fromLoc}~vector({_xRand}, {_yRand}, {_zRand})
+		draw 1 of dust particle using dustOption(rgb(255, 100, 180), 1) at {_pLoc}
+		draw 1 of dust particle using dustOption(rgb(255, 200, 100), 1) at {_pLoc}
+
+	# テレポート
+	teleport {_player} to location of {_target}
+
+	# 着地演出
+	set {_toLoc} to location of {_player}
+	play sound "minecraft:entity.enderman.teleport" with volume 1 and pitch 1.5 at {_toLoc}
+	loop 30 times:
+		set {_xRand} to random number between -0.5 and 0.5
+		set {_yRand} to random number between 0 and 2
+		set {_zRand} to random number between -0.5 and 0.5
+		set {_pLoc} to {_toLoc}~vector({_xRand}, {_yRand}, {_zRand})
+		draw 1 of dust particle using dustOption(rgb(255, 100, 180), 1) at {_pLoc}
+		draw 1 of dust particle using dustOption(rgb(255, 200, 100), 1) at {_pLoc}
+
+function {@characterId}_action4(player: player):
+	cooldown({_player}, {_player}'s tool, {@bell_cooldown})
+
+	play sound "minecraft:block.note_block.bell" with volume 1 and pitch 1.5 at location of {_player}
+
+	set {_loc} to eye location of {_player}
+	set {_vel} to getDirectionVector({_player})
+	set vector length of {_vel} to {@bell_throw_power}
+
+	# 重力で落とす
+	set {_gravity} to 0.05
+
+	loop {@bell_fuse} times:
+		# 位置更新
+		set {_loc} to {_loc}~{_vel}
+
+		# 重力を加算
+		set y component of {_vel} to (y component of {_vel}) - {_gravity}
+
+		# 描画(金色の鈴)
+		draw 2 of dust particle using dustOption(rgb(255, 220, 100), 1) at {_loc}
+		draw 1 of end rod at {_loc} with extra 0
+
+		# 鈴の音(2tickごと)
+		if mod(loop-number, 2) is 0:
+			play sound "minecraft:block.note_block.bell" with volume 0.4 and pitch 2.0 at {_loc}
+
+		# ブロックに当たったら早期発動
+		if block at {_loc} is not passable:
+			exit loop
+
+		wait 1 tick
+
+	# 着弾演出
+	play sound "minecraft:block.amethyst_block.chime" with volume 2 and pitch 1.2 at {_loc}
+	play sound "minecraft:block.note_block.bell" with volume 2 and pitch 1.0 at {_loc}
+
+	# 着弾地点に円描画
+	loop 36 times:
+		set {_angle} to (loop-number - 1) * 10
+		set {_cx} to {@bell_radius} * cos({_angle})
+		set {_cz} to {@bell_radius} * sin({_angle})
+		set {_circleLoc} to {_loc}~vector({_cx}, 0.1, {_cz})
+		draw 1 of dust particle using dustOption(rgb(255, 220, 100), 1.2) at {_circleLoc}
+
+	# 球状の演出
+	draw 50 of end rod at {_loc} with offset vector({@bell_radius}, 1, {@bell_radius}) with extra 0.05
+	draw 30 of dust particle using dustOption(rgb(255, 240, 180), 1) at {_loc} with offset vector({@bell_radius}, 1, {@bell_radius})
+
+	# 範囲内の味方を回復
+	loop all players in radius {@bell_radius} around {_loc}:
+		isSameTeam({_player}, loop-player) is true
+		gamemode of loop-player is not spectator
+		gamemode of loop-player is not creative
+		heal loop-player by {@bell_heal_amount}
+		draw 20 of heart particle at loop-player with offset vector(0.5, 1, 0.5) with extra 0
+		play sound "minecraft:entity.player.levelup" with volume 0.5 and pitch 1.8 to loop-player

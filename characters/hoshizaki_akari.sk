@@ -1,0 +1,231 @@
+options:
+    prefix: &7&l[&c&lGame&7&l]
+    characterId: hoshizaki_akari
+    action1_atk: 5
+    action2_atk: 1.1
+    action3_atk: 15
+
+on load:
+    set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTc3ODU5NTMzODk2NiwKICAicHJvZmlsZUlkIiA6ICJlZjhiYTdhOTVhMjk0NGY3YmZmMzU1MGVmZWZjNTkxOCIsCiAgInByb2ZpbGVOYW1lIiA6ICJBa2FyaUhvc2hpemFraSIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS85ZWVlN2E5Nzk1NmI1NzEyZGQwNTBlMTYzMDhlMGJmNTBhZWQ4ZmM4Y2M5YTE4ZDljODAxNDEzZDc2YjkzODYzIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0="
+    set {_signature} to "CSkMPDNkzwFbVSVyf+Ye0xHyISY9wC8vaQk09T40oPog6+7BkD7hPqeqRXT2D4At+3Ye1P9NK2QcODFXaKBpr/+icSP/PesbrIGNpUdp0Xr0VGsY5ZqSYaqRVW7qOpuyw3yylHHKeB0K1KNKw1hubUlzoEQgsYeBAjm4etR2jw+1FCDlUYc2BaKDZFPqIj91JZHdFVdRkiRWIlQCUzTZgsZspCc+OuuIsoGhHJNYBb6JJV2hfs361WD/+n66I1fYNP8bDdjSwz6fgBXK4q9nBYxq/mIJ6fwSjpf+pvvUJcXjBpD67RChDkjmF1xWuS0QiAgvi9NIMsnMniZJUu1L9BB0DdFiOUIX4tMn8JefU27NmyKzHqi9xEzMkIb+mjscKQHP5c1lSmMPKsJfiFcmi9zzCPvrdeZ5HqO0S8Oui2LGvTOUBfTlzmwxAAHbACGI0uJ6cNgARsGd50bZC6zfJt+vO+hsDjaATac0/E2jq3Q4KH6plNycgbX5AYovSlXTme8XFBCsR6b47On+oxa5arAtkUu8e8xSZNT26/etNDUfopLB2+Q6tlc+GpGwLGDqweKjAdtCmxFhcmlHuwvf8LNZLbO8rESm+bLdi8FpZT/vKjnBu6DaUqLxE7Sdi9x3ee7tCCl/7o+keaGXfFDXUTmGhIa9Z3BJ/TLJ5dItNKk="
+    registerSkin("{@characterId}", {_value}, {_signature})
+    
+    set {character::{@characterId}::head} to head from value {_value}
+    registerCharacter("{@characterId}", 2, 1568245/100000, 46, 1, 2)
+
+    set {_lore::1} to ""
+    set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+    set {_lore::3} to ""
+    set {_lore::4} to "&f「私はあの日、誓ったの。"
+    set {_lore::5} to "&fいつか絶対、あのステージに立つんだって！」"
+    set {_lore::6} to ""
+
+    set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&a&lオンゲキ&7] &b&l星咲あかり" with lore {_lore::*}
+
+    delete {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7スキル説明" to {_lore::*}
+    add "" to {_lore::*}
+    add " &7使用時、ピンク色の弾を飛ばす。" to {_lore::*}
+    add " &7また、一定確率で周辺に""&eベル&7""を生成する。" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    set {_item} to bow named "&9&l&nあかりの弓" with lore {_lore::*} with custom nbt from "{actionId:1}"
+
+    delete {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7スキル説明" to {_lore::*}
+    add "" to {_lore::*}
+    add " &7ピンク色の弾を5こ飛ばす" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    set {_item2} to stick named "&9&l&nあかりの弓" with lore {_lore::*} with custom nbt from "{actionId:2}"
+
+    delete {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7スキル説明" to {_lore::*}
+    add "" to {_lore::*}
+    add " &7使用時に周囲の対象に対してダメージを与える。" to {_lore::*}
+    add " &7ゲームラスト1秒でのみ使用可能。" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    set {_item3} to iron sword named "&f&lトラストスラッシュ+90" with lore {_lore::*} with custom nbt from "{actionId:3}"
+
+    delete {_lore::*}
+
+
+    registerAction("{@characterId}", 1, hideItemInfo({_item}))
+    registerAction("{@characterId}", 2, hideItemInfo({_item2}))
+    registerAction("{@characterId}", 3, hideItemInfo({_item3}))
+on damage:
+    set {_characterId} to getPlayerCharacterId(attacker)
+    stop if {_characterId} is not "{@characterId}"
+    cancel event if damage type is not arrow
+    stop
+function {@characterId}_action1(player: player):
+    cooldown({_player}, {_player}'s tool, 10 ticks)
+    set {_loc} to eye location of {_player}
+    set {_playerLoc} to location of {_player}
+    set {_dir} to vector from yaw (yaw of {_player}) and pitch (pitch of {_player})
+    set {_direction} to direction of {_player}
+    set vector length of {_dir} to 0.2
+    chance of 30%:
+        set {_xRnd} to random number between 1 and 5
+        set {_zRnd} to random number between 1 and 5
+        set {_bellRndVec} to vector({_xRnd}, 0.5, {_zRnd})
+        set {_bellLoc} to {_playerLoc}~{_bellRndVec}
+    if {_bellLoc} is not set:
+        set {_bellGet} to true
+    loop 600*5 times:
+        if {_bellLoc} is set:
+            {_bellGet} is not set
+            if mod(loop-number, 10) is 0:
+                set {_dist} to distance between (location of {_player}) and {_bellLoc}
+                if {_dist} <= 3:
+                    if {_dist} > 0.2:
+                        set {_vec} to vector from {_bellLoc} to (location of {_player})
+                        set vector length of {_vec} to min(0.5, {_dist})
+                        set {_bellLoc} to {_bellLoc}~{_vec}
+            if (distance between (location of {_player}) and {_bellLoc}) is smaller than 0.2:
+                heal {_player} by 1
+                play sound "block.note_block.bell" with volume 1.0 and pitch 1.2 at {_bellLoc}
+                set {_bellGet} to true
+        if {_hit} is true:
+            if {_bellGet} is true:
+                stop loop
+        if {_hit} is not set:
+            set {_loc} to {_loc}~{_dir}
+            set {_dx} to x coordinate of {_loc} - x coordinate of {_playerLoc}
+            set {_dz} to z coordinate of {_loc} - z coordinate of {_playerLoc}
+            set {_dy} to y coordinate of {_loc} - y coordinate of {_playerLoc}
+            if {_dx}*{_dx} + {_dz}*{_dz} + {_dy}*{_dy} > 50*50:
+                set {_hit} to true
+            if block at {_loc} is not passable:
+                set {_hit} to true
+            else:
+                draw 1 of dust using (dustOption(color from hex code "#F6469E", 1)) at {_loc} with offset vector(0.01, 0.01, 0.01)
+                loop entities in radius 5 of {_loc}:
+                    {_hit::*} doesn't contain loop-entity
+                    if loop-entity is not {_player}:
+                        set {_pLoc} to location of loop-entity
+                        set {_xDiff} to abs((x-coordinate of {_loc}) - (x-coordinate of {_pLoc}))
+                        set {_yDiff} to (y-coordinate of {_loc}) - (y-coordinate of {_pLoc})
+                        set {_zDiff} to abs((z-coordinate of {_loc}) - (z-coordinate of {_pLoc}))
+                        if {_xDiff} <= 0.5:
+                            if {_zDiff} <= 0.5:
+                                if {_yDiff} >= 0:
+                                    if {_yDiff} <= 1.8:
+                                        set {_source} to buildDamageSource({_player}, {_loc})
+                                        damage loop-entity by {@action1_atk} using {_source}
+                                        apply knockback to loop-entity {_direction} with strength 1
+                                        add loop-entity to {_hit::*}
+        if mod(loop-number, 20) is 0:
+            if {_bellLoc} is set:
+                {_bellGet} is not set
+                set {_dust} to dustOption(color from hex code "#FFFF00", 1)
+                draw 20 of dust using {_dust} at {_bellLoc} with offset vector(0.1, 0.1, 0.1) to {_player}
+                set {_players::*} to all players
+                remove {_player} from {_players::*}
+                draw 20 of dust using (dustOption(color from hex code "#adad02ff", 1)) at {_bellLoc} with offset vector(0.1, 0.1, 0.1) to {_players::*}
+            wait 1 tick
+
+function {@characterId}_action2(player: player):
+    cooldown({_player}, {_player}'s tool, 20 seconds)
+    set {_direction} to direction of {_player}
+    
+    loop 300*5 times:
+        if loop-number <= 50:
+            if mod(loop-number, 10) is 1:
+                set {_idx} to floor(loop-number / 10) + 1
+                set {_pLoc::%{_idx}%} to eye location of {_player}
+                set {_pitch} to pitch of {_player} - 40
+                if {_pitch} < -90:
+                    set {_pitch} to -90
+                set {_pDir::%{_idx}%} to vector from yaw (yaw of {_player}) and pitch {_pitch}
+                set vector length of {_pDir::%{_idx}%} to 0.3
+                set x of {_pDir::%{_idx}%} to (x of {_pDir::%{_idx}%}) + (random number between -0.05 and 0.05)
+                set z of {_pDir::%{_idx}%} to (z of {_pDir::%{_idx}%}) + (random number between -0.05 and 0.05)
+                set {_pAge::%{_idx}%} to 0
+                set {_pTrackCount::%{_idx}%} to 0
+        
+        loop {_pLoc::*}:
+            set {_i} to loop-index
+            if {_hit::%{_i}%} is not set:
+                add 1 to {_pAge::%{_i}%}
+                set y of {_pDir::%{_i}%} to (y of {_pDir::%{_i}%}) - 0.008
+                
+                if {_pAge::%{_i}%} > 40:
+                    if mod({_pAge::%{_i}%}, 15) is 0:
+                        if {_pTrackCount::%{_i}%} < 20:
+                            clear {_target}
+                            set {_minDist} to 30
+                            loop all players in radius 30 of {_pLoc::%{_i}%}:
+                                if loop-player is not {_player}:
+                                    loop-player's gamemode is not spectator
+                                    loop-player's gamemode is not creative
+                                    isSameTeam(loop-player, {_player}) is false
+                                    set {_dist} to distance between {_pLoc::%{_i}%} and loop-player
+                                    if {_dist} < {_minDist}:
+                                        set {_minDist} to {_dist}
+                                        set {_target} to loop-player
+                            if {_target} is set:
+                                set {_vec} to vector from {_pLoc::%{_i}%} to (eye location of {_target})
+                                set vector length of {_vec} to 0.1
+                                set y of {_vec} to (y of {_vec}) + 0.01
+                                set {_pDir::%{_i}%} to {_vec}
+                                add 1 to {_pTrackCount::%{_i}%}
+                
+                set {_pLoc::%{_i}%} to {_pLoc::%{_i}%}~{_pDir::%{_i}%}
+                
+                draw 2 of dust using (dustOption(color from hex code "#F6469E", 1)) at {_pLoc::%{_i}%} with offset vector(0.01, 0.01, 0.01)
+                
+                if block at {_pLoc::%{_i}%} is not passable:
+                    set {_hit::%{_i}%} to true
+                else:
+                    loop entities in radius 5 of {_pLoc::%{_i}%}:
+                        {_hitEntity::%{_i}%::*} doesn't contain loop-entity
+                        if loop-entity is not {_player}:
+                            set {_pLocE} to location of loop-entity
+                            set {_xDiff} to abs((x-coordinate of {_pLoc::%{_i}%}) - (x-coordinate of {_pLocE}))
+                            set {_yDiff} to (y-coordinate of {_pLoc::%{_i}%}) - (y-coordinate of {_pLocE})
+                            set {_zDiff} to abs((z-coordinate of {_pLoc::%{_i}%}) - (z-coordinate of {_pLocE}))
+                            if {_xDiff} <= 0.3:
+                                if {_zDiff} <= 0.3:
+                                    if {_yDiff} >= 0:
+                                        if {_yDiff} <= 1.8:
+                                            set invincibility time of loop-entity to 0 ticks
+                                            set {_source} to buildDamageSource({_player}, {_pLoc::%{_i}%})
+                                            damage loop-entity by {@action2_atk} using {_source}
+                                            knock loop-entity (vector from {_pLoc::%{_i}%} to {_pLocE}) with strength 2
+                                            add loop-entity to {_hitEntity::%{_i}%::*}
+                                            set {_hit::%{_i}%} to true
+        
+        if loop-number >= 50:
+            if size of {_hit::*} is 5:
+                stop loop
+                
+        if mod(loop-number, 10) is 0:
+            wait 1 tick
+function {@characterId}_action3(player: player):
+    cooldown({_player},{_player}'s tool, 100 seconds)
+    {timer} <= 1
+    loop all players in radius 15 of {_player}:
+        set {_source} to buildDamageSource({_player}, location of {_player})
+        damage loop-player by {@action3_atk} using {_source}
+        draw 100 of end rod at loop-player with offset vector(1.0, 1.0, 1.0)
+local function buildDamageSource(a: player, loc: location) :: damage source:
+    set {_source} to a custom damage source:
+        set damage type to arrow
+        set causing entity to {_a}
+        set direct entity to {_a}
+        set damage location to {_loc}
+    return {_source}

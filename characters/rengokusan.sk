@@ -1,0 +1,227 @@
+options:
+    prefix: &7&l[&4&l煉獄さん&7&l]
+    characterId: rengokusan
+
+    action1_damage_rate: 3
+    action1_knockback: 0.25
+    action1_range: 14.0
+    action1_speed: 1.1
+    action1_hit_radius: 1.6
+
+    action2_combo_timeout: 1.5
+    action2_base_damage_rate: 2
+    action2_base_knockback: 0.35
+
+on load:
+    set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTc3MDkxMTYxNDU2NCwKICAicHJvZmlsZUlkIiA6ICI3ZGEyYWIzYTkzY2E0OGVlODMwNDhhZmMzYjgwZTY4ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJHb2xkYXBmZWwiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTIzYzM0YWNmNjBkNDUxMjEyNjk4NDZlYjY4ODI4MWQwZTUxNzUxYzE2YjAwOWY0NTJiZmE3YWYxZTNmYzNlMCIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9LAogICAgIkNBUEUiIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2EzZjZlNGYxNDgwMWYzZWE1NWUzZDk1YjliNGVmM2I1ZTg4MDJkOTQ3ZjY2OWRlOTNkNmVjNGI5MzU0YTQzNmIiCiAgICB9CiAgfQp9"
+    set {_signature} to "oW5LLeu0p1KGaQVFdGklc94WZjZZglZ6LkifXJHW9UEuW5WcVkLji/huGNF2vDDdIIZBguxCf7TAhkMM4DXCyDq5PqD1yIjzNWBGtuZdONDMzbrAH33erAK9JqHyvRYBv0GFBZP1oFVcQ8FWv82ysVdm2apy2VoTAuLD21h5veR4zmWF7kyq8YXxDd64UXIQUcHBZEi7B2nprjDNSyyLa/eQPI9tw0fjymlzymcoysdMT8rwxYs49cMFjQqo6fImhX8dzmVzORD2nHMwu7Se4zRh+3EzTOmxS4swXEzsQK9zKfN7FrVrdNkjHA3pgvEM2zS14KSefgi8pDjud4T4EqViTTBuhvF5QMBpxBMgINLG0+C1N5XKTYxMcRTTaswapbq9K2nLWGL6yUbp+CvbFOluQxfpiRlriqqKSW4e2ZVIGCMk49DZ3UqeefaBFTb6o7XLNOb8MDUgXlEiicpyyvhP4t+r2Y4XxWbWkLSYbYCqcLu/To9ofKRL7D+A4IyZXuvDRu2fxLvHfxSHjTkBYVrCi4IgmHjojnAtNjTbCMF9JRNptDMyvnfSkEh3enXyZa3eHJB3E5ZrmNlxfjYXzcfzENQqIaxwejvudCVhGkquVYD0qZHtZ9wUpYQIc47cWn22Rx75Us9PbSDCYtjBjGCGnfr7AzDRypP44PZqhOs="
+    registerSkin("{@characterId}", {_value}, {_signature})
+    
+    set {character::{@characterId}::head} to head from value {_value}
+    registerCharacter("{@characterId}", 3, 20, 1, 1, 1)
+
+    set {_lore::1} to ""
+    set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+    set {_lore::3} to ""
+    set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&c&l鬼滅の刃&7] &4&l煉獄さん" with lore {_lore::*}
+
+    delete {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7手裏剣" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+
+    set {_item} to iron sword named "&f&l刀" with lore {_lore::*} with custom nbt from "{actionId:1}"
+    registerAction("{@characterId}", 1, hideItemInfo({_item}))
+
+
+function {@characterId}_action1(p: player):
+    cooldown({_p}, {_p}'s tool, 20 ticks)
+
+    play sound "entity.blaze.shoot" with volume 0.6 and pitch 1.2 at location of {_p}
+    play sound "block.fire.ambient" with volume 0.4 and pitch 1.8 at location of {_p}
+
+    loop 3 times:
+        set {_yaw} to (yaw of {_p})
+        set {_muzzleLoc} to (eye location of {_p})
+        set {_dirVec} to (getDirectionVector({_p}))
+        {@characterId}_fireArcShot({_p}, {_muzzleLoc}, {_dirVec}, {_yaw})
+        if loop-number < 3:
+            wait 3 ticks
+
+function {@characterId}_actionLeft1(p: player):
+    {@characterId}_action2({_p})
+
+function {@characterId}_action2(p: player):
+    cooldown({_p}, {_p}'s tool, 15 ticks)
+
+    set {_uuid} to (uuid of {_p})
+    set {_now} to (unix timestamp of now)
+    set {_lastComboAt} to ({rengokusan::%{_uuid}%::combo_time} ? 0)
+    set {_combo} to ({rengokusan::%{_uuid}%::combo} ? 0)
+
+    if ({_now} - {_lastComboAt}) > {@action2_combo_timeout}:
+        set {_combo} to 0
+    add 1 to {_combo}
+    if {_combo} > 4:
+        set {_combo} to 1
+
+    set {rengokusan::%{_uuid}%::combo} to {_combo}
+    set {rengokusan::%{_uuid}%::combo_time} to {_now}
+
+    set {_baseLoc} to (eye location of {_p})
+    set {_baseYaw} to (yaw of {_p})
+    set {_basePitch} to (pitch of {_p})
+
+    set {_damagerate} to {@action2_base_damage_rate}
+    set {_knockback} to {@action2_base_knockback}
+    set {_swingSteps} to 10
+    set {_rayDistance} to 3.8
+    set {_raySize} to 1.0
+    set {_halfW} to 0.62
+    set {_halfH} to 0.2
+    set {_swingDelay} to 0 tick
+
+    if {_combo} is 1:
+        set {_swingStartYaw} to {_baseYaw} - 52
+        set {_swingEndYaw} to {_baseYaw} + 48
+        set {_pitchStart} to ({_basePitch} * 0.5) - 12
+        set {_pitchEnd} to ({_basePitch} * 0.5) + 10
+        set {_damagerate} to 2.5
+        set {_knockback} to 0.28
+    else if {_combo} is 2:
+        set {_swingStartYaw} to {_baseYaw} + 60
+        set {_swingEndYaw} to {_baseYaw} - 54
+        set {_pitchStart} to ({_basePitch} * 0.5) - 8
+        set {_pitchEnd} to ({_basePitch} * 0.5) + 8
+        set {_damagerate} to 3
+        set {_knockback} to 0.34
+    else if {_combo} is 3:
+        set {_swingStartYaw} to {_baseYaw} - 12
+        set {_swingEndYaw} to {_baseYaw} + 14
+        set {_pitchStart} to ({_basePitch} * 0.5) - 28
+        set {_pitchEnd} to ({_basePitch} * 0.5) + 24
+        set {_swingSteps} to 14
+        set {_damagerate} to 3
+        set {_knockback} to 0.42
+        set {_halfW} to 0.52
+        set {_halfH} to 0.28
+    else:
+        set {_swingStartYaw} to {_baseYaw} + 48
+        set {_swingEndYaw} to {_baseYaw} - 50
+        set {_pitchStart} to ({_basePitch} * 0.5) - 16
+        set {_pitchEnd} to ({_basePitch} * 0.5) + 18
+        set {_swingSteps} to 12
+        set {_damagerate} to 4
+        set {_knockback} to 0.5
+        set {_rayDistance} to 4.2
+        set {_raySize} to 1.2
+
+    loop all players:
+        if all:
+            gamemode of loop-player is not spectator
+            gamemode of loop-player is not creative
+            loop-player is not {_p}
+        then:
+            add loop-player to {_allowTargets::*}
+
+    if {_swingDelay} > 0 tick:
+        wait {_swingDelay}
+
+    loop {_swingSteps} times:
+        set {_t} to ((loop-number - 1) / ({_swingSteps} - 1))
+        set {_yaw} to ({_swingStartYaw} + (({_swingEndYaw} - {_swingStartYaw}) * {_t}))
+        set {_pitch} to ({_pitchStart} + (({_pitchEnd} - {_pitchStart}) * {_t}))
+        set {_dir} to (getTangentVector(vector(0, 0, 0), {_yaw}, {_pitch}))
+        set {_muzzleLoc} to (getSliceLocation({_baseLoc}, {_dir}, 1.0))
+
+        set {_lineHitLoc} to (getSliceLocation({_muzzleLoc}, {_dir}, {_rayDistance}))
+        set {_sliceCenter} to {_lineHitLoc}
+
+        set {_tangent} to (normalize {_dir})
+        set {_tx} to (x component of {_tangent})
+        set {_ty} to (y component of {_tangent})
+        set {_tz} to (z component of {_tangent})
+
+        set {_axisWideRaw} to (vector((({_ty} * 0) - ({_tz} * 1)), ((({_tz} * 0) - ({_tx} * 0))), ((({_tx} * 1) - ({_ty} * 0)))))
+        set {_axisWide} to (normalize {_axisWideRaw})
+
+        set {_wx} to (x component of {_axisWide})
+        set {_wy} to (y component of {_axisWide})
+        set {_wz} to (z component of {_axisWide})
+        set {_axisLongRaw} to (vector((({_wy} * {_tz}) - ({_wz} * {_ty})), ((({_wz} * {_tx}) - ({_wx} * {_tz}))), ((({_wx} * {_ty}) - ({_wy} * {_tx})))))
+        set {_axisLong} to (normalize {_axisLongRaw})
+
+        set {_r} to 255
+        set {_g} to (floor(50 + (120 * {_t})))
+        set {_b} to (floor(8 + (32 * {_t})))
+        if {_combo} is 2:
+            add 15 to {_g}
+        else if {_combo} is 3:
+            add 25 to {_g}
+        else if {_combo} is 4:
+            add 40 to {_g}
+
+        drawBladeSurface({_sliceCenter}, {_axisLong}, {_axisWide}, {_tangent}, {_halfW}, {_halfH}, 1, 2, 3, 0.03, {_r}, {_g}, {_b}, 1.3)
+
+        set {_ray} to (raytrace from {_muzzleLoc} along {_dir} with max distance {_rayDistance} with ray size {_raySize} while ignoring passable blocks while only allowing {_allowTargets::*})
+        if raytrace hit entity of {_ray} exists:
+            set {_target} to (raytrace hit entity of {_ray})
+            if {_hitEntities::*} does not contain {_target}:
+                make {_p} damage {_target} by {_damagerate}
+                add {_target} to {_hitEntities::*}
+
+    play sound "item.trident.swing" with volume 0.7 and pitch 1.2 at {_baseLoc}
+    play sound "entity.blaze.shoot" with volume 0.4 and pitch 1.9 at {_baseLoc}
+
+function {@characterId}_fireArcShot(p: player, startLoc: location, dirVec: vector, yaw: number):
+    set {_loc} to {_startLoc}
+    set {_dir} to {_dirVec}
+    set vector length of {_dir} to {@action1_speed}
+    set {_traveled} to 0
+
+    delete {_hitUUIDs::*}
+    loop all players:
+        if all:
+            gamemode of loop-player is not spectator
+            gamemode of loop-player is not creative
+            loop-player is not {_p}
+        then:
+            add loop-player to {_allowTargets::*}
+
+    loop 36 times:
+        add (x component of {_dir}) to x-coordinate of {_loc}
+        add (y component of {_dir}) to y-coordinate of {_loc}
+        add (z component of {_dir}) to z-coordinate of {_loc}
+        add {@action1_speed} to {_traveled}
+
+        if {_traveled} >= {@action1_range}:
+            stop
+        if block at {_loc} is solid:
+            stop
+
+        set {_t} to ({_traveled} / {@action1_range})
+        set {_r} to (floor(255 - (30 * {_t})))
+        set {_g} to (floor(90 - (60 * {_t})))
+        set {_b} to (floor(18 - (12 * {_t})))
+        if {_g} < 0:
+            set {_g} to 0
+        if {_b} < 0:
+            set {_b} to 0
+        draw 2 of dust particle using dustOption(rgb({_r}, {_g}, {_b}), 1.2) at {_loc}
+        draw 1 of dust particle using dustOption(rgb(255, 120, 40), 0.9) at {_loc}
+
+        set {_ray} to (raytrace from {_loc} along {_dir} with max distance {@action1_speed} with ray size {@action1_hit_radius} while ignoring passable blocks while only allowing {_allowTargets::*})
+        if raytrace hit entity of {_ray} exists:
+            set {_target} to (raytrace hit entity of {_ray})
+            if {_hitUUIDs::*} does not contain (uuid of {_target}):
+                make {_p} damage {_target} by {@action1_damage_rate}
+                add (uuid of {_target}) to {_hitUUIDs::*}
+                stop
+
+
+
+

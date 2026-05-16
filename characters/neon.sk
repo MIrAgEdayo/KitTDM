@@ -1,0 +1,341 @@
+options:
+    prefix: &7&l[&b&lNEON&7&l]
+    characterId: neon
+    high-gear-drain-per-tick: 0.25
+    high-gear-regen-per-tick: 0.35
+    high-gear-max-gauge: 100
+    high-gear-speed-level: 2
+    high-gear-jump-push: 0.3
+    high-gear-slide-push: 0.05
+    high-gear-slide-duration-ticks: 5
+    high-gear-slide-cooldown-ticks: 6
+
+function neonGaugeBar(current: number, max: number) :: text:
+    if {_max} <= 0:
+        return "&7||||||||||||||||||||"
+
+    set {_filled} to round(({_current} / {_max}) * 20)
+    if {_filled} < 0:
+        set {_filled} to 0
+    if {_filled} > 20:
+        set {_filled} to 20
+
+    set {_bar} to ""
+    loop 20 times:
+        if loop-number <= {_filled}:
+            set {_bar} to "%{_bar}%&b|"
+        else:
+            set {_bar} to "%{_bar}%&7|"
+    return {_bar}
+
+function neonSlide(p: player, dir: text, power: number, ticks: number):
+    set {_slidePower} to {_power}
+
+    loop {_ticks} times:
+        set {_diag} to {_slidePower} * 0.15
+
+        if {_dir} is "forward":
+            push {_p} horizontally forward at speed {_slidePower}
+        else if {_dir} is "behind":
+            push {_p} horizontally behind at speed {_slidePower}
+        else if {_dir} is "right":
+            push {_p} right at speed {_slidePower}
+        else if {_dir} is "left":
+            push {_p} left at speed {_slidePower}
+        else if {_dir} is "forward-right":
+            push {_p} horizontally forward at speed {_diag}
+            push {_p} right at speed {_diag}
+        else if {_dir} is "forward-left":
+            push {_p} horizontally forward at speed {_diag}
+            push {_p} left at speed {_diag}
+        else if {_dir} is "behind-right":
+            push {_p} horizontally behind at speed {_diag}
+            push {_p} right at speed {_diag}
+        else if {_dir} is "behind-left":
+            push {_p} horizontally behind at speed {_diag}
+            push {_p} left at speed {_diag}
+
+        set {_slidePower} to {_slidePower} ^ 0.1
+        wait 1 tick
+    set {neon::sliding::%uuid of {_p}%} to false
+
+
+on load:
+    set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTczODc4NTQwMTI5MCwKICAicHJvZmlsZUlkIiA6ICIxODA1Y2E2MmM0ZDI0M2NiOWQxYmY4YmM5N2E1YjgyNCIsCiAgInByb2ZpbGVOYW1lIiA6ICJ3aG9pc3J1bGxlZCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9jZTEyODM0NmJkMDE0MGExYmJjMzNkODAyZmIyZTgwZTYzZGMxOWVjMWFkM2E1YjIwZTEyYzNiYzNjZjJhMDgyIiwKICAgICAgIm1ldGFkYXRhIiA6IHsKICAgICAgICAibW9kZWwiIDogInNsaW0iCiAgICAgIH0KICAgIH0KICB9Cn0="
+    set {_signature} to "sDdJPDpRVPtTmUUN6nIb1mmmb40FpBJTU9ukzT7V5xKycM8HHE/AXrAYpA8DsSVFyg3+leib2lj3dH8zc/5qAiYeXznmztoYvQTvCHuWOYpCvDdVd7owgHoTAINI+E0i5IxnQFEkZfM2Y86GHoo5vMS0filIwNOfoMYk5znw/7+Nyn8G6PwwxeXNo3xwPzImC/hlxlQ4VuDdGzjTET2bmgA7O4ob8LOlUMAwoqp57i23SrR381FKaoX3UFucHKT0nta5VQpSVunIqSmURAfDk1FyF43QpUf4nZzZWfJDgTQLmEB9AwsbZj68DNXN837xscoj3XqVpmB3HkBDQk7O38NbgRUW8hD9YryLP/90InieZomJXyxqO6pp7g9+vWlAWRcZmqzV0AcDUyrBT7OXG+HYF7h2S3X8N7mtohVnwd/+wx8r53gDkbZ145lH8LbYJiuU+5hgT4ogv/QO/rMq5pRS7bBojS1RuYXjAGyFplezXxne76ah92ROS8Vt7XllNKvqRQek816SI1iffG7GBXb61Y0/USNfUGy3BxPnHV7lQQlao2d4bCUCkhqppgd8yS2DOYvQTq2KJzA/VWQTI0oPLgXmXvxDl2XeTXpXHbxVqCEsxqH9PACdb5uYU4MH6abWQ8ncM6SkLM2a1snU69+xUCRDSzQ5susOQEdA8GA="
+    registerSkin("{@characterId}", {_value}, {_signature})
+
+    registerCharacter("{@characterId}", 8, 20, 60, 1.2, 1.0)
+
+    set {character::{@characterId}::head} to head from value {_value}
+
+    set {_lore::1} to ""
+    set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+    set {_lore::3} to ""
+    set {_lore::4} to "&f邪魔するやつはビビっといくよ！"
+    set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&c&lVALORANT&7] &b&lネオン" with lore {_lore::*}
+
+    delete {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7ハイギア" to {_lore::*}
+    add " &7ゲージがある限り、機動力を大きく上げる。" to {_lore::*}
+    add " &7発動中はゲージを消費する。" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    set {_item} to sugar named "&b&lハイギア" with lore {_lore::*} with custom nbt from "{actionId:1}"
+    registerAction("{@characterId}", 1, hideItemInfo({_item}))
+
+    set {_sid} to 3
+    set {_gunTypeText} to {skshot::runtime::%{_sid}%::itemType}
+    set {_gunType} to {_gunTypeText} parsed as item type
+    if {_gunType} is not set:
+        set {_gunType} to stick
+    set {_gun} to {_gunType} named {skshot::runtime::%{_sid}%::name}
+    set {_mag} to {skshot::runtime::%{_sid}%::magSize}
+    set {_reserve} to {skshot::runtime::%{_sid}%::reserveAmmo}
+    if {_mag} is not set:
+        set {_mag} to 10
+    if {_reserve} is not set:
+        set {_reserve} to -1
+    set {_gun} to ShotFormatGun({_gun}, {_sid}, {_mag}, {_reserve})
+    give {_gun} to {_target}
+    registerAction("{@characterId}", 2, hideItemInfo({_item}))
+
+function {@characterId}_action1(player: player):
+    set {_id} to "%uuid of {_player}%"
+    set {_max} to {@high-gear-max-gauge}
+
+    if {neon::gauge::%{_id}%} is not set:
+        set {neon::gauge::%{_id}%} to {_max}
+
+    if {neon::active::%{_id}%} is true:
+        set {neon::active::%{_id}%} to false
+        remove speed from {_player}
+        play sound "entity.beacon.deactivate" with volume 1 and pitch 1.2 to {_player}
+        send "{@prefix} &7ハイギアを解除した。" to {_player}
+        stop
+
+    if {neon::gauge::%{_id}%} <= 0:
+        send "{@prefix} &c充電しないと。" to {_player}
+        stop
+
+    cooldown({_player}, {_player}'s tool, 1 second)
+    set {neon::active::%{_id}%} to true
+    play sound "entity.beacon.activate" with volume 1 and pitch 1.3 to {_player}
+    send "{@prefix} &bじゃあ、いくよ！" to {_player}
+
+every tick:
+    loop all players:
+        set {_id} to "%uuid of loop-player%"
+        set {_max} to {@high-gear-max-gauge}
+
+        if {neon::slideCd::%{_id}%} is set:
+            if {neon::slideCd::%{_id}%} > 0:
+                remove 1 from {neon::slideCd::%{_id}%}
+            if {neon::slideCd::%{_id}%} <= 0:
+                delete {neon::slideCd::%{_id}%}
+
+        if {neon::gauge::%{_id}%} is not set:
+            set {neon::gauge::%{_id}%} to {_max}
+
+        if {neon::active::%{_id}%} is true:
+            if loop-player is on ground:
+                set {_keys} to "%current input keys of loop-player%"
+                set {_wantSlide} to false
+
+                if {_keys} contains "sneaking key":
+                    set {_wantSlide} to true
+                if {_keys} contains "sneak key":
+                    set {_wantSlide} to true
+                if {_keys} contains "sneak":
+                    set {_wantSlide} to true
+
+                if {_wantSlide} is true:
+                    if {neon::slideCd::%{_id}%} is not set:
+                        set {_dir} to getInputMoveDirection(loop-player)
+                        if {_dir} is not "stop":
+                            set {_totalCd} to {@high-gear-slide-duration-ticks} + {@high-gear-slide-cooldown-ticks}
+                            set {neon::sliding::%{_id}%} to true
+                            neonSlide(loop-player, {_dir}, {@high-gear-slide-push}, {@high-gear-slide-duration-ticks})
+                            set {neon::active::%{_id}%} to false
+                            set {neon::slideCd::%{_id}%} to {_totalCd}
+                            remove speed from loop-player
+                            play sound "entity.player.attack.sweep" with volume 1 and pitch 0.9 to loop-player
+
+            if {neon::active::%{_id}%} is true:
+                apply speed {@high-gear-speed-level} to loop-player for 3 ticks
+                remove {@high-gear-drain-per-tick} from {neon::gauge::%{_id}%}
+
+                if {neon::gauge::%{_id}%} <= 0:
+                    set {neon::gauge::%{_id}%} to 0
+                    set {neon::active::%{_id}%} to false
+                    remove speed from loop-player
+                    play sound "entity.beacon.deactivate" with volume 1 and pitch 0.8 to loop-player
+                    send "{@prefix} &7ふう。" to loop-player
+        else:
+            if {neon::gauge::%{_id}%} < {_max}:
+                add {@high-gear-regen-per-tick} to {neon::gauge::%{_id}%}
+                if {neon::gauge::%{_id}%} > {_max}:
+                    set {neon::gauge::%{_id}%} to {_max}
+
+        if {neon::active::%{_id}%} is true:
+            set {_bar} to neonGaugeBar({neon::gauge::%{_id}%}, {_max})
+            set {_showGauge} to round({neon::gauge::%{_id}%}, 1)
+            send action bar "&b電力 &f%{_showGauge}%&7/&f%{_max}% %{_bar}%" to loop-player
+        else if {neon::gauge::%{_id}%} < {_max}:
+            set {_bar} to neonGaugeBar({neon::gauge::%{_id}%}, {_max})
+            set {_showGauge} to round({neon::gauge::%{_id}%}, 1)
+            send action bar "&b電力 &f%{_showGauge}%&7/&f%{_max}% %{_bar}%" to loop-player
+
+on jump:
+    set {_id} to "%uuid of player%"
+    if {neon::sliding::%{_id}%} is true:
+        cancel event
+        stop
+
+    if {neon::active::%{_id}%} is not true:
+        stop
+
+    set {_dir} to getInputMoveDirection(player)
+    if {neon::debugJump::%{_id}%} is true:
+        set {_keys} to "%current input keys of player%"
+        send "{@prefix} &8[JumpDebug] &7dir=&f%{_dir}% &7keys=&f%{_keys}%" to player
+
+    set {_diagPush} to {@high-gear-jump-push} * 0.7071
+
+    if {_dir} is "forward":
+        push player horizontally forward at speed {@high-gear-jump-push}
+    else if {_dir} is "behind":
+        push player horizontally behind at speed {@high-gear-jump-push}
+    else if {_dir} is "right":
+        push player right at speed {@high-gear-jump-push}
+    else if {_dir} is "left":
+        push player left at speed {@high-gear-jump-push}
+    else if {_dir} is "forward-right":
+        push player horizontally forward at speed {_diagPush}
+        push player right at speed {_diagPush}
+    else if {_dir} is "forward-left":
+        push player horizontally forward at speed {_diagPush}
+        push player left at speed {_diagPush}
+    else if {_dir} is "behind-right":
+        push player horizontally behind at speed {_diagPush}
+        push player right at speed {_diagPush}
+    else if {_dir} is "behind-left":
+        push player horizontally behind at speed {_diagPush}
+        push player left at speed {_diagPush}
+
+on death of player:
+    if attacker is a player:
+        set {_id} to "%uuid of attacker%"
+        set {neon::gauge::%{_id}%} to {@high-gear-max-gauge}
+
+on quit:
+    set {_id} to "%uuid of player%"
+    delete {neon::active::%{_id}%}
+    delete {neon::debugJump::%{_id}%}
+    delete {neon::slideCd::%{_id}%}
+    delete {neon::sliding::%{_id}%}
+    remove speed from player
+
+command /neongauge:
+    trigger:
+        set {_id} to "%uuid of player%"
+        if {neon::gauge::%{_id}%} is not set:
+            set {neon::gauge::%{_id}%} to {@high-gear-max-gauge}
+        set {_gauge} to round({neon::gauge::%{_id}%}, 1)
+        send "{@prefix} &bGauge: &f%{_gauge}%&7/&f{@high-gear-max-gauge}" to player
+
+command /neonjumpdebug:
+    trigger:
+        set {_id} to "%uuid of player%"
+        if {neon::debugJump::%{_id}%} is true:
+            delete {neon::debugJump::%{_id}%}
+            send "{@prefix} &7Jump debug: &coff" to player
+        else:
+            set {neon::debugJump::%{_id}%} to true
+            send "{@prefix} &7Jump debug: &aon" to player
+
+
+#移動方向検知
+function getInputMoveDirection(p: player) :: text:
+    set {_keys} to "%current input keys of {_p}%"
+
+    set {_forward} to false
+    set {_behind} to false
+    set {_left} to false
+    set {_right} to false
+
+    if {_keys} contains "forward movement key":
+        set {_forward} to true
+    if {_keys} contains "forward key":
+        set {_forward} to true
+    if {_keys} contains "forward":
+        set {_forward} to true
+
+    if {_keys} contains "behind movement key":
+        set {_behind} to true
+    if {_keys} contains "behind key":
+        set {_behind} to true
+    if {_keys} contains "behind":
+        set {_behind} to true
+    if {_keys} contains "back":
+        set {_behind} to true
+
+    if {_keys} contains "left movement key":
+        set {_left} to true
+    if {_keys} contains "left key":
+        set {_left} to true
+    if {_keys} contains "left":
+        set {_left} to true
+
+    if {_keys} contains "right movement key":
+        set {_right} to true
+    if {_keys} contains "right key":
+        set {_right} to true
+    if {_keys} contains "right":
+        set {_right} to true
+
+    if {_forward} is true:
+        if {_behind} is false:
+            if {_right} is true:
+                if {_left} is false:
+                    return "forward-right"
+
+    if {_forward} is true:
+        if {_behind} is false:
+            if {_left} is true:
+                if {_right} is false:
+                    return "forward-left"
+
+    if {_behind} is true:
+        if {_forward} is false:
+            if {_right} is true:
+                if {_left} is false:
+                    return "behind-right"
+
+    if {_behind} is true:
+        if {_forward} is false:
+            if {_left} is true:
+                if {_right} is false:
+                    return "behind-left"
+
+    if {_forward} is true:
+        if {_behind} is false:
+            return "forward"
+
+    if {_behind} is true:
+        if {_forward} is false:
+            return "behind"
+
+    if {_right} is true:
+        if {_left} is false:
+            return "right"
+
+    if {_left} is true:
+        if {_right} is false:
+            return "left"
+
+    return "stop"

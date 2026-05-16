@@ -1,0 +1,351 @@
+options:
+	prefix: &7&l[&5&lWidowmaker&7&l]
+	characterId: widowmaker
+
+	# スキル1 ウィドウズ・キス
+	widow_cooldown: 16 ticks
+	widow_min_damage: 2
+	widow_max_damage: 15
+	widow_charge_full_ticks: 60
+	widow_range: 80
+	widow_slowness_level: 3
+
+	# スキル2 グラップリングフック
+	hook_cooldown: 160 ticks
+	hook_range: 30
+	hook_speed: 1.0
+
+on load:
+	set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTc2NTg5MDYyODE2MSwKICAicHJvZmlsZUlkIiA6ICJhYzY1NDYwOWVkZjM0ODhmOTM0ZWNhMDRmNjlkNGIwMCIsCiAgInByb2ZpbGVOYW1lIiA6ICJzcGFjZUd1cmxTa3kiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzY3Mjc3ZmQxZDg2ZDZiNDNlNjMzMWFmMDY3NzIzZjMwYjA2MjU2ZWU5MzVlNmMyMmZkZWRjODlmN2NkMjUzYyIKICAgIH0KICB9Cn0="
+	set {_signature} to "OuNzfmFIIVgC7FUd8OB7/EuaBVhDlNOL7em1LCmB6tb+s2lWFOZ5DGc3iAfKE0X14gHs9yymR2iV889pUyJN3ZbVPxT2yDzBNJ6gdrvqK7m3AiR/GlvwF8IcD4dSG+sLsqsLG/MB0lp5hden1YOZliJwJ/Z4ddYOdZrab2Pme1XnvGhnuGNTvOA8HXr4NS8LHvIYe+lRX9J7D1URVWHaduWTAOPpIQhJI3pojcCbfYDBy1UMb/Go9vyp5eD8W+BajnyuoTm/3xJX4vbhHf/ls/PGylvL72E3hdwtB98j4GbNQN52+bNJs17g+w5zOBklaN7bIeM7IMFS0LL3BIMXL3AY6CHGULaRfVP+sKXgg4GG1oiXGz1BRXLY3KwnnZaOS1B6Uk1LyvWLGPrE53hyiDNiWjEYCWzhAkDH+idYrUSOIYiCoslJWWEz546ZdmpOvzloM3l5Fi/W5HZ9SyUK9i8MLDimkjmgHZd/V0FyBDZ4kbcIh/kcgJ4CE4+UXiy0OTSFiyG4AlHXvQjvSuouRf1juPTwplaij3oyWY68gDwoksCxCVfkkLjeT06S6LY6Bi2Yxw0kRkQNmTwMgEcz7IKNBIioQrpiols03vKnTa6fH1/QHo/NCEL0syV1yb0kbIGHXAPOj1WTBOs0FHS6Hpc9t5fXVpbBA+x2p8Wbv2o="
+	registerSkin("{@characterId}", {_value}, {_signature})
+
+	set {character::{@characterId}::head} to head from value {_value}
+	registerCharacter("{@characterId}", 37, 18, 1, 1, 1)
+
+	set {_lore::1} to ""
+	set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+	set {_lore::3} to ""
+	add "&f「狩りは始まったばかりよ」" to {_lore::*}
+	set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&f&lOVERWATCH&7] &5&lウィドウメーカー" with lore {_lore::*}
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7ウィドウズ・キス" to {_lore::*}
+	add "" to {_lore::*}
+	add " &7&o左クリック: &f射撃(ダメージ4)" to {_lore::*}
+	add " &7&oシフト長押し: &fチャージ(最大ダメージ20)" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to crossbow of sharpness 1 with model data 1 named "&5&l&nウィドウズ・キス" with lore {_lore::*} with custom nbt from "{actionId:1}"
+	registerAction("{@characterId}", 1, hideItemInfo({_item}))
+
+	delete {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	add " &b&l&n⊱&7グラップリングフック" to {_lore::*}
+	add "" to {_lore::*}
+	add " &7&o右クリック: &f30マス以内のブロックにフック射出" to {_lore::*}
+	add "" to {_lore::*}
+	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+	add "" to {_lore::*}
+	set {_item} to fishing rod of sharpness 1 with model data 1 named "&6&l&nグラップリングフック" with lore {_lore::*} with custom nbt from "{actionId:2}"
+	registerAction("{@characterId}", 2, hideItemInfo({_item}))
+
+# ========== スキル1 ウィドウズ・キス(左クリック発射) ==========
+function {@characterId}_action1_left(player: player):
+	set {_uuid} to uuid of {_player}
+
+	cooldown({_player}, {_player}'s tool, {@widow_cooldown})
+
+	# チャージ計算
+	set {_chargeTicks} to {widowmaker::%{_uuid}%::chargeAmount} ? 0
+	if {_chargeTicks} > {@widow_charge_full_ticks}:
+		set {_chargeTicks} to {@widow_charge_full_ticks}
+	set {_ratio} to {_chargeTicks} / {@widow_charge_full_ticks}
+
+	# ダメージ = min + (max - min) * ratio
+	set {_damage} to {@widow_min_damage} + (({@widow_max_damage} - {@widow_min_damage}) * {_ratio})
+
+	# チャージ状態をリセット
+	set {widowmaker::%{_uuid}%::chargeAmount} to 0
+	delete {widowmaker::%{_uuid}%::charging}
+	remove slowness from {_player}
+
+	# 射撃演出
+	if {_ratio} >= 0.95:
+		play sound "minecraft:entity.generic.explode" with volume 1.5 and pitch 0.6 at location of {_player}
+		play sound "minecraft:item.trident.thunder" with volume 2 and pitch 1.0 at location of {_player}
+	else:
+		play sound "minecraft:item.crossbow.shoot" with volume 1 and pitch (1.5 - {_ratio}) at location of {_player}
+		play sound "minecraft:entity.firework_rocket.blast" with volume 0.5 and pitch 1.5 at location of {_player}
+
+	loop all players:
+		if all:
+			gamemode of loop-player is not spectator
+			gamemode of loop-player is not creative
+			loop-player is not {_player}
+		then:
+			add loop-player to {_allowList::*}
+
+	set {_startLoc} to eye location of {_player}
+	set {_dir} to getDirectionVector({_player})
+
+	set {_ray} to raytrace from {_startLoc} along {_dir} with max distance {@widow_range} with ray size 0.15 while ignoring passable blocks while only allowing {_allowList::*}
+
+	# 軌跡の終端
+	if raytrace hit location of {_ray} is set:
+		set {_endLoc} to raytrace hit location of {_ray}
+	else:
+		set {_endLoc} to location {@widow_range} meter forward {_startLoc}
+
+	# 軌跡描画(チャージ強いほど派手)
+	set {_trailDir} to vector from {_startLoc} to {_endLoc}
+	set {_trailDist} to vector length of {_trailDir}
+	if {_trailDist} > 0:
+		set vector length of {_trailDir} to 0.5
+		set {_loc} to {_startLoc}
+		set {_red} to floor(150 + (105 * {_ratio}))
+		set {_blue} to floor(180 + (75 * {_ratio}))
+		loop ({_trailDist} * 2) times:
+			set {_loc} to location {_trailDir} ({_loc})
+			draw 1 of dust particle using dustOption(rgb({_red}, 80, {_blue}), 1) at {_loc}
+			if {_ratio} >= 0.5:
+				draw 1 of dust particle using dustOption(rgb(200, 100, 255), 0.6) at {_loc}
+
+	# 命中処理
+	if raytrace hit entity of {_ray} exists:
+		set {_victim} to raytrace hit entity of {_ray}
+		make {_player} damage {_victim} by {_damage}
+		play sound "minecraft:entity.player.hurt" with volume 0.8 and pitch 1.2 at location of {_victim}
+		draw 10 of crit particle at location of {_victim} with offset vector(0.3, 0.5, 0.3) with extra 0.2
+
+		if {_ratio} >= 0.95:
+			play sound "minecraft:item.trident.thunder" with volume 2 and pitch 0.8 at location of {_victim}
+			draw 30 of crit particle at location of {_victim} with offset vector(0.5, 1, 0.5) with extra 0.5
+
+	if raytrace hit block of {_ray} is solid:
+		set {_hitLoc} to raytrace hit location of {_ray}
+		draw 10 of crit particle at {_hitLoc} with extra 0.1
+		draw 5 of smoke particle at {_hitLoc} with extra 0.05
+
+# ========== シフトチャージ開始 ==========
+on sneak toggle:
+	getPlayerCharacterId(player) is "{@characterId}"
+	set {_uuid} to uuid of player
+	if player is sneaking:
+		# シフト解除 → チャージ終了
+		delete {widowmaker::%{_uuid}%::charging}
+		remove slowness from player
+	else:
+		# シフト開始 → チャージ開始
+		set {widowmaker::%{_uuid}%::charging} to true
+		set {widowmaker::%{_uuid}%::chargeAmount} to 0
+		apply slowness {@widow_slowness_level} to player for 99999 ticks
+		{@characterId}_chargeLoop(player)
+
+# チャージループ(別関数で非同期処理)
+function {@characterId}_chargeLoop(p: player):
+	set {_uuid} to uuid of {_p}
+
+	loop {@widow_charge_full_ticks} times:
+		# 中断チェック
+		if {_p} is not online:
+			delete {widowmaker::%{_uuid}%::charging}
+			stop
+		if {widowmaker::%{_uuid}%::charging} is not true:
+			# シフト解除 = 終了
+			remove slowness from {_p}
+			stop
+		if getPlayerCharacterId({_p}) is not "{@characterId}":
+			delete {widowmaker::%{_uuid}%::charging}
+			remove slowness from {_p}
+			stop
+
+		add 1 to {widowmaker::%{_uuid}%::chargeAmount}
+
+		# チャージ表示
+		set {_charge} to {widowmaker::%{_uuid}%::chargeAmount}
+		set {_pct} to floor(({_charge} / {@widow_charge_full_ticks}) * 100)
+		if {_pct} > 100:
+			set {_pct} to 100
+
+		# プログレスバー
+		set {_bar} to ""
+		set {_filled} to floor({_pct} / 5)
+		loop {_filled} times:
+			set {_bar} to "%{_bar}%&5▰"
+		loop (20 - {_filled}) times:
+			set {_bar} to "%{_bar}%&8▱"
+		set {_msg} to "&d&lチャージ &8[" + {_bar} + "&8] &f" + "%{_pct}%"
+		send action bar {_msg} to {_p}
+
+		# 段階的な音
+		if mod({_charge}, 8) is 0:
+			set {_pitch} to 0.8 + ({_charge} / {@widow_charge_full_ticks})
+			play sound "minecraft:block.note_block.bit" with volume 0.4 and pitch {_pitch} at location of {_p}
+
+		# フルチャージ到達音
+		if {_charge} is {@widow_charge_full_ticks}:
+			play sound "minecraft:block.beacon.activate" with volume 0.6 and pitch 2.0 at location of {_p}
+			set {_fullMsg} to "&d&l&nFULL CHARGE&r &8[" + {_bar} + "&8]"
+			send action bar {_fullMsg} to {_p}
+
+		# チャージ中のオーラ
+		set {_pLoc} to location of {_p}
+		draw 2 of dust particle using dustOption(rgb(200, 100, 255), 0.8) at {_pLoc}~vector(0, 1, 0) with offset vector(0.3, 0.5, 0.3)
+
+		wait 1 tick
+
+	# フル後も維持(シフト解除まで待機)
+	while {widowmaker::%{_uuid}%::charging} is true:
+		if {_p} is not online:
+			delete {widowmaker::%{_uuid}%::charging}
+			stop
+		if getPlayerCharacterId({_p}) is not "{@characterId}":
+			delete {widowmaker::%{_uuid}%::charging}
+			remove slowness from {_p}
+			stop
+		set {_pLoc} to location of {_p}
+		draw 3 of dust particle using dustOption(rgb(255, 100, 200), 1) at {_pLoc}~vector(0, 1, 0) with offset vector(0.3, 0.5, 0.3)
+		wait 2 ticks
+
+# ========== スキル2 グラップリングフック(右クリック) ==========
+function {@characterId}_action2(player: player):
+	set {_startLoc} to eye location of {_player}
+	set {_dir} to getDirectionVector({_player})
+	set vector length of {_dir} to 0.5
+
+	# 手動でブロック走査
+	set {_checkLoc} to {_startLoc}
+	set {_traveled} to 0
+	delete {_hookLoc}
+	loop ({@hook_range} * 2) times:
+		set {_checkLoc} to {_checkLoc}~{_dir}
+		add 0.5 to {_traveled}
+
+		if {_traveled} > {@hook_range}:
+			exit loop
+
+		if block at {_checkLoc} is not passable:
+			set {_hookLoc} to {_checkLoc}
+			exit loop
+
+	if {_hookLoc} is not set:
+		send "{@prefix} &c&l届く範囲にブロックがありません" to {_player}
+		play sound "minecraft:block.note_block.bass" with volume 0.8 and pitch 0.5 at location of {_player}
+		stop
+
+	cooldown({_player}, {_player}'s tool, {@hook_cooldown})
+
+	# 発射演出
+	play sound "minecraft:entity.fishing_bobber.throw" with volume 1.5 and pitch 1.2 at location of {_player}
+	play sound "minecraft:item.crossbow.loading_end" with volume 1 and pitch 1.5 at location of {_player}
+	play sound "minecraft:entity.firework_rocket.launch" with volume 0.6 and pitch 1.8 at location of {_player}
+
+	# フック飛行演出: 発射点から着弾点まで光が走る
+	set {_flyDir} to vector from {_startLoc} to {_hookLoc}
+	set {_dist} to vector length of {_flyDir}
+	if vector length of {_flyDir} > 0:
+		set vector length of {_flyDir} to 1
+		set {_flyLoc} to {_startLoc}
+		loop (floor({_dist})) times:
+			set {_flyLoc} to {_flyLoc}~{_flyDir}
+			draw 2 of dust particle using dustOption(rgb(255, 220, 100), 1.2) at {_flyLoc}
+			draw 1 of crit particle at {_flyLoc} with extra 0
+			draw 1 of end rod at {_flyLoc} with extra 0
+
+	# 着弾演出
+	play sound "minecraft:block.metal.hit" with volume 1.8 and pitch 1.5 at {_hookLoc}
+	play sound "minecraft:block.anvil.land" with volume 0.5 and pitch 2.0 at {_hookLoc}
+	play sound "minecraft:entity.iron_golem.attack" with volume 0.6 and pitch 1.8 at {_hookLoc}
+	draw 25 of crit particle at {_hookLoc} with offset vector(0.3, 0.3, 0.3) with extra 0.2
+	draw 15 of dust particle using dustOption(rgb(255, 200, 100), 1.5) at {_hookLoc} with offset vector(0.4, 0.4, 0.4)
+	draw 10 of dust particle using dustOption(rgb(255, 240, 180), 2) at {_hookLoc} with offset vector(0.2, 0.2, 0.2)
+	draw 8 of firework at {_hookLoc} with offset vector(0.3, 0.3, 0.3) with extra 0.1
+
+	# フックのワイヤー描画(発射時の初回ライン)
+	set {_wireDir} to vector from {_startLoc} to {_hookLoc}
+	if vector length of {_wireDir} > 0:
+		set vector length of {_wireDir} to 0.3
+		set {_wireLoc} to {_startLoc}
+		loop ({_dist} * 3.33) times:
+			set {_wireLoc} to {_wireLoc}~{_wireDir}
+			draw 1 of dust particle using dustOption(rgb(220, 220, 220), 0.6) at {_wireLoc}
+
+	# 出発演出
+	set {_pLoc} to location of {_player}
+	play sound "minecraft:entity.player.attack.sweep" with volume 1 and pitch 1.4 at {_pLoc}
+	loop 30 times:
+		set {_xRand} to random number between -0.5 and 0.5
+		set {_yRand} to random number between 0 and 2
+		set {_zRand} to random number between -0.5 and 0.5
+		set {_burstLoc} to {_pLoc}~vector({_xRand}, {_yRand}, {_zRand})
+		draw 1 of dust particle using dustOption(rgb(255, 200, 100), 1) at {_burstLoc}
+
+	# プレイヤーを連続移動させる(スパイダーマン風)
+	set {_totalDist} to distance between (location of {_player}) and {_hookLoc}
+
+	# 落下ダメージ無効化
+	set {widowmaker::%uuid of {_player}%::noFall} to true
+
+	# 飛行中のサウンドループ(別関数で並列実行的に)
+	loop ({_totalDist} / {@hook_speed} + 10) times:
+		if {_player} is not online:
+			stop
+		# 到着判定: フック地点に近づいたら停止
+		if distance between (location of {_player}) and {_hookLoc} <= 1.5:
+			set velocity of {_player} to vector(0, 0.1, 0)
+			# 到着演出
+			play sound "minecraft:entity.player.attack.strong" with volume 1 and pitch 1.5 at location of {_player}
+			draw 20 of crit particle at location of {_player} with offset vector(0.5, 0.5, 0.5) with extra 0.3
+			draw 15 of cloud particle at location of {_player} with offset vector(0.5, 0.3, 0.5) with extra 0.1
+			draw 10 of dust particle using dustOption(rgb(255, 220, 100), 1.5) at location of {_player} with offset vector(0.5, 0.5, 0.5)
+			exit loop
+
+		# 進行方向を毎tick再計算
+		set {_currentDir} to vector from (location of {_player}) to {_hookLoc}
+		if vector length of {_currentDir} <= 0:
+			exit loop
+		set vector length of {_currentDir} to {@hook_speed}
+		set velocity of {_player} to {_currentDir}
+
+		# 飛行中の派手な軌跡
+		set {_pPos} to location of {_player}
+		draw 3 of dust particle using dustOption(rgb(255, 200, 100), 0.9) at {_pPos} with offset vector(0.15, 0.15, 0.15)
+		draw 2 of dust particle using dustOption(rgb(255, 240, 180), 0.7) at {_pPos} with offset vector(0.1, 0.1, 0.1)
+		draw 2 of cloud particle at {_pPos} with extra 0
+		draw 1 of crit particle at {_pPos} with extra 0.2
+		if mod(loop-number, 3) is 0:
+			draw 1 of end rod at {_pPos} with extra 0
+
+		# プレイヤーから着弾点までのワイヤーを毎tick更新(縮んでいく感じ)
+		set {_curWireDir} to vector from {_pPos} to {_hookLoc}
+		set {_curDist} to vector length of {_curWireDir}
+		if {_curDist} > 0:
+			set vector length of {_curWireDir} to 0.5
+			set {_curWireLoc} to {_pPos}
+			loop ({_curDist} * 2) times:
+				set {_curWireLoc} to {_curWireLoc}~{_curWireDir}
+				draw 1 of dust particle using dustOption(rgb(200, 200, 200), 0.5) at {_curWireLoc}
+
+		# 飛行音(数tickごと)
+		if mod(loop-number, 4) is 0:
+			play sound "minecraft:entity.firework_rocket.large_blast_far" with volume 0.2 and pitch 1.5 at {_pPos}
+
+		wait 1 tick
+
+	# 落下無効解除(少し遅らせる)
+	wait 10 ticks
+	delete {widowmaker::%uuid of {_player}%::noFall}
+
+# 落下ダメージ無効化
+on damage:
+	damage cause is fall
+	set {_uuid} to uuid of victim
+	{widowmaker::%{_uuid}%::noFall} is true
+	cancel event

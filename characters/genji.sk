@@ -1,0 +1,225 @@
+options:
+    prefix: &7&l[&2&lGenji&7&l]
+    characterId: genji
+
+    shurikenSpeed: 2
+    shurikenSize: 0.5
+    action1Length: 20
+    action1Damage: 2
+    action2Length: 12
+    action2Damage: 1
+
+    kazakiriDamage: 4
+
+on load:
+    set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTYyMzU2NzUwMDQ3MywKICAicHJvZmlsZUlkIiA6ICJhYTZhNDA5NjU4YTk0MDIwYmU3OGQwN2JkMzVlNTg5MyIsCiAgInByb2ZpbGVOYW1lIiA6ICJiejE0IiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzg2OTcwMGIwZTk0NzNjNzc1NmU3NDE1NjFjOWZlOGQzZTI4ZmNmOWFiOWFiNGYwNDQyZjIyYmM0OWUwM2U5YmQiCiAgICB9CiAgfQp9"
+    set {_signature} to "OM2DElpyNRgEvvd3E8+wqBkGSSAE6hQPtacEqjWY6qntiPalyBwhcyWkzOogPn6eYUH0gM3updbMGMkKX8cQ/krRN/kECT7q+quMXrkBuRAqhNPNMPEAV6kFdoDFqDCCNzJasIocfp8+zOEA/WInSCCaegSw6Slt87GquKUfdTwnnCuSpT2Z2JsLUPXg7x6Z/nTr2vJKZsWVVCafdBq6Bz/dhzNK7F9ek9/ucceUMubegtG2yrdWbXTkG1UbAxbtDNCm5NRDYSO92OP2a+AYpgeDD96ohJ1U7Ca+AtRq3W3wAY8sHwGf1BwzHRTb85F9FyUp5DWLG+Ph3BJCcLzadKuvYE9pcT5O4/F0byh3ip/AY2Fj9iTSOKt5u2bGNTlFIkxZjkuxpaB+z9v44S1EMJcCWcA4u18pwwrLE5WgrWi5SuaN/5YdyMhZBvFjygI/d2/+N3L7R+kQ+CvpBjVjR4ZrszF2yR6zDyH7ehlULjLtINVrdLPRXs8vs2PKk+rSBzaXTG+HNAOy3FoQ7UZEHXHDIttNuDlpiDKJGc0VmaJqyZaECQlffsUrg6gX9KAVHL0gvb3zT8Y7rNpdGKRtQCIFxwgr6gfBnMgDKr1FlGfyfoOYX8T7iAc9bZl2M662zG67IaGgsk1q8l/RYV+Z2Snf/FzqsGi0APSYQd9tnL4="
+    registerSkin("{@characterId}", {_value}, {_signature})
+    
+    set {character::{@characterId}::head} to head from value {_value}
+    registerCharacter("{@characterId}", 1, 16, 1, 1, 1)
+
+    set {_lore::1} to ""
+    set {_lore::2} to "&b&l&n⊱&7キャラ説明"
+    set {_lore::3} to ""
+    set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&f&lOVERWATCH&7] &2&lGenji" with lore {_lore::*}
+
+    delete {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+    add " &b&l&n⊱&7手裏剣" to {_lore::*}
+    add "" to {_lore::*}
+    add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
+    add "" to {_lore::*}
+
+    set {_item} to prismarine crystals named "&f&l手裏剣" with lore {_lore::*} with custom nbt from "{actionId:1}"
+    registerAction("{@characterId}", 1, hideItemInfo({_item}))
+
+    set {_item} to iron sword named "&f&l龍一文字" with lore {_lore::*} with custom nbt from "{actionId:2}"
+    registerAction("{@characterId}", 2, hideItemInfo({_item}))
+
+function {@characterId}_throwShuriken(p: player, damage: number, length: number, yaw_offset: number):
+    set {_u} to uuid of {_p}
+
+    set {_speed} to {@shurikenSpeed}
+    set {_size} to {@shurikenSize}
+
+    loop all players:
+        set {_lp} to loop-player
+        if all:
+            gamemode of {_lp} is not spectator
+            gamemode of {_lp} is not creative
+            {_lp} is not {_p}
+        then:
+            add {_lp} to {_ignoreList::*}
+
+    play sound "minecraft:item.lodestone_compass.lock" with pitch 0.8 at location of {_p}
+    play sound "minecraft:item.trident.throw" with pitch 1.3 at location of {_p}
+    
+    set {_lookDirection} to getDirectionVector({_p})
+    set vector length of {_lookDirection} to {_speed}
+    add {_yaw_offset} to yaw of {_lookDirection}
+
+    set {_shotLoc} to eye location of {_p}
+
+    spawn prismarine crystals item display at {_shotLoc}
+    set {_displayEntity} to last spawned entity
+    set display scale of {_displayEntity} to vector(1, 1, 1)
+    set sky light overrides of {_displayEntity} to 15
+
+    set boolean tag "custom;tempEntity" of nbt of {_displayEntity} to true
+    set uuid tag "custom;ownerUUID" of nbt of {_displayEntity} to {_u}
+
+    set {_trans} to vector(0,0,0)
+    set {_scale} to vector(1,1,1)
+    
+    # 水平にするため、ベースのX軸回転を0（または調整）にする
+    # 手裏剣を水平に寝かせる（X軸で90度回転）
+    set {_base} to axisAngle(90, vector(1,0,0))
+    set left transformation rotation of {_displayEntity} to {_base}
+    #set transformation translation of {_displayEntity} to vector from 0.5, 0.5, 0.5
+
+    set {_lastLoc} to location of {_displayEntity}
+    set {_angle} to 0 
+
+    loop {_length} times:
+        wait 1 tick
+        add 10 to {_angle}
+        
+        # 軸を vector(0,0,1) に設定して手裏剣のような回転にする
+        set {_spin} to axisAngle({_angle}, vector(0,0,1))
+        
+        set right transformation rotation of {_displayEntity} to {_spin}
+        # --- 修正終了 ---
+        
+        teleport {_displayEntity} to location {_lookDirection} (location of {_displayEntity})
+
+        set {_ray} to raytrace from {_lastLoc} along {_lookDirection} with max distance {_speed} with ray size {_size} while ignoring passable blocks while only allowing {_ignoreList::*}
+        
+        if raytrace hit entity of {_ray} exists:
+            set {_victim} to raytrace hit entity of {_ray}
+            set {_hit} to true
+            exit loop
+            
+        if raytrace hit block of {_ray} is solid:
+            set {_hitLoc} to raytrace hit location of {_ray}
+            set {_hit} to true
+            teleport {_displayEntity} to {_lastLoc}
+            exit loop
+            
+        set {_lastLoc} to location of {_displayEntity}
+
+        #play sound "minecraft:item.trident.throw" with pitch 1.3 at location of {_displayEntity}
+        draw 2 of crit particle at {_lastLoc} with extra 0.1
+    
+    if {_hit} is true:
+        if {_victim} is set:
+            set {_victim}'s invulnerability time to 0 ticks
+            #applyNoKnockback({_victim}, 1)
+            make {_p} damage {_victim} by {_damage}
+            set {_victim}'s invulnerability time to 10 ticks
+            play sound "minecraft:item.trident.throw" with pitch 1.2 at location of {_victim}
+        else if {_hitLoc} is set:
+            play sound "minecraft:block.stone.hit" with pitch 1.0 at {_hitLoc}
+
+    if {_hitLoc} is set:
+        wait 2 seconds 
+
+    kill {_displayEntity}
+
+
+function {@characterId}_action1(p: player):
+    cooldown({_p}, {_p}'s tool, 25 ticks)
+
+    loop 3 times:
+        {@characterId}_throwShuriken({_p}, {@action1Damage}, {@action1Length}, 0)
+        wait 3 ticks
+
+function {@characterId}_action1_left(p: player):
+    cooldown({_p}, {_p}'s tool, 20 ticks)
+    set {_offset} to -10
+    loop 3 times:
+        {@characterId}_throwShuriken({_p}, {@action2Damage}, {@action2Length}, {_offset})
+        add 10 to {_offset}
+
+function {@characterId}_action2(p: player):
+    cooldown({_p}, {_p}'s tool, 80 ticks)
+
+    set {_size} to 1
+    
+    play sound "entity.wither.shoot" with pitch 1.5 at location of {_p}
+
+    set {_locBefore} to location of {_p}
+    set {_direction} to getDirectionVector({_p})
+    set vector length of {_direction} to 4
+    set velocity of {_p} to {_direction}
+    applyNoKnockback({_p}, 5)
+    loop 4 times:
+        wait 1 tick
+        draw 5 of cloud particle at location of {_p} with extra 0
+
+        loop all players in radius 2 of {_p}:
+            if all:
+                gamemode of loop-player is not spectator
+                gamemode of loop-player is not creative
+                loop-player is not {_p}
+            then:
+                make {_p} damage loop-player by {@kazakiriDamage}
+                play sound "minecraft:item.trident.throw" with pitch 1.2 at location of loop-player
+
+    set velocity of {_p} to vector(0,0,0)
+    set {_locAfter} to location of {_p}
+    set {_dist} to distance between {_locBefore} and {_locAfter}
+    
+    loop all players in radius 10 of {_p}:
+        if all:
+            gamemode of loop-player is not spectator
+            gamemode of loop-player is not creative
+            loop-player is not {_p}
+        then:
+            add loop-player to {_allowList::*}
+
+    set {_ray} to raytrace from {_locBefore} along {_direction} with max distance {_dist} with ray size {_size} while ignoring passable blocks while only allowing {_allowList::*}
+
+    if raytrace hit entity of {_ray} exists:
+        set {_victim} to raytrace hit entity of {_ray}
+        make {_p} damage {_victim} by {@kazakiriDamage}
+        play sound "minecraft:item.trident.throw" with pitch 1.2 at location of {_victim}
+
+on flight toggle:
+    set {_p} to player
+    getPlayerCharacterId({_p}) is "{@characterId}"
+    {_p}'s gamemode is not creative
+    cancel event
+    wait a tick
+    set {_p}'s flight state to false
+    set {_vel} to velocity of {_p}
+    set y-component of {_vel} to 0
+    set {_push} to getDirectionVector({_p})
+    set y-component of {_push} to 0
+    if vector length of {_push} is not 0:
+        set vector length of {_push} to 0.3
+    set y-component of {_push} to 0.8
+    add {_push} to {_vel}
+    set velocity of {_p} to {_vel}
+
+on jump:
+    set {_p} to player
+    set {_u} to uuid of {_p}
+    {_p}'s gamemode is not creative
+    if getPlayerCharacterId({_p}) is "{@characterId}":
+        {-condition::%{_u}%::doubleJump} is not set
+        block below {_p} is not air or water
+        set {_p}'s flight state to true
+    else:
+        set {_p}'s flight state to false
+
+on damage:
+    set {_p} to victim
+    set {_u} to uuid of {_p}
+    damage cause is fall
+    getPlayerCharacterId({_p}) is "{@characterId}"
+    cancel event
+
+    
