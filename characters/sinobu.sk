@@ -3,19 +3,18 @@ options:
     characterId: sinobu
 
 on load:
-    # TODO: 胡蝶しのぶ用のスキン value / signature に差し替え（現状は仮で giyu と同じスキンを利用）
-    set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTYyNDAzNjkxMDg0MCwKICAicHJvZmlsZUlkIiA6ICJiNzQ3OWJhZTI5YzQ0YjIzYmE1NjI4MzM3OGYwZTNjNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJTeWxlZXgiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWUyNjdjM2IxNTlmMTY1Zjg3NzI2NzUxNmEwZWFjNThlMTlkYWM1Y2JjNDk0ZDUxZjE2ZjNlM2JiMDdlOTJkNSIKICAgIH0KICB9Cn0="
-    set {_signature} to "H0RM6MbC9rP9IEOz2gepZ5GGMkcc1MfDMzZM918r8fSytHr0gNTGLXst/x5fHKxKcNeRXooQ+fGLxU31cEvMRxJWHxTGOD0tZY5aIRI6bdBsBCmkT+ciYpdSSiYj+cPnd1OptSl9Tb3uEKSafrf5nm6E2CUf23tMoPVpMMG87XTm5Hyl10nTjyugpSJPo2mVlf/mH8XvfIQB8zJ0aHvzepb0EoTWMq6t3qdUpNPFFwKhBQ1ZAaRuicSS6FKmO32LR9Abjyk8j0zUoGrUEaBrTK3elJnGUh30rDAB3I8jKhB+JMfBap9SbBisq9IymwSZ5TnLCoq6aKLsz1gAuWDKR5U83NygtyndUCtOKd9RtMsYqnS+QENaZjvluNGTfc6uytoNDiC2La7XfZ66EM+jPZrM7EC0ZZDYb+2bpWjleKYY5Ot8t2lHKqNq5UQI/FT5H8jUF/BLmBouk1qMMghY99Mp1CbTfXe+8imHyOkpD5GnB+HfbBC5e4dgVwLOf8je65njAkWejL/8b9cP7uZ9RQrOqfvQYH3u8jXO/QMFDntfwNUDRmMLPKthlKfAu7fUTxG+5iF4uv+A38zZml/x9qBdSnxYclRC5oouhvemUORPJe0vSo2Olqv6oiciR7nR9NjTJwLdr3PmxagztNH7BlctvkMzgIcSspDl5tvQr0c="
+    set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTY0NDYzMTE5NDc3NSwKICAicHJvZmlsZUlkIiA6ICJmNWQwYjFhZTQxNmU0YTE5ODEyMTRmZGQzMWU3MzA1YiIsCiAgInByb2ZpbGVOYW1lIiA6ICJDYXRjaFRoZVdhdmUxMCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9jYzliZDQ4ZTg4MTg1MGRhOGY4MGNjNDZkMzJhMGMwMzJhNzQ3ZmUzYjc5YWE4MzM5OGI2OWUzNDc4ZDM1MThlIgogICAgfQogIH0KfQ=="
+    set {_signature} to "erOknJatYieaQC8E3WNOXetrnD+f3BT2GG0mKs+3N55icncJovWUPzkr6A6JpRZRKqhFCkNxScsmaN3CaJTMtUcagcz6rquso/hbHYnNQ8sHpFk+Sgz61TXJ/6H/0weYZEUrMP+GAdnSsgcNBuCZFVL/Bzf7kM7imSG5nff6ayiBim0zI/hk5xE37kuIVei1cRkvRSeTbdtXf0614kQ9JKLO3NqOhfbgTizzINCps6GVLgkcR8yWU8aGPLdL/rAbFqxqHRI8NldB3d+DALhq3dNfdTJBR3jkWcvfQHIfYlg2Sc86yPPSqco0HaL/WtO7etbLLkiJKwEOjoKxxyZLeKKIGSc8Uiz/Mff+x3zXlWVTfG80MfyE4JqsTvxVBCIu+lkRwPR5xAHYi6ROnMOunUZX0anX6MasCuCJdu/sa8MA2Jez3RWeBXTeRyZdviLKqnQTqkYefHq9KU+/ONRm+7GQDfiB2qY/OA5Bqv6mx7R8bQydQSachttJqRjL+jeYZcgzrAqm0urx4TcYms4vSkm/dlm30SEqClf2Uq7t6E+UM5v3MpKAMEO9YlcN94ZMTBrMSgimXoPWIVeb00gru2DchurrtSt18JnXE7SBgq6D4C23Xht3Kukx+rsK1oZFMAACqtb7pCYX7Z+C8l1l5Dm1uI7j5amz71P0tDgnAhA="
     registerSkin("{@characterId}", {_value}, {_signature})
 
     set {character::{@characterId}::head} to head from value {_value}
-    registerCharacter("{@characterId}", 2, 20, 1, 1, 1)
+    registerCharacter("{@characterId}", 21, 20, 1, 1, 1)
 
     set {_lore::1} to ""
-    set {_lore::2} to "&b&l&n⊱&7蟲柱。藤の花の毒を仕込んだ刺突で鬼を屠る毒の使い手。"
+    set {_lore::2} to "&b&l&n⊱&7キャラ説明"
     set {_lore::3} to ""
-    add "&f「私 笑ってますよ？」" to {_lore::*}
-    set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&d&l鬼滅の刃&7] &d&l胡蝶しのぶ" with lore {_lore::*}
+    add "&f「とっととくたばれ 糞野郎」" to {_lore::*}
+    set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&f&l鬼滅&c&lの&f&l刃&7] &5&l胡蝶しのぶ" with lore {_lore::*}
 
     delete {_lore::*}
     add "" to {_lore::*}
@@ -50,7 +49,7 @@ on load:
     add "" to {_lore::*}
     add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
     add "" to {_lore::*}
-    set {_item} to bee nest of sharpness 1 with model data 1 named "&6&l&n虻咬ノ舞 真調" with lore {_lore::*} with custom nbt from "{actionId:3}"
+    set {_item} to bee nest of sharpness 1 with model data 1 named "&6&l&n虻咬ノ舞 切裂の誘い" with lore {_lore::*} with custom nbt from "{actionId:3}"
     registerAction("{@characterId}", 3, hideItemInfo({_item}))
 
     delete {_lore::*}

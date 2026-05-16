@@ -49,7 +49,7 @@ on right click with nether star:
 
 function countdown():
 	broadcast "{@prefix} &a&l最低人数に達したため30秒後に試合を開始します"
-	loop 30*20 times:
+	loop 2*20 times:
 		wait 1 tick
 		if size of {players::*} < {@minPlayer}:
 			broadcast "{@prefix} &c&l人数が足りないため停止しました"

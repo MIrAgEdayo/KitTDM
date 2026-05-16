@@ -3,19 +3,18 @@ options:
 	characterId: giyu
 
 on load:
-	# TODO: 富岡義勇用のスキン value / signature に差し替え（現状は仮で gojo のスキンを利用）
-	set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTYyNDAzNjkxMDg0MCwKICAicHJvZmlsZUlkIiA6ICJiNzQ3OWJhZTI5YzQ0YjIzYmE1NjI4MzM3OGYwZTNjNiIsCiAgInByb2ZpbGVOYW1lIiA6ICJTeWxlZXgiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWUyNjdjM2IxNTlmMTY1Zjg3NzI2NzUxNmEwZWFjNThlMTlkYWM1Y2JjNDk0ZDUxZjE2ZjNlM2JiMDdlOTJkNSIKICAgIH0KICB9Cn0="
-	set {_signature} to "H0RM6MbC9rP9IEOz2gepZ5GGMkcc1MfDMzZM918r8fSytHr0gNTGLXst/x5fHKxKcNeRXooQ+fGLxU31cEvMRxJWHxTGOD0tZY5aIRI6bdBsBCmkT+ciYpdSSiYj+cPnd1OptSl9Tb3uEKSafrf5nm6E2CUf23tMoPVpMMG87XTm5Hyl10nTjyugpSJPo2mVlf/mH8XvfIQB8zJ0aHvzepb0EoTWMq6t3qdUpNPFFwKhBQ1ZAaRuicSS6FKmO32LR9Abjyk8j0zUoGrUEaBrTK3elJnGUh30rDAB3I8jKhB+JMfBap9SbBisq9IymwSZ5TnLCoq6aKLsz1gAuWDKR5U83NygtyndUCtOKd9RtMsYqnS+QENaZjvluNGTfc6uytoNDiC2La7XfZ66EM+jPZrM7EC0ZZDYb+2bpWjleKYY5Ot8t2lHKqNq5UQI/FT5H8jUF/BLmBouk1qMMghY99Mp1CbTfXe+8imHyOkpD5GnB+HfbBC5e4dgVwLOf8je65njAkWejL/8b9cP7uZ9RQrOqfvQYH3u8jXO/QMFDntfwNUDRmMLPKthlKfAu7fUTxG+5iF4uv+A38zZml/x9qBdSnxYclRC5oouhvemUORPJe0vSo2Olqv6oiciR7nR9NjTJwLdr3PmxagztNH7BlctvkMzgIcSspDl5tvQr0c="
+	set {_value} to "ewogICJ0aW1lc3RhbXAiIDogMTYyMjE0NTI1NTQ4MCwKICAicHJvZmlsZUlkIiA6ICIxOTI1MjFiNGVmZGI0MjVjODkzMWYwMmE4NDk2ZTExYiIsCiAgInByb2ZpbGVOYW1lIiA6ICJTZXJpYWxpemFibGUiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTMxMjY2NzY3NDQ2OGE5ZDExMGY1ZWI3Mzk5Njg0MmFiYWU0OWI1MTVhMGM5MDhhMjNhMDkyMGQ5ZDJmOTk4YSIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9CiAgfQp9"
+	set {_signature} to "cluDn/G4AVRNIMcUctCZfqPnChQfYeqZ4ZwrJXR269Zfox0MoleIiqFkxlz0Yre23lFdEdD/OQbEb1qd3nvySA2eaF19NroR7ALwuNXEksIrGYzXCPr+ZBfYrLOcpGcPcYRj2Nc4Tc+RTKhKSBVfRVx9XmXvbzS+eDYSz0qHltWyBpdStEL9HarOxgd15nd9zUlGqN3D6ZMj5hnlHnCEDfNQwBQJxWjaDreLMR4kDmg/ZG10jMxqyPJdgWKM0LF5LXtgsX+cmZiGQHwEtJ9cZKbd5CcHqx1p1QrIdpZy+kC3YppovNWAJ7RhWMnwuKHvfUH6wfVsod1YXZ3W0Vgvxl6hja7xD1cBngjEkc3CtbTt0NBpKQOx+aLIeeMywhPn022ECZQiZfY1pXYAXTeXbqz4XK6aO5/+4xroJBrLDS0LiHDSugpI2TnwLhpELT2JtUxcQfVjWZo/PWwXia+H7qbY7UXfFCgt8n+DgO50jNKFsDixJu75ayoD0uE/fx9DipEgQ7yvh9QPCEhrq2euprBXzup5lTCIoc9Pj7TD2FTzG0fLkC3L7ilOupgxB/diiG6QGNIrvj3MabzNSQvWgFVNGel7aF1kbLB4lBRpOr7Fzwq9MXn4MrRcY76JhitzQwVPo5yvNUh+InwRpYdR5jaQJNX16QNa+Gtb3WoiVlA="
 	registerSkin("{@characterId}", {_value}, {_signature})
 
 	set {character::{@characterId}::head} to head from value {_value}
-	registerCharacter("{@characterId}", 7, 20, 1, 1, 1)
+	registerCharacter("{@characterId}", 12, 20, 1, 1, 1)
 
 	set {_lore::1} to ""
 	set {_lore::2} to "&b&l&n⊱&7キャラ説明"
 	set {_lore::3} to ""
-	add "&f「俺は嫌われてない」" to {_lore::*}
-	set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&3&l鬼滅の刃&7] &3&l富岡義勇" with lore {_lore::*}
+	add "&f「泣くな 絶望するな そんなのは今することじゃない」" to {_lore::*}
+	set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&f&l鬼滅&c&lの&f&l刃&7] &3&l富岡義勇" with lore {_lore::*}
 
 	delete {_lore::*}
 	add "" to {_lore::*}
@@ -79,17 +78,18 @@ on load:
 # ============================================================
 function {@characterId}_action1(player: player):
 	cooldown({_player}, {_player}'s tool, 5 second)
-	play sound "block.water.splash" with volume 2 to all players where [distance between {_player} and input <= 20]
+	play sound "item.bucket.empty_axolotl" with volume 2 to all players where [distance between {_player} and input <= 20]
 	play sound "entity.player.attack.sweep" with volume 1.5 to all players where [distance between {_player} and input <= 20]
 	push {_player} forward at speed 1.2
 	push {_player} upward at speed 0.55
 	loop 14 times:
 		wait 1 tick
-		set {_center} to location 1.2 meter above {_player}
-		set {_vector} to vector(2.4, 0, 0)
-		rotate {_vector} around y-axis by (loop-number * 25)
+		set {_center} to location of {_player}
+		set {_vector} to vector(0, 2.4, 0)
+		set {_vbase} to vector from location right {_player} to location left {_player}
+		rotate {_vector} around {_vbase} by (loop-number * 25)
 		loop 18 times:
-			rotate {_vector} around y-axis by 20
+			rotate {_vector} around {_vbase} by 20
 			draw 1 of dust particle using dustOption(aqua, 1.3) at {_center}~{_vector} with extra 0
 		loop all players in radius 2.8 around {_player}:
 			isSameTeam({_player}, loop-player) is false
