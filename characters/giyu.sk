@@ -106,14 +106,55 @@ function {@characterId}_action1(player: player):
 # ============================================================
 function {@characterId}_action2(player: player):
 	cooldown({_player}, {_player}'s tool, 4 second)
-	loop 3 times:
-		set {_slash} to loop-number
-		play sound "entity.player.attack.sweep" with volume 1.4 to all players where [distance between {_player} and input <= 20]
-		play sound "block.water.ambient" with volume 1 with pitch 1.4 to all players where [distance between {_player} and input <= 20]
-		push {_player} forward at speed 0.45
-		set {_origin} to location 1.1 meter above {_player}
-		set {_forward} to {_player}'s facing
-		delete {_hit::*}
+	play sound "entity.player.attack.sweep" with volume 1.4 to all players where [distance between {_player} and input <= 20]
+	play sound "item.bucket.empty_axolotl" with volume 1 with pitch 1.4 to all players where [distance between {_player} and input <= 20]
+	push {_player} forward at speed 0.45
+	set {_origin} to location 1.1 meter above {_player}
+	set {_forward} to {_player}'s facing
+	delete {_hit::*}
+	set {_loc} to {_player}'s location
+	add 7 to pitch of {_loc}
+	teleport {_player} to {_loc}
+	loop 8 times:
+		set {_loc} to location 0.7 meter horizontally forward {_player}
+		remove 0.8 from pitch of {_loc}
+		add 5 to yaw of {_loc}
+		teleport {_player} to {_loc}
+
+		set {_locParticle} to location 2 meter forward {_player}'s eye
+		draw 1 of dust particle using dustOption(aqua, 1.2) at {_locParticle} with extra 0
+		draw 1 of dust particle using dustOption(rgb(120, 200, 255), 1) at {_locParticle} with extra 0
+
+		wait 1 tick
+	add 5 to pitch of {_loc}
+	play sound "entity.player.attack.sweep" with volume 1.4 to all players where [distance between {_player} and input <= 20]
+	play sound "item.bucket.empty_axolotl" with volume 1 with pitch 1.4 to all players where [distance between {_player} and input <= 20]
+	loop 8 times:
+		set {_loc} to location 0.7 meter horizontally forward {_player}
+		remove 0.8 from pitch of {_loc}
+		remove 5 from yaw of {_loc}
+		teleport {_player} to {_loc}
+
+		set {_locParticle} to location 2 meter forward {_player}'s eye
+		draw 1 of dust particle using dustOption(aqua, 1.2) at {_locParticle} with extra 0
+		draw 1 of dust particle using dustOption(rgb(120, 200, 255), 1) at {_locParticle} with extra 0
+
+		wait 1 tick
+	add 7 to pitch of {_loc}
+	play sound "entity.player.attack.sweep" with volume 1.4 to all players where [distance between {_player} and input <= 20]
+	play sound "item.bucket.empty_axolotl" with volume 1 with pitch 1.4 to all players where [distance between {_player} and input <= 20]
+	loop 8 times:
+		set {_loc} to location 0.7 meter horizontally forward {_player}
+		remove 0.8 from pitch of {_loc}
+		add 45 to yaw of {_loc}
+		teleport {_player} to {_loc}
+
+		set {_locParticle} to location 2 meter forward {_player}'s eye
+		draw 1 of dust particle using dustOption(aqua, 1.2) at {_locParticle} with extra 0
+		draw 1 of dust particle using dustOption(rgb(120, 200, 255), 1) at {_locParticle} with extra 0
+
+		wait 1 tick
+		###
 		loop 16 times:
 			set {_t} to loop-number-2
 			set {_offset} to {_forward}
@@ -125,7 +166,7 @@ function {@characterId}_action2(player: player):
 				set {_angle} to 60 - ({_t} * 8)
 			else:
 				set {_angle} to -30 + ({_t} * 4)
-			set {_swing} to {_forward}
+			set {_swing} to {_offset}
 			rotate {_swing} around y-axis by {_angle}
 			set vector length of {_swing} to 2.2
 			draw 1 of dust particle using dustOption(aqua, 1.2) at {_origin}~{_swing} with extra 0
@@ -138,6 +179,7 @@ function {@characterId}_action2(player: player):
 			force {_player} to damage loop-player by 2 hearts
 			applyNoKnockback(loop-player, 1)
 		wait 6 tick
+		###
 
 # ============================================================
 # 漆ノ型 雫波紋突き
@@ -147,26 +189,28 @@ function {@characterId}_action2(player: player):
 function {@characterId}_action3(player: player):
 	cooldown({_player}, {_player}'s tool, 4 second)
 	play sound "entity.player.attack.crit" with volume 1.6 with pitch 1.5 to all players where [distance between {_player} and input <= 20]
-	play sound "block.water.ambient" with volume 1.2 with pitch 1.8 to all players where [distance between {_player} and input <= 20]
-	set {_origin} to {_player}'s eye
-	set {_loc} to {_origin}
-	delete {_hit::*}
-	loop 20 times:
-		set {_loc} to location 0.6 meter forward {_loc}
-		draw 1 of dust particle using dustOption(aqua, 1) at {_loc} with extra 0
-		draw 1 of dust particle using dustOption(rgb(180, 230, 255), 0.8) at {_loc} with extra 0
-		loop all players in radius 1.2 around {_loc}:
-			isSameTeam({_player}, loop-player) is false
-			gamemode of loop-player is adventure
-			{_hit::*} doesn't contain loop-player
-			add loop-player to {_hit::*}
-			force {_player} to damage loop-player by 5 hearts
-			applyNoKnockback(loop-player, 1)
-		if block at {_loc} is not air:
-			exit loop
-	loop 3 times:
-		wait 1 tick
-		draw 1 of dust particle using dustOption(aqua, 1.5) at {_loc} with extra 0
+	play sound "item.bucket.empty_axolotl" with volume 1.2 with pitch 1.8 to all players where [distance between {_player} and input <= 20]
+	set {_vbase} to vector from {_player}'s eye to location forward and up {_player}
+	set {_vector} to vector from {_player} to location forward {_player}
+	loop 5 times:
+		set {_random} to random integer between 15 and 180
+		rotate {_vbase} around {_vector} by {_random}
+		set {_loc} to ({_player}'s eye)~{_vbase}
+		loop 20 times:
+			set {_loc} to location 0.6 meter forward {_loc}
+			draw 1 of dust particle using dustOption(aqua, 1) at {_loc} with extra 0
+			draw 1 of dust particle using dustOption(rgb(180, 230, 255), 0.8) at {_loc} with extra 0
+			loop all players in radius 1.2 around {_loc}:
+				isSameTeam({_player}, loop-player) is false
+				gamemode of loop-player is adventure
+				{_hit::*} doesn't contain loop-player
+				add loop-player to {_hit::*}
+				force {_player} to damage loop-player by 3 hearts
+				applyNoKnockback(loop-player, 1)
+			if block at {_loc} is not air:
+				exit loop
+		loop 3 times:
+			draw 1 of dust particle using dustOption(aqua, 1.5) at {_loc} with extra 0
 
 # ============================================================
 # 拾ノ型 生生流転
@@ -175,7 +219,7 @@ function {@characterId}_action3(player: player):
 # ============================================================
 function {@characterId}_action4(player: player):
 	cooldown({_player}, {_player}'s tool, 10 second)
-	play sound "block.water.splash" with volume 2 with pitch 0.9 to all players where [distance between {_player} and input <= 20]
+	play sound "item.bucket.empty_axolotl" with volume 2 with pitch 0.9 to all players where [distance between {_player} and input <= 20]
 	loop 4 times:
 		set {_rot} to loop-number
 		set {_damage} to {_rot}
@@ -208,9 +252,8 @@ function {@characterId}_action4(player: player):
 function {@characterId}_action5(player: player):
 	cooldown({_player}, {_player}'s tool, 15 second)
 	set metadata "giyuNagi" of {_player} to true
-	play sound "block.water.ambient" with volume 2 with pitch 0.7 to all players where [distance between {_player} and input <= 25]
+	play sound "item.bucket.empty_axolotl" with volume 2 with pitch 0.7 to all players where [distance between {_player} and input <= 25]
 	play sound "block.beacon.activate" with volume 1.2 with pitch 1.6 to all players where [distance between {_player} and input <= 25]
-	send title "&b&l凪" with subtitle "&7あらゆる攻撃を受け流す" to {_player} for 60 ticks
 	loop 60 times:
 		wait 1 tick
 		metadata "giyuNagi" of {_player} is true
