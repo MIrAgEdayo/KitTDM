@@ -8,7 +8,7 @@ on load:
     registerSkin("{@characterId}", {_value}, {_signature})
 
     set {character::{@characterId}::head} to head from value {_value}
-    registerCharacter("{@characterId}", 21, 20, 1, 1, 1)
+    registerCharacter("{@characterId}", 21, 16, 1, 1, 1)
 
     set {_lore::1} to ""
     set {_lore::2} to "&b&l&n⊱&7キャラ説明"
@@ -86,7 +86,6 @@ function {@characterId}_action1(player: player):
     cooldown({_player}, {_player}'s tool, 7 second)
     play sound "entity.player.attack.sweep" with volume 1.2 with pitch 1.6 to all players where [distance between {_player} and input <= 20]
     play sound "entity.bee.loop" with volume 0.8 with pitch 1.4 to all players where [distance between {_player} and input <= 20]
-    push {_player} forward at speed 0.6
     set {_origin} to {_player}'s eye
     set {_forward} to {_player}'s facing
     loop 10 times:
@@ -95,6 +94,10 @@ function {@characterId}_action1(player: player):
         set {_offset} to {_forward}
         set vector length of {_offset} to 0.9 * {_step}
         set {_loc} to {_origin}~{_offset}
+        set {_loc2} to location 1.5 meter horizontally forward {_player}
+        if block at {_loc2} is full block:
+            stop
+        teleport {_player} to {_loc2}
         if mod({_step}, 2) is 0:
             set {_side} to {_forward}
             rotate {_side} around y-axis by 90
@@ -112,7 +115,7 @@ function {@characterId}_action1(player: player):
             rotate {_pVec} around y-axis by (loop-number-2 * 30)
             draw 1 of dust particle using dustOption(rgb(255, 130, 230), 1) at {_loc}~{_pVec} with extra 0
             draw 1 of dust particle using dustOption(rgb(180, 90, 220), 0.9) at {_loc}~{_pVec} with extra 0
-        loop all players in radius 1.6 around {_loc}:
+        loop all players in radius 1.6 around {_player}:
             isSameTeam({_player}, loop-player) is false
             gamemode of loop-player is adventure
             {_hit::*} doesn't contain loop-player
@@ -135,7 +138,6 @@ function {@characterId}_action2(player: player):
     # --- 溜め演出 (約0.5秒) ---
     play sound "entity.bee.loop_aggressive" with volume 1.5 with pitch 1.2 to all players where [distance between {_player} and input <= 25]
     play sound "block.beacon.activate" with volume 1 with pitch 1.8 to all players where [distance between {_player} and input <= 25]
-    send title "&e&l蜂牙ノ舞" with subtitle "&6&l真靡き" to {_player} for 30 ticks
     loop 10 times:
         wait 1 tick
         set {_center} to location 1 meter above {_player}
@@ -161,7 +163,7 @@ function {@characterId}_action2(player: player):
     set {_origin} to {_player}'s eye
     set {_loc} to {_origin}
     delete {_hit::*}
-    loop 28 times:
+    loop 10 times:
         set {_loc} to location 0.8 meter forward {_loc}
         # 突進ラインの軌跡（黄色の鋭い線＋黒のアクセント）
         draw 2 of dust particle using dustOption(rgb(255, 230, 60), 1.2) at {_loc} with extra 0
@@ -172,7 +174,7 @@ function {@characterId}_action2(player: player):
         draw 1 of dust particle using dustOption(rgb(40, 30, 0), 0.9) at {_loc}~{_ring} with extra 0
         draw 1 of crit at {_loc} with extra 0
 
-        loop all players in radius 1.5 around {_loc}:
+        loop all players in radius 1.5 around {_player}:
             isSameTeam({_player}, loop-player) is false
             gamemode of loop-player is adventure
             {_hit::*} doesn't contain loop-player
@@ -192,6 +194,7 @@ function {@characterId}_action2(player: player):
 
         if block at {_loc} is not air:
             exit loop
+        wait 1 tick
 
     # --- 余韻 ---
     loop 5 times:
@@ -212,7 +215,6 @@ function {@characterId}_action3(player: player):
     # --- 開幕演出 ---
     play sound "entity.bee.loop_aggressive" with volume 1.6 with pitch 0.7 to all players where [distance between {_player} and input <= 25]
     play sound "block.beacon.deactivate" with volume 1 with pitch 1.5 to all players where [distance between {_player} and input <= 25]
-    send title "&6&l虻咬ノ舞" with subtitle "&e&l真調" to {_player} for 20 ticks
     set {_aura} to location 1 meter above {_player}
     loop 18 times:
         set {_av} to vector(1.3, 0, 0)
@@ -222,7 +224,7 @@ function {@characterId}_action3(player: player):
 
     # --- ターゲット捜索 (最近接敵) ---
     set {_minDist} to 999
-    loop all players in radius 12 around {_player}:
+    loop all players in radius 7 around {_player}:
         loop-player is not {_player}
         isSameTeam({_player}, loop-player) is false
         gamemode of loop-player is adventure
@@ -337,10 +339,34 @@ function {@characterId}_action3(player: player):
 function {@characterId}_action4(player: player):
     cooldown({_player}, {_player}'s tool, 12 second)
 
+    set {_loc} to location of {_player}
+    loop 10 times:
+        play sound "entity.bee.loop" with volume 1.5 with pitch 1.3 to all players where [distance between {_player} and input <= 25]
+        draw 10 of end_rod at {_player}'s eye with extra 0
+        wait 1 tick
+
+        set {_loc} to location 1.5 meter horizontally forward {_loc}
+        if block at {_loc} is full block:
+            stop
+        teleport {_player} to {_loc}
+
+        loop all players in radius 1.5 around {_player}:
+            loop-player is not {_player}
+            set {_target} to loop-player
+            exit 2 loops
+    {_target} is set
+    loop 6 times:
+        play sound "entity.player.attack.crit" with volume 1.3 with pitch 1.5 to all players where [distance between {_player} and input <= 20]
+        wait 2 tick
+    force {_player} to damage {_target} by 6 hearts
+
+    set {_loc} to location 5 meter horizontally forward {_loc}
+    teleport {_player} to {_loc}
+
+    ###
     # --- 開幕演出 ---
     play sound "entity.bee.loop" with volume 1.5 with pitch 1.3 to all players where [distance between {_player} and input <= 25]
     play sound "block.beacon.power_select" with volume 1.3 with pitch 1.7 to all players where [distance between {_player} and input <= 25]
-    send title "&3&l蜻蛉ノ舞" with subtitle "&b&l複眼六角" to {_player} for 30 ticks
     push {_player} upward at speed 0.4
 
     # --- Phase 1: 六角形の収束 (8 tick) ---
@@ -437,6 +463,7 @@ function {@characterId}_action4(player: player):
             set {_cur} to {_cur}~{_step}
             draw 2 of dust particle using dustOption(rgb(0, 255, 230), 1.5) at {_cur} with extra 0
             draw 1 of dust particle using dustOption(rgb(255, 255, 255), 1.2) at {_cur} with extra 0
+    ###
 
 # ============================================================
 # 蜈蚣ノ舞「百足蛇腹」
@@ -445,13 +472,12 @@ function {@characterId}_action4(player: player):
 # 　到達点では大爆発の締め一撃で範囲ダメージと最濃度の毒を付与。
 # ============================================================
 function {@characterId}_action5(player: player):
-    cooldown({_player}, {_player}'s tool, 20 second)
+    cooldown({_player}, {_player}'s tool, 10 second)
 
     # --- Phase 1: 集中 (20 tick, 紫の二重渦) ---
     play sound "block.beacon.activate" with volume 2 with pitch 0.5 to all players where [distance between {_player} and input <= 30]
     play sound "entity.bee.loop_aggressive" with volume 2 with pitch 0.4 to all players where [distance between {_player} and input <= 30]
     play sound "block.conduit.activate" with volume 1.5 with pitch 0.7 to all players where [distance between {_player} and input <= 30]
-    send title "&5&l蜈蚣ノ舞" with subtitle "&d&l百足蛇腹" to {_player} for 60 ticks
     loop 20 times:
         set {_tick} to loop-number
         wait 1 tick
@@ -472,46 +498,49 @@ function {@characterId}_action5(player: player):
             rotate {_fv} around y-axis by (({_tick} * 30) + (loop-number-2 * 60)) #here
             draw 1 of dust particle using dustOption(rgb(100, 30, 180), 0.9) at {_feet}~{_fv} with extra 0
 
+    set {_loc} to location of {_player}
+
     # --- Phase 2: 蛇腹突進 ---
     play sound "item.trident.riptide_3" with volume 2 with pitch 0.8 to all players where [distance between {_player} and input <= 30]
     play sound "entity.warden.sonic_charge" with volume 1.5 with pitch 1.4 to all players where [distance between {_player} and input <= 30]
-    push {_player} forward at speed 1.8
-    push {_player} upward at speed 0.25
 
-    set {_origin} to {_player}'s eye
-    set {_forward} to {_player}'s facing
-    set {_side} to {_forward}
-    rotate {_side} around y-axis by 90
+    set {_origin} to location of {_player}
+    add 0.3 to y of {_origin}
 
-    set {_cur} to {_origin}
-    set {_step} to {_forward}
-    set vector length of {_step} to 0.6
+    hide {_player} for getPlayers()
 
     delete {_hit::*}
     loop 30 times:
-        set {_idx} to loop-number
-        set {_cur} to {_cur}~{_step}
-
-        # ブロック衝突で打ち切り
-        if block at {_cur} is not air:
+        set {_loc} to location 0.6 meter horizontally forward {_loc}
+        if block at {_loc} is full block:
             exit loop
+        teleport {_player} to {_loc}
+        set {_idx} to loop-number
+        set {_fwdDist} to {_idx} * 0.6
+
+        # 前進ベース位置（{_origin}のyawに沿って水平前方へ）
+        set {_cur} to location {_fwdDist} meter horizontally forward {_origin}
+
+        # 横方向ベクトルを毎ループ新規生成（共有参照によるエイリアスを回避）
+        set {_sideRef} to location 1 meter horizontally forward {_origin}
+        set {_lateral} to vector from {_origin} to {_sideRef}
+        rotate {_lateral} around y-axis by 90
 
         # 正弦波で横方向オフセット (周期12step ≒ 7.2m)
         set {_sinVal} to sin({_idx} * 30)
-        set {_lateral} to {_side}
-        if {_sinVal} < 0:
-            rotate {_lateral} around y-axis by 180
-            set {_mag} to {_sinVal} * -1.7
-        else:
-            set {_mag} to {_sinVal} * 1.7
+        set {_mag} to {_sinVal} * 1.7
         set {_legPoint} to {_cur}
-        if {_mag} > 0.05:
+        if {_mag} < 0:
+            rotate {_lateral} around y-axis by 180
+            set vector length of {_lateral} to ({_mag} * -1)
+            set {_legPoint} to {_cur}~{_lateral}
+        else if {_mag} > 0.05:
             set vector length of {_lateral} to {_mag}
             set {_legPoint} to {_cur}~{_lateral}
 
         # 蛇腹本体 (波の頂点に脚)
-        draw 2 of dust particle using dustOption(rgb(120, 40, 180), 1.4) at {_legPoint} with extra 0
-        draw 1 of dust particle using dustOption(rgb(220, 130, 250), 1.2) at {_legPoint} with extra 0
+        draw 50 of dust particle using dustOption(rgb(230, 0, 0), 1.4) at {_legPoint} with extra 0
+        draw 40 of dust particle using dustOption(rgb(0, 0, 0), 1.2) at {_legPoint} with extra 0
         draw 1 of crit at {_legPoint} with extra 0
 
         # 中央軸の薄い線 (蜈蚣の背骨)
@@ -523,7 +552,7 @@ function {@characterId}_action5(player: player):
             play sound "entity.bee.sting" with volume 0.6 with pitch 1.8 to all players where [distance between {_legPoint} and input <= 18]
 
         # 命中判定
-        loop all players in radius 1.3 around {_legPoint}:
+        loop all players in radius 1.5 around {_legPoint}:
             isSameTeam({_player}, loop-player) is false
             gamemode of loop-player is adventure
             {_hit::*} doesn't contain loop-player
@@ -536,11 +565,14 @@ function {@characterId}_action5(player: player):
                 set {_bv} to vector(0.4, 0, 0)
                 rotate {_bv} around y-axis by (loop-number-2 * 36) #here
                 draw 1 of dust particle using dustOption(rgb(200, 80, 240), 1.3) at {_burst}~{_bv} with extra 0
-            force {_player} to damage loop-player by 2 hearts
+            force {_player} to damage loop-player by 3 hearts
             applyNoKnockback(loop-player, 1)
-            apply poison 1 to loop-player for 7 seconds
+
+            exit 2 loops
 
         wait 1 tick
+
+    reveal {_player} for getPlayers()
 
     # --- Phase 3: 着弾点での締めの一撃 ---
     play sound "item.trident.thunder" with volume 2 with pitch 0.5 to all players where [distance between {_cur} and input <= 30]
@@ -559,11 +591,11 @@ function {@characterId}_action5(player: player):
     draw 60 of crit at {_cur} with extra 0.6
 
     # 範囲ダメージ + 最濃度の毒
-    loop all players in radius 4 around {_cur}:
+    loop all players in radius 2 around {_player}:
         isSameTeam({_player}, loop-player) is false
         gamemode of loop-player is adventure
         play sound "entity.player.attack.crit" with volume 1.8 with pitch 0.7 to all players where [distance between loop-player and input <= 25]
         draw 30 of crit at loop-player with extra 0.5
         force {_player} to damage loop-player by 4 hearts
         applyNoKnockback(loop-player, 1)
-        apply poison 3 to loop-player for 10 seconds
+        apply poison 15 to loop-player for 2 seconds

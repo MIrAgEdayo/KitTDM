@@ -15,3 +15,6 @@ function hideItemInfo(item: item) :: item:
 	add hide unbreakable to item flags of {_item}
 	add hide enchants to item flags of {_item}
 	return {_item}
+
+function getPlayers() :: players:
+	return {players::*}

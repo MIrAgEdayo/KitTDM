@@ -24,7 +24,7 @@ on load:
 	add "" to {_lore::*}
 	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
 	add "" to {_lore::*}
-	set {_item} to prismarine shard of sharpness 1 with model data 1 named "&3&l&n弐ノ型 水車" with lore {_lore::*} with custom nbt from "{actionId:1}"
+	set {_item} to iron sword of sharpness 1 with model data 1 named "&3&l&n弐ノ型 水車" with lore {_lore::*} with custom nbt from "{actionId:1}"
 	registerAction("{@characterId}", 1, hideItemInfo({_item}))
 
 	delete {_lore::*}
@@ -64,7 +64,7 @@ on load:
 	add "" to {_lore::*}
 	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
 	add "" to {_lore::*}
-	add " &b&l&n⊱&7富一定時間あらゆる攻撃を受け流し反撃する。" to {_lore::*}
+	add " &b&l&n⊱&7一定時間あらゆる攻撃を受け流し反撃する。" to {_lore::*}
 	add "" to {_lore::*}
 	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
 	add "" to {_lore::*}
@@ -105,7 +105,7 @@ function {@characterId}_action1(player: player):
 # 　1撃ごとに前方の弧状エリアの敵に1度だけダメージを与える。
 # ============================================================
 function {@characterId}_action2(player: player):
-	cooldown({_player}, {_player}'s tool, 4 second)
+	cooldown({_player}, {_player}'s tool, 5 second)
 	play sound "entity.player.attack.sweep" with volume 1.4 to all players where [distance between {_player} and input <= 20]
 	play sound "item.bucket.empty_axolotl" with volume 1 with pitch 1.4 to all players where [distance between {_player} and input <= 20]
 	push {_player} forward at speed 0.45
@@ -119,7 +119,11 @@ function {@characterId}_action2(player: player):
 		set {_loc} to location 0.7 meter horizontally forward {_player}
 		remove 0.8 from pitch of {_loc}
 		add 5 to yaw of {_loc}
+		if block at {_loc} is full block:
+			stop
 		teleport {_player} to {_loc}
+		if distance between {_player} and {_player}'s target < 6:
+			force {_player} to damage {_player}'s target by 3 hearts
 
 		set {_locParticle} to location 2 meter forward {_player}'s eye
 		draw 1 of dust particle using dustOption(aqua, 1.2) at {_locParticle} with extra 0
@@ -133,7 +137,11 @@ function {@characterId}_action2(player: player):
 		set {_loc} to location 0.7 meter horizontally forward {_player}
 		remove 0.8 from pitch of {_loc}
 		remove 5 from yaw of {_loc}
+		if block at {_loc} is full block:
+			stop
 		teleport {_player} to {_loc}
+		if distance between {_player} and {_player}'s target < 6:
+			force {_player} to damage {_player}'s target by 3 hearts
 
 		set {_locParticle} to location 2 meter forward {_player}'s eye
 		draw 1 of dust particle using dustOption(aqua, 1.2) at {_locParticle} with extra 0
@@ -147,39 +155,17 @@ function {@characterId}_action2(player: player):
 		set {_loc} to location 0.7 meter horizontally forward {_player}
 		remove 0.8 from pitch of {_loc}
 		add 45 to yaw of {_loc}
+		if block at {_loc} is full block:
+			stop
 		teleport {_player} to {_loc}
+		if distance between {_player} and {_player}'s target < 6:
+			force {_player} to damage {_player}'s target by 3 hearts
 
 		set {_locParticle} to location 2 meter forward {_player}'s eye
 		draw 1 of dust particle using dustOption(aqua, 1.2) at {_locParticle} with extra 0
 		draw 1 of dust particle using dustOption(rgb(120, 200, 255), 1) at {_locParticle} with extra 0
 
 		wait 1 tick
-		###
-		loop 16 times:
-			set {_t} to loop-number-2
-			set {_offset} to {_forward}
-			set vector length of {_offset} to 0.25 * {_t}
-			set {_arcVec} to vector(0, 0, 0)
-			if {_slash} is 1:
-				set {_angle} to -60 + ({_t} * 8)
-			else if {_slash} is 2:
-				set {_angle} to 60 - ({_t} * 8)
-			else:
-				set {_angle} to -30 + ({_t} * 4)
-			set {_swing} to {_offset}
-			rotate {_swing} around y-axis by {_angle}
-			set vector length of {_swing} to 2.2
-			draw 1 of dust particle using dustOption(aqua, 1.2) at {_origin}~{_swing} with extra 0
-			draw 1 of dust particle using dustOption(rgb(120, 200, 255), 1) at {_origin}~{_swing} with extra 0
-		loop all players in radius 3.2 around location 1.6 meter forward {_player}:
-			isSameTeam({_player}, loop-player) is false
-			gamemode of loop-player is adventure
-			{_hit::*} doesn't contain loop-player
-			add loop-player to {_hit::*}
-			force {_player} to damage loop-player by 2 hearts
-			applyNoKnockback(loop-player, 1)
-		wait 6 tick
-		###
 
 # ============================================================
 # 漆ノ型 雫波紋突き
@@ -218,15 +204,14 @@ function {@characterId}_action3(player: player):
 # 　1 → 2 → 3 → 4 ハート(全段命中で最大 10 ハート)。
 # ============================================================
 function {@characterId}_action4(player: player):
-	cooldown({_player}, {_player}'s tool, 10 second)
+	cooldown({_player}, {_player}'s tool, 7 second)
 	play sound "item.bucket.empty_axolotl" with volume 2 with pitch 0.9 to all players where [distance between {_player} and input <= 20]
 	loop 4 times:
 		set {_rot} to loop-number
 		set {_damage} to {_rot}
 		set {_radius} to 2.4 + ({_rot} * 0.2)
 		play sound "entity.player.attack.sweep" with volume 1.4 with pitch (0.8 + {_rot} * 0.15) to all players where [distance between {_player} and input <= 20]
-		push {_player} forward at speed 0.55
-		push {_player} upward at speed 0.45
+		push {_player} horizontally forward at speed 0.55
 		delete {_hit::*}
 		loop 10 times:
 			wait 1 tick
@@ -271,7 +256,7 @@ on damage of player:
 	metadata "giyuNagi" of victim is true
 	cancel event
 	play sound "block.water.splash" with volume 1.5 with pitch 1.4 to all players where [distance between victim and input <= 20]
-	type of attakcker is player
+	"%type of attacker%" is "player"
 	attacker is not victim
 	isSameTeam(victim, attacker) is false
 	play sound "entity.player.attack.crit" with volume 2 with pitch 0.8 to all players where [distance between victim and input <= 20]

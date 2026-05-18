@@ -13,6 +13,17 @@ function applyNoKnockback(p: entity, duration: number):
     delete {-noKnockback::%uuid of {_p}%}
     delete {-noKnockbackID::%uuid of {_p}%}
 
+on damage of player:
+    damage was caused by fall
+    if {-noFallDamage::%uuid of victim%} > 0:
+        remove 1 from {-noFallDamage::%uuid of victim%}
+        cancel event
+    {-noFallDamage::%uuid of victim%} is 0
+    delete {-noFallDamage::%uuid of victim%}
+
+function applyNoFallDamage(p: entity, count: integer):
+    set {-noFallDamage::%uuid of {_p}%} to {_count}
+
 function drawSphere(loc: location, radius: number, particles: integer, color: color):
 
     set {_goldenAngle} to pi * (3 - sqrt(5))
