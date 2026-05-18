@@ -20,7 +20,7 @@ on load:
 	add "" to {_lore::*}
 	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
 	add "" to {_lore::*}
-	add " &b&l&n⊱&7水車の如く縦に回転しながら前方を斬りつける範囲攻撃。" to {_lore::*}
+	add " &b&l&n⊱&7水車の如く縦に回転しながら前方を斬りつける。" to {_lore::*}
 	add "" to {_lore::*}
 	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
 	add "" to {_lore::*}
@@ -64,7 +64,7 @@ on load:
 	add "" to {_lore::*}
 	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
 	add "" to {_lore::*}
-	add " &b&l&n⊱&7富岡義勇が編み出した独自の型。一定時間あらゆる攻撃を受け流し反撃する。" to {_lore::*}
+	add " &b&l&n⊱&7富一定時間あらゆる攻撃を受け流し反撃する。" to {_lore::*}
 	add "" to {_lore::*}
 	add "&e&m╋━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╋" to {_lore::*}
 	add "" to {_lore::*}
@@ -247,7 +247,7 @@ function {@characterId}_action4(player: player):
 # ============================================================
 # 拾壱ノ型 凪
 # 　富岡義勇独自の型。3秒間あらゆるダメージを無効化し、
-# 　プレイヤーからの攻撃に対しては自動で 8 ハートの反撃を行う。
+# 　プレイヤーからの攻撃に対しては自動で 同一ダメージの反撃を行う。
 # ============================================================
 function {@characterId}_action5(player: player):
 	cooldown({_player}, {_player}'s tool, 15 second)
@@ -264,23 +264,20 @@ function {@characterId}_action5(player: player):
 		set {_vector2} to vector(1.6, 0, 0)
 		rotate {_vector2} around y-axis by (loop-number * -16)
 		draw 1 of dust particle using dustOption(rgb(150, 220, 255), 1) at {_center}~{_vector2} with extra 0
-	set metadata "giyuNagi" of {_player} to false
+	delete metadata "giyuNagi" of {_player}
 	play sound "block.water.ambient" with volume 1 with pitch 1.2 to all players where [distance between {_player} and input <= 25]
 
-on damage:
-	type of victim is player
+on damage of player:
 	metadata "giyuNagi" of victim is true
-	event is not cancelled
 	cancel event
 	play sound "block.water.splash" with volume 1.5 with pitch 1.4 to all players where [distance between victim and input <= 20]
-	if attacker is a player:
-		attacker is not victim
-		isSameTeam(victim, attacker) is false
-		play sound "entity.player.attack.crit" with volume 2 with pitch 0.8 to all players where [distance between victim and input <= 20]
-		set {_center} to location 1 meter above victim
-		loop 24 times:
-			set {_vector} to vector(2.2, 0, 0)
-			rotate {_vector} around y-axis by (loop-number * 15)
-			draw 1 of dust particle using dustOption(aqua, 1.4) at {_center}~{_vector} with extra 0
-		force victim to damage attacker by 8 hearts
-		applyNoKnockback(attacker, 1)
+	type of attakcker is player
+	attacker is not victim
+	isSameTeam(victim, attacker) is false
+	play sound "entity.player.attack.crit" with volume 2 with pitch 0.8 to all players where [distance between victim and input <= 20]
+	set {_center} to location 1 meter above victim
+	loop 24 times:
+		set {_vector} to vector(2.2, 0, 0)
+		rotate {_vector} around y-axis by (loop-number * 15)
+		draw 1 of dust particle using dustOption(aqua, 1.4) at {_center}~{_vector} with extra 0
+	force victim to damage attacker by damage
