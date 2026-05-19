@@ -13,7 +13,7 @@ on load:
 	set {_lore::1} to ""
 	set {_lore::2} to "&b&l&n⊱&7キャラ説明"
 	set {_lore::3} to ""
-	add "&f「泣くな 絶望するな そんなのは今することじゃない」" to {_lore::*}
+	add "&f「強者の立つ場所へ」" to {_lore::*}
 	set {character::{@characterId}::icon} to getHeadFromCharacterId("{@characterId}") named "&7[&f&l鬼滅&c&lの&f&l刃&7] &3&l富岡義勇" with lore {_lore::*}
 
 	delete {_lore::*}
@@ -78,6 +78,7 @@ on load:
 # ============================================================
 function {@characterId}_action1(player: player):
 	cooldown({_player}, {_player}'s tool, 5 second)
+	play sound "custom:mizuguruma" to all players where [distance between {_player} and input <= 20]
 	play sound "item.bucket.empty_axolotl" with volume 2 to all players where [distance between {_player} and input <= 20]
 	play sound "entity.player.attack.sweep" with volume 1.5 to all players where [distance between {_player} and input <= 20]
 	push {_player} forward at speed 1.2
@@ -106,6 +107,7 @@ function {@characterId}_action1(player: player):
 # ============================================================
 function {@characterId}_action2(player: player):
 	cooldown({_player}, {_player}'s tool, 5 second)
+	play sound "custom:ryuryumai" to all players where [distance between {_player} and input <= 20]
 	play sound "entity.player.attack.sweep" with volume 1.4 to all players where [distance between {_player} and input <= 20]
 	play sound "item.bucket.empty_axolotl" with volume 1 with pitch 1.4 to all players where [distance between {_player} and input <= 20]
 	push {_player} forward at speed 0.45
@@ -174,6 +176,7 @@ function {@characterId}_action2(player: player):
 # ============================================================
 function {@characterId}_action3(player: player):
 	cooldown({_player}, {_player}'s tool, 4 second)
+	play sound "custom:sizukuhamonduki" to all players where [distance between {_player} and input <= 20]
 	play sound "entity.player.attack.crit" with volume 1.6 with pitch 1.5 to all players where [distance between {_player} and input <= 20]
 	play sound "item.bucket.empty_axolotl" with volume 1.2 with pitch 1.8 to all players where [distance between {_player} and input <= 20]
 	set {_vbase} to vector from {_player}'s eye to location forward and up {_player}
@@ -205,6 +208,7 @@ function {@characterId}_action3(player: player):
 # ============================================================
 function {@characterId}_action4(player: player):
 	cooldown({_player}, {_player}'s tool, 7 second)
+	play sound "custom:seiseiruten" to all players where [distance between {_player} and input <= 20]
 	play sound "item.bucket.empty_axolotl" with volume 2 with pitch 0.9 to all players where [distance between {_player} and input <= 20]
 	loop 4 times:
 		set {_rot} to loop-number
@@ -237,6 +241,7 @@ function {@characterId}_action4(player: player):
 function {@characterId}_action5(player: player):
 	cooldown({_player}, {_player}'s tool, 15 second)
 	set metadata "giyuNagi" of {_player} to true
+	play sound "custom:nagi" to all players where [distance between {_player} and input <= 20]
 	play sound "item.bucket.empty_axolotl" with volume 2 with pitch 0.7 to all players where [distance between {_player} and input <= 25]
 	play sound "block.beacon.activate" with volume 1.2 with pitch 1.6 to all players where [distance between {_player} and input <= 25]
 	loop 60 times:
